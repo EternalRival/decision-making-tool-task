@@ -1,0 +1,5 @@
+@import url('modern-normalize/modern-normalize.css');
+
+* {
+  outline: 1px dashed teal;
+}
