@@ -62,6 +62,8 @@ export class Wheel extends Component {
     slicePath.arc(center, center, wheelRadius, startAngle, endAngle);
     slicePath.lineTo(center, center);
 
+    ctx.lineWidth = 2 
+    ctx.strokeStyle = '#fff';  
     ctx.fillStyle = color;
 
     ctx.fill(slicePath);
@@ -77,7 +79,7 @@ export class Wheel extends Component {
 
       ctx.lineWidth = fontSize / 8;
       ctx.strokeStyle = '#000';
-      ctx.fillStyle = '#FFF';
+      ctx.fillStyle = '#fff';
       ctx.shadowColor = '#00000080';
       ctx.shadowBlur = fontSize / 2;
 
@@ -116,6 +118,8 @@ export class Wheel extends Component {
     const centerPath = new Path2D();
     centerPath.arc(center, center, centerCircleRadius, 0, CIRCLE);
 
+    ctx.lineWidth = 2 
+    ctx.strokeStyle = '#fff';  
     ctx.fillStyle = color;
     ctx.fill(centerPath);
     ctx.stroke(centerPath);
