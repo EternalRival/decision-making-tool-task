@@ -1,7 +1,7 @@
 import { Component } from '~/components/component';
-import { getSliceList } from './lib/get-slice-list';
-import { TableRow } from './model/table-row.type';
-import { WheelSlice } from './model/wheel-slice.type';
+import { TableRow } from '../types/table-row.type';
+import { WheelSlice } from '../types/wheel-slice.type';
+import { getSliceList } from '../utils/get-slice-list';
 
 const CIRCLE = Math.PI * 2;
 
@@ -62,8 +62,8 @@ export class Wheel extends Component {
     slicePath.arc(center, center, wheelRadius, startAngle, endAngle);
     slicePath.lineTo(center, center);
 
-    ctx.lineWidth = 2 
-    ctx.strokeStyle = '#fff';  
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = '#fff';
     ctx.fillStyle = color;
 
     ctx.fill(slicePath);
@@ -118,8 +118,8 @@ export class Wheel extends Component {
     const centerPath = new Path2D();
     centerPath.arc(center, center, centerCircleRadius, 0, CIRCLE);
 
-    ctx.lineWidth = 2 
-    ctx.strokeStyle = '#fff';  
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = '#fff';
     ctx.fillStyle = color;
     ctx.fill(centerPath);
     ctx.stroke(centerPath);

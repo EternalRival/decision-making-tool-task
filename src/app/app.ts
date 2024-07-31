@@ -1,4 +1,4 @@
-import { TableRow } from '~/features/wheel/components/model/table-row.type';
+import { TableRow } from '~/features/wheel/types/table-row.type';
 import { Wheel } from '~/features/wheel/components/wheel';
 import { getRandomNumber } from '~/utils/get-random-number';
 
