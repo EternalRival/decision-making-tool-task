@@ -15,4 +15,8 @@ export class Component<T extends TagName = 'div'> {
   public append<T extends TagName>(...children: Component<T>[]) {
     children.forEach((child) => this.node.append(child.getNode()));
   }
+
+  public setTextContent(text: string) {
+    this.getNode().textContent = text;
+  }
 }
