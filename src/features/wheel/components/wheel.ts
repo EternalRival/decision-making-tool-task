@@ -8,6 +8,10 @@ const CIRCLE = Math.PI * 2;
 export class Wheel extends Component {
   private ctx: CanvasRenderingContext2D;
 
+  private size: number;
+  private rotation = 0;
+  private sliceList: WheelSlice[];
+
   constructor({ size = 512, table }: { size?: number; table: TableRow[] }) {
     super('div');
 
@@ -17,11 +21,41 @@ export class Wheel extends Component {
     if (!ctx) throw new Error();
 
     this.ctx = ctx;
+    this.size = size;
+    this.sliceList = getSliceList(table);
 
-    const sliceList = getSliceList(table);
-    this.drawWheel({ size, sliceList });
+    this.drawWheel();
 
     this.append(canvas);
+
+    this.spin({ duration: 5, targetRotationOffset: CIRCLE / Math.random() });
+  }
+
+  private spin({ duration, targetRotationOffset }: { duration: number; targetRotationOffset: number }): void {
+    const fullSpinsRotation = duration * CIRCLE;
+    const targetRotation = fullSpinsRotation + targetRotationOffset;
+
+    const start = performance.now();
+
+    const fn: FrameRequestCallback = (time) => {
+      const progress = Math.min((time - start) / (duration * 1000), 1);
+      const easedProgress = progress < 0.5 ? 4 * progress ** 3 : 4 * (progress - 1) ** 3 + 1;
+
+      const rot = easedProgress * targetRotation - this.rotation;
+
+      this.adjustRotation(rot);
+      this.drawWheel();
+
+      if (progress < 1) {
+        requestAnimationFrame(fn);
+      }
+    };
+
+    requestAnimationFrame(fn);
+  }
+
+  private adjustRotation(offset: number): void {
+    this.rotation += offset;
   }
 
   private drawShadow({ center, wheelRadius, padding }: { center: number; wheelRadius: number; padding: number }): void {
@@ -39,7 +73,28 @@ export class Wheel extends Component {
     ctx.restore();
   }
 
-  private drawSlice({
+  private drawSlice({ center, wheelRadius, slice }: { center: number; wheelRadius: number; slice: WheelSlice }): void {
+    const { ctx } = this;
+    const { startAngle, endAngle, color } = slice;
+
+    ctx.save();
+
+    const slicePath = new Path2D();
+    slicePath.moveTo(center, center);
+    slicePath.arc(center, center, wheelRadius, startAngle + this.rotation, endAngle + this.rotation);
+    slicePath.lineTo(center, center);
+
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = '#fff';
+    ctx.fillStyle = color;
+
+    ctx.fill(slicePath);
+    ctx.stroke(slicePath);
+
+    ctx.restore();
+  }
+
+  private drawSliceText({
     center,
     wheelRadius,
     centerCircleRadius,
@@ -53,25 +108,13 @@ export class Wheel extends Component {
     slice: WheelSlice;
   }): void {
     const { ctx } = this;
-    const { startAngle, endAngle, color, label } = slice;
+    const { startAngle, endAngle, label } = slice;
 
     ctx.save();
 
-    const slicePath = new Path2D();
-    slicePath.moveTo(center, center);
-    slicePath.arc(center, center, wheelRadius, startAngle, endAngle);
-    slicePath.lineTo(center, center);
-
-    ctx.lineWidth = 2;
-    ctx.strokeStyle = '#fff';
-    ctx.fillStyle = color;
-
-    ctx.fill(slicePath);
-    ctx.stroke(slicePath);
-
     if (endAngle - startAngle > 0.25) {
       ctx.translate(center, center);
-      ctx.rotate(endAngle - (endAngle - startAngle) / 2);
+      ctx.rotate(startAngle + (endAngle - startAngle) / 2 + this.rotation);
 
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
@@ -127,17 +170,23 @@ export class Wheel extends Component {
     ctx.restore();
   }
 
-  private drawWheel({ size, sliceList }: { size: number; sliceList: WheelSlice[] }): void {
+  private drawWheel(): void {
+    const { ctx, size, sliceList } = this;
     const center = size / 2;
     const padding = size / 32;
     const fontSize = size / 32;
     const wheelRadius = center - padding;
     const centerCircleRadius = wheelRadius / 8;
 
+    ctx.clearRect(0, 0, size, size);
+
     this.drawShadow({ center, wheelRadius, padding });
 
-    sliceList.forEach((slice) => this.drawSlice({ center, wheelRadius, centerCircleRadius, fontSize, slice }));
+    sliceList.forEach((slice) => {
+      this.drawSlice({ center, wheelRadius, slice });
+      this.drawSliceText({ center, wheelRadius, centerCircleRadius, fontSize, slice });
+    });
 
-    this.drawCenterCircle({ center, centerCircleRadius, color: 'teal' });
+    this.drawCenterCircle({ center, centerCircleRadius, color: '#008c8c' });
   }
 }
