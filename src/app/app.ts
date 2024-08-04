@@ -1,5 +1,5 @@
 import { TableRow } from '~/features/wheel/types/table-row.type';
-import { Wheel } from '~/features/wheel/components/wheel';
+import { LotList } from '~/features/lot-list/components/lot-list';
 import { getRandomNumber } from '~/utils/get-random-number';
 
 const tableMock: TableRow[] = [
@@ -15,8 +15,8 @@ const tableMock: TableRow[] = [
 
 export class App {
   render(root: HTMLElement) {
-    const wheel = new Wheel({ size: 512, table: tableMock });
+    const lotList = new LotList();
 
-    root.append(wheel.getNode());
+    root.append(lotList.getNode());
   }
 }

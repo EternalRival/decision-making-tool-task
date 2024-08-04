@@ -1,5 +1,12 @@
 @import url('modern-normalize/modern-normalize.css');
 
-* {
-  outline: 1px dashed teal;
+body {
+  display: flex;
+  flex-direction: column;
+
+  min-height: 100dvh;
+
+  color: #fff;
+
+  background-color: #f3f3f3;
 }
