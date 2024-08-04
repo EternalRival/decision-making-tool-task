@@ -20,6 +20,8 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
 
+    "removeComments": true,
+
     "baseUrl": "./",
     "paths": {
       "~/*": ["src/*"]
