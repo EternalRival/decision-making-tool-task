@@ -20,7 +20,7 @@ export class Wheel extends Component {
     this.sliceList = getSliceList(table);
     this.rotation = 0;
 
-    const selected = new Component('p', { textContent: this.rotation.toString() });
+    const selected = new Component('p', { textContent: this.getCurrentSliceLabel() });
     const canvas = new Component('canvas', { width: size, height: size, textContent: 'wheel of fortune' });
     const startButton = new Component('button', {
       textContent: 'spin',
@@ -33,7 +33,7 @@ export class Wheel extends Component {
     this.ctx = ctx;
     this.renderSelected = () => selected.setTextContent(this.getCurrentSliceLabel());
 
-    drawWheel({ ctx, size, rotation: this.rotation, sliceList: this.sliceList });
+    this.renderWheel();
 
     this.append(startButton, selected, canvas);
   }
@@ -58,16 +58,26 @@ export class Wheel extends Component {
   }
 
   private getCurrentSliceLabel(): string {
-    return this.rotation.toString();
+    const circle = Math.PI * 2;
+
+    const rotation = circle - (this.rotation % circle);
+
+    const isCurrentSlice = (slice: WheelSlice) => slice.startAngle <= rotation && slice.endAngle > rotation;
+
+    return (this.sliceList.find(isCurrentSlice) ?? this.sliceList[0]).label;
   }
 
-  private renderWheel(newRotation: number): void {
+  private withRotationOffset(angle: number): number {
+    return angle + Math.PI * 1.5;
+  }
+
+  private renderWheel(newRotation: number = this.rotation): void {
     this.setRotation(newRotation);
     this.renderSelected();
 
     drawWheel({
       ctx: this.ctx,
-      rotation: this.rotation,
+      rotation: this.withRotationOffset(this.rotation),
       size: this.size,
       sliceList: this.sliceList,
     });
