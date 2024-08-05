@@ -1,5 +1,5 @@
 export type WheelSlice = {
-  label: string;
+  title: string;
   color: string;
   startAngle: number;
   endAngle: number;

@@ -1,0 +1,93 @@
+.wrapper {
+  position: fixed;
+  inset: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  backdrop-filter: blur(2px);
+}
+
+.container {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  padding: 1rem;
+
+  background-color: #008c8ccc;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 0.25rem 0.1rem #ffffff80;
+}
+
+.selected {
+  width: 100%;
+  padding: 0.5rem;
+
+  font-weight: 500;
+  text-align: center;
+  text-shadow: 0 0 0.15rem #fff;
+
+  box-shadow: 0 0 0.25rem 0.1rem #ffffff80;
+}
+
+.spinButton {
+  cursor: pointer;
+
+  padding: 0.5rem 1rem;
+
+  color: inherit;
+
+  background-color: #007c7c;
+  border: none;
+  border-radius: 0.25rem;
+  box-shadow: 0 0 0.25rem 0.1rem #fffa;
+
+  transition-duration: 0.2s;
+
+  &:active {
+    background-color: #007c7c;
+  }
+
+  &:disabled {
+    pointer-events: none;
+    opacity: 0.7;
+    background-color: #808080;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      background-color: #008c8c;
+    }
+  }
+}
+
+.closeButton {
+  cursor: pointer;
+
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 0;
+
+  color: inherit;
+
+  background-color: transparent;
+  border: none;
+  border-radius: 0.5rem;
+
+  transition-duration: 0.2s;
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      background-color: #007c7c;
+      box-shadow: 0 0 0.25rem 0.1rem #fffa;
+    }
+  }
+}

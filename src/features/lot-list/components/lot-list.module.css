@@ -7,44 +7,44 @@
   padding: 1rem;
 
   background-color: darkcyan;
+}
 
-  .heading {
-    margin: 0;
-    color: inherit;
-    text-align: center;
-    text-shadow: 0 0 0.25rem inherit;
-  }
+.heading {
+  margin: 0;
+  color: inherit;
+  text-align: center;
+  text-shadow: 0 0 0.25rem inherit;
+}
 
-  .form {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
 
-  .addLotButton,
-  .startButton {
-    cursor: pointer;
+.addLotButton,
+.startButton {
+  cursor: pointer;
 
-    width: 100%;
-    padding: 0.5rem;
+  width: 100%;
+  padding: 0.5rem;
 
-    color: inherit;
+  color: inherit;
 
+  background-color: #ffffff40;
+  border: none;
+  border-radius: 0.25rem;
+  box-shadow: 0 0 0.25rem 0.1rem #fffa;
+
+  transition-duration: 0.2s;
+
+  &:active {
     background-color: #ffffff40;
-    border: none;
-    border-radius: 0.25rem;
-    box-shadow: 0 0 0.25rem 0.1rem #fffa;
+  }
 
-    transition-duration: 0.2s;
-
-    &:active {
-      background-color: #ffffff40;
-    }
-
-    @media (hover: hover) and (pointer: fine) {
-      &:hover {
-        background-color: #ffffff60;
-      }
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      background-color: #ffffff60;
     }
   }
 }

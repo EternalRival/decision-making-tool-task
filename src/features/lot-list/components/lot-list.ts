@@ -7,13 +7,13 @@ import { Lot } from './lot';
 import styles from './lot-list.module.css';
 
 export class LotList extends Component {
-  constructor() {
+  constructor({ onStartClick }: { onStartClick: (list: { title: string; weight: number }[]) => void }) {
     super('div', { className: styles.lotList });
 
     const { getNextId, resetId, saveCurrentLastIdToLS } = createLotIdService();
     const { lotsData, saveLotsToLS } = createLotListService();
 
-    const heading = new Component('h1', { className: styles.heading, textContent: 'Lot List' });
+    const heading = new Component('h1', { className: styles.heading, textContent: 'Wheel of fortune' });
     const container = new Component('div', { className: styles.form });
 
     const lots = new Map<string, Lot>();
@@ -65,7 +65,7 @@ export class LotList extends Component {
       });
 
       if (lotsData.length > 0) {
-        console.log(lotsData);
+        onStartClick(lotsData);
       }
     }
 
@@ -96,5 +96,7 @@ export class LotList extends Component {
       super.remove();
       window.removeEventListener('beforeunload', handleBeforeUnload);
     };
+
+    handleStartClick();
   }
 }

@@ -1,4 +1,4 @@
 export type TableRow = {
-  label: string;
+  title: string;
   weight: number;
 };

@@ -1,4 +1,4 @@
-import {type  WheelSlice } from '../types/wheel-slice.type';
+import { type WheelSlice } from '../types/wheel-slice.type';
 
 function drawShadow({
   ctx,
@@ -82,7 +82,7 @@ function drawSliceText({
   fontSize: number;
   slice: WheelSlice;
 }): void {
-  const { startAngle, endAngle, label } = slice;
+  const { startAngle, endAngle, title } = slice;
 
   ctx.save();
 
@@ -100,7 +100,7 @@ function drawSliceText({
     ctx.shadowColor = '#00000080';
     ctx.shadowBlur = fontSize / 2;
 
-    const text = normalizeText(ctx, label, wheelRadius - centerCircleRadius * 2);
+    const text = normalizeText(ctx, title, wheelRadius - centerCircleRadius * 2);
 
     ctx.strokeText(text, (wheelRadius + centerCircleRadius) / 2, 0);
     ctx.fillText(text, (wheelRadius + centerCircleRadius) / 2, 0);
