@@ -1,6 +1,6 @@
 import { Component } from '~/components/component';
-import { TableRow } from '../types/table-row.type';
-import { WheelSlice } from '../types/wheel-slice.type';
+import { type TableRow } from '../types/table-row.type';
+import { type WheelSlice } from '../types/wheel-slice.type';
 import { animate } from '../utils/animate';
 import { drawWheel } from '../utils/draw-wheel';
 import { easeInOut } from '../utils/ease-in-out';

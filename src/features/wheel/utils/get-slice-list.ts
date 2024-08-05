@@ -1,6 +1,6 @@
 import { getRandomColor } from '~/utils/get-random-color';
-import { TableRow } from '../../types/table-row.type';
-import { WheelSlice } from '../../types/wheel-slice.type';
+import { type TableRow } from '../../types/table-row.type';
+import { type WheelSlice } from '../../types/wheel-slice.type';
 
 export function getSliceList(table: TableRow[]): WheelSlice[] {
   const tableScoreSum = table.reduce((acc, item) => acc + item.score, 0);

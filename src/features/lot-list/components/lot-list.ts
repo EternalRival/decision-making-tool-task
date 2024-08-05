@@ -1,10 +1,10 @@
 import { Button } from '~/components/button';
 import { Component } from '~/components/component';
+import { type LotComponent } from '../types/lot-component.type';
 import { createLotIdService } from '../utils/create-lot-id-service';
 import { createLotListService } from '../utils/create-lot-list-service';
 import { Lot } from './lot';
 import styles from './lot-list.module.css';
-import { LotComponent } from '../types/lot-component.type';
 
 export class LotList extends Component {
   constructor() {

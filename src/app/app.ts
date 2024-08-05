@@ -1,4 +1,4 @@
-import { TableRow } from '~/features/wheel/types/table-row.type';
+import { type TableRow } from '~/features/wheel/types/table-row.type';
 import { LotList } from '~/features/lot-list/components/lot-list';
 import { getRandomNumber } from '~/utils/get-random-number';
 

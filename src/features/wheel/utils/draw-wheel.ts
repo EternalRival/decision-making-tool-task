@@ -1,4 +1,4 @@
-import { WheelSlice } from '../types/wheel-slice.type';
+import {type  WheelSlice } from '../types/wheel-slice.type';
 
 function drawShadow({
   ctx,
