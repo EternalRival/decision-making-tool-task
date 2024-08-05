@@ -92,7 +92,7 @@ function drawSliceText({
 
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
-    ctx.font = `${fontSize}px sans-serif`;
+    ctx.font = `${fontSize}px Inter`;
 
     ctx.lineWidth = fontSize / 8;
     ctx.strokeStyle = '#000';
@@ -100,7 +100,8 @@ function drawSliceText({
     ctx.shadowColor = '#00000080';
     ctx.shadowBlur = fontSize / 2;
 
-    const text = normalizeText(ctx, title, wheelRadius - centerCircleRadius * 2);
+    const text = normalizeText(ctx, title, wheelRadius - centerCircleRadius * 2.5);
+    console.log({ wheelRadius, centerCircleRadius, fontSize, a: wheelRadius - centerCircleRadius * 2.5 });
 
     ctx.strokeText(text, (wheelRadius + centerCircleRadius) / 2, 0);
     ctx.fillText(text, (wheelRadius + centerCircleRadius) / 2, 0);
