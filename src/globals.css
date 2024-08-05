@@ -3,12 +3,14 @@
 body {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
 
   min-height: 100dvh;
 
   color: #fff;
 
-  background-color: #f3f3f3;
+  background-color: darkcyan;
 }
 
 .body-no-scroll {

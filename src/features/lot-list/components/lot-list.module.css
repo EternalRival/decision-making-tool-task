@@ -8,12 +8,11 @@
     'saveToFileButton loadFromFileButton'
     'startButton startButton';
   grid-template-rows: repeat(5, min-content);
-  flex-grow: 1;
   gap: 1rem;
 
+  width: 100%;
+  max-width: 48rem;
   padding: 1rem;
-
-  background-color: darkcyan;
 }
 
 .heading {
