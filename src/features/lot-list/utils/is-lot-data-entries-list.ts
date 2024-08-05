@@ -1,4 +1,6 @@
-export function isLotDataEntriesList(value: unknown): value is [string, { title: string; weight: string }][] {
+import { LotData } from '../types/lot-data.type';
+
+export function isLotDataEntriesList(value: unknown): value is [string, LotData][] {
   return (
     Array.isArray(value) &&
     value.every(

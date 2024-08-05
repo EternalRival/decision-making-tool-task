@@ -10,3 +10,7 @@ body {
 
   background-color: #f3f3f3;
 }
+
+.body-no-scroll {
+  overflow: hidden;
+}

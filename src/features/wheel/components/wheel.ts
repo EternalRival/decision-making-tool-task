@@ -54,6 +54,11 @@ export class Wheel extends Component {
 
     container.append<'button' | 'p' | 'canvas'>(spinButton, selected, canvas, closeButton);
     this.append(container);
+
+    this.remove = () => {
+      super.remove();
+      document.body.classList.remove('body-no-scroll');
+    };
   }
 
   private spin({ duration, targetRotationOffset }: { duration: number; targetRotationOffset: number }): void {
@@ -102,7 +107,7 @@ export class Wheel extends Component {
   }
 
   public render(root: HTMLElement) {
-    console.log(this.sliceList);
     root.append(this.getNode());
+    document.body.classList.add('body-no-scroll');
   }
 }
