@@ -2,8 +2,9 @@ import { Component } from '~/components/component';
 import { Input } from '~/components/input';
 import styles from './lot.module.css';
 import { Button } from '~/components/button';
+import { LotComponent } from '../types/lot-component.type';
 
-export class Lot extends Component<'div'> {
+export class Lot extends Component<'div'> implements LotComponent {
   private title: string;
   private weight: string;
 

@@ -1,98 +1,94 @@
 import { Button } from '~/components/button';
 import { Component } from '~/components/component';
-import { LSService } from '~/utils/local-storage-service';
-import { isLotDataEntriesList } from '../utils/is-lot-data-entries-list';
+import { createLotIdService } from '../utils/create-lot-id-service';
+import { createLotListService } from '../utils/create-lot-list-service';
 import { Lot } from './lot';
 import styles from './lot-list.module.css';
+import { LotComponent } from '../types/lot-component.type';
 
 export class LotList extends Component {
   constructor() {
     super('div', { className: styles.lotList });
-    const heading = new Component('h1', { className: styles.heading, textContent: 'Lot List' });
 
-    let lastId = LSService.get('lastId') ?? 0;
+    const { getNextId, resetId, saveCurrentLastIdToLS } = createLotIdService();
+    const { lotsData, saveLotsToLS } = createLotListService();
+
+    const heading = new Component('h1', { className: styles.heading, textContent: 'Lot List' });
+    const container = new Component('div', { className: styles.form });
 
     const lots = new Map<string, Lot>();
 
-    const container = new Component('div', { className: styles.form });
-
-    const removeLot = (id: string) => {
+    function removeLot(id: string) {
       lots.get(id)?.remove();
       lots.delete(id);
 
       if (lots.size < 1) {
-        lastId = 0;
+        resetId();
       }
-    };
+    }
 
-    const createLot = () => {
-      lastId += 1;
-      const id = `#${lastId}`;
+    function addLot(props: { id: string; title: string; weight: string } = { id: getNextId(), title: '', weight: '' }) {
+      const lot = new Lot({ ...props, onDeleteClick: () => removeLot(props.id) });
 
-      const lot = new Lot({
-        id,
-        title: '',
-        weight: '',
-        onDeleteClick: () => removeLot(id),
-      });
-
-      lots.set(id, lot);
+      lots.set(props.id, lot);
       container.append(lot);
-    };
+    }
 
-    const lsLots = LSService.get('lots') ?? [];
-    if (isLotDataEntriesList(lsLots)) {
-      lsLots.forEach(([id, { title, weight }]) => {
-        const onDeleteClick = () => removeLot(id);
-        lots.set(id, new Lot({ id, title, weight, onDeleteClick }));
+    function getValidLotValues(lot: LotComponent) {
+      const { title, weight: weightString } = lot.getValues();
+      const weight = Number(weightString);
+
+      return title && weight > 0 ? { title, weight } : null;
+    }
+
+    if (lotsData.length > 0) {
+      lotsData.forEach(([id, { title, weight }]) => {
+        addLot({ id, title, weight });
       });
+    } else {
+      addLot();
+    }
+
+    function handleAddLotClick() {
+      addLot();
+    }
+
+    function handleStartClick() {
+      const lotsData: { title: string; weight: number }[] = [];
+
+      lots.forEach((lot) => {
+        const lotValues = getValidLotValues(lot);
+
+        if (lotValues) {
+          lotsData.push(lotValues);
+        }
+      });
+
+      if (lotsData.length > 0) {
+        console.log(lotsData);
+      }
+    }
+
+    function handleBeforeUnload() {
+      saveLotsToLS(lots);
+      saveCurrentLastIdToLS();
     }
 
     const addLotButton = new Button({
       className: styles.addLotButton,
       type: 'button',
       textContent: 'Add Lot',
-      onclick: () => createLot(),
+      onclick: handleAddLotClick,
     });
 
     const startButton = new Button({
       className: styles.startButton,
       type: 'button',
       textContent: 'Start',
-      onclick: () => {
-        const lotsData: { title: string; weight: number }[] = [];
-
-        lots.forEach((lot) => {
-          const { title, weight: weightString } = lot.getValues();
-          const weight = Number(weightString);
-
-          if (title && weight) {
-            lotsData.push({ title, weight });
-          }
-        });
-
-        if (lotsData.length > 0) {
-          console.log(lotsData);
-        }
-      },
+      onclick: handleStartClick,
     });
 
-    if (lots.size > 0) {
-      container.append(...lots.values());
-    } else {
-      createLot();
-    }
-
     this.append<'h1' | 'div' | 'button'>(heading, container, addLotButton, startButton);
-
-    const handleBeforeUnload = () => {
-      const serializedLots = Array.from(lots.entries(), ([id, lot]) => {
-        const { title, weight } = lot.getValues();
-        return [id, { title, weight: weight.toString() }];
-      });
-      LSService.set('lots', serializedLots);
-      LSService.set('lastId', lastId);
-    };
 
     window.addEventListener('beforeunload', handleBeforeUnload);
 
