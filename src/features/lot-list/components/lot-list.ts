@@ -144,9 +144,9 @@ export class LotList extends Component {
       heading,
       container,
       addLotButton,
+      clearListButton,
       saveToFileButton,
       loadFromFileButton,
-      clearListButton,
       startButton
     );
 

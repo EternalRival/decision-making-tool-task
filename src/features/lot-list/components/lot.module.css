@@ -26,6 +26,7 @@
 
 .title {
   flex-grow: 1;
+  width:100%;
   min-width: 5rem;
 }
 
@@ -88,6 +89,11 @@
   box-shadow: 0 0 0.25rem 0.1rem #fffa;
 
   transition-duration: 0.2s;
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0.25rem 0.1rem #fff;
+  }
 
   &:active {
     background-color: #00000030;

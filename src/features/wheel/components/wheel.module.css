@@ -6,21 +6,33 @@
   align-items: center;
   justify-content: center;
 
+  padding: 0.5rem;
+
   backdrop-filter: blur(2px);
 }
 
 .container {
   position: relative;
 
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
 
+  max-height: calc(100dvh - 2rem);
   padding: 1rem;
 
   background-color: #008c8ccc;
   border-radius: 0.5rem;
   box-shadow: 0 0 0.25rem 0.1rem #ffffff80;
+
+  &::-webkit-scrollbar {
+    appearance: none;
+  }
+}
+
+.canvas {
+  width: 100%;
 }
 
 .selected {
@@ -47,6 +59,11 @@
   box-shadow: 0 0 0.25rem 0.1rem #fffa;
 
   transition-duration: 0.2s;
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0.25rem 0.1rem #fff;
+  }
 
   &:active {
     background-color: #007c7c;
@@ -83,6 +100,11 @@
   border-radius: 0.5rem;
 
   transition-duration: 0.2s;
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0.25rem 0.1rem #fff;
+  }
 
   @media (hover: hover) and (pointer: fine) {
     &:hover {

@@ -31,7 +31,12 @@ export class Wheel extends Component {
 
     const container = new Component('div', { className: styles.container });
     const selected = new Component('p', { className: styles.selected, textContent: this.getCurrentSliceTitle() });
-    const canvas = new Component('canvas', { width: size, height: size, textContent: 'wheel of fortune' });
+    const canvas = new Component('canvas', {
+      className: styles.canvas,
+      width: size,
+      height: size,
+      textContent: 'wheel of fortune',
+    });
     const spinButton = new Button({
       className: styles.spinButton,
       textContent: 'Spin',
