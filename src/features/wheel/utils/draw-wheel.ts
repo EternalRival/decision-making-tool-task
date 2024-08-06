@@ -101,7 +101,6 @@ function drawSliceText({
     ctx.shadowBlur = fontSize / 2;
 
     const text = normalizeText(ctx, title, wheelRadius - centerCircleRadius * 2.5);
-    console.log({ wheelRadius, centerCircleRadius, fontSize, a: wheelRadius - centerCircleRadius * 2.5 });
 
     ctx.strokeText(text, (wheelRadius + centerCircleRadius) / 2, 0);
     ctx.fillText(text, (wheelRadius + centerCircleRadius) / 2, 0);

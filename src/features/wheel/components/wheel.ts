@@ -29,6 +29,34 @@ export class Wheel extends Component {
     this.sliceList = getSliceList(table);
     this.rotation = 0;
 
+    const handleStartSpin = ({
+      selectedClassList,
+      closeButtonClassList,
+      wrapperClassList,
+      spinButton,
+    }: {
+      selectedClassList: DOMTokenList;
+      closeButtonClassList: DOMTokenList;
+      wrapperClassList:DOMTokenList;
+      spinButton: Button;
+    }) => {
+      spinButton.setDisabled(true);
+      closeButtonClassList.add(styles.hidden);
+      wrapperClassList.add(styles.darkened);
+      selectedClassList.remove(styles.winner);
+
+      this.spin({
+        duration: 5,
+        targetRotationOffset: Math.PI * 2 * Math.random(),
+        onFinish: () => {
+          spinButton.setDisabled(false);
+          closeButtonClassList.remove(styles.hidden);
+          wrapperClassList.remove(styles.darkened);
+          selectedClassList.add(styles.winner);
+        },
+      });
+    };
+
     const container = new Component('div', { className: styles.container });
     const selected = new Component('p', { className: styles.selected, textContent: this.getCurrentSliceTitle() });
     const canvas = new Component('canvas', {
@@ -37,15 +65,22 @@ export class Wheel extends Component {
       height: size,
       textContent: 'wheel of fortune',
     });
-    const spinButton = new Button({
-      className: styles.spinButton,
-      textContent: 'Spin',
-      onclick: () => this.spin({ duration: 5, targetRotationOffset: Math.PI * 2 * Math.random() }),
-    });
     const closeButton = new Button({
       className: styles.closeButton,
       textContent: '⨉',
       onclick: () => this.remove(),
+    });
+    const spinButton = new Button({
+      className: styles.spinButton,
+      textContent: 'Spin',
+      onclick: () => {
+        handleStartSpin({
+          selectedClassList: selected.getNode().classList,
+          closeButtonClassList: closeButton.getNode().classList,
+          wrapperClassList: this.getNode().classList,
+          spinButton,
+        });
+      },
     });
 
     const ctx = canvas.getNode().getContext('2d');
@@ -61,12 +96,25 @@ export class Wheel extends Component {
     this.append(container);
 
     this.remove = () => {
+      if (spinButton.getNode().disabled) {
+        return;
+      }
+
       super.remove();
+
       document.body.classList.remove('body-no-scroll');
     };
   }
 
-  private spin({ duration, targetRotationOffset }: { duration: number; targetRotationOffset: number }): void {
+  private spin({
+    duration,
+    targetRotationOffset,
+    onFinish,
+  }: {
+    duration: number;
+    targetRotationOffset: number;
+    onFinish: () => void;
+  }): void {
     const fullSpinsRotation = duration * Math.PI * 2;
     const targetRotation = fullSpinsRotation + targetRotationOffset;
 
@@ -74,11 +122,12 @@ export class Wheel extends Component {
       this.renderWheel(progress * targetRotation);
     };
 
-    const onFinish = () => {
+    const onSpinFinish = () => {
       this.renderWheel(targetRotationOffset);
+      onFinish();
     };
 
-    animate({ duration, drawFn, easingFn: easeInOut, onFinish });
+    animate({ duration, drawFn, easingFn: easeInOut, onFinish: onSpinFinish });
   }
 
   private setRotation(offset: number): void {
