@@ -16,15 +16,27 @@ export class Component<T extends TagName = 'div'> {
     this.getNode().remove();
   }
 
-  public append<T extends TagName>(...children: Component<T>[]) {
+  public append(...children: { getNode: () => HTMLElementTagNameMap[TagName] }[]) {
     children.forEach((child) => this.node.append(child.getNode()));
   }
 
   public replaceChildren<T extends TagName>(...children: Component<T>[]) {
-    this.node.replaceChildren(...children.map((child) => child.getNode()));
+    this.getNode().replaceChildren(...children.map((child) => child.getNode()));
   }
 
   public setTextContent(text: string) {
     this.getNode().textContent = text;
+  }
+
+  public addClass(className: string) {
+    this.getNode().classList.add(className);
+  }
+
+  public removeClass(className: string) {
+    this.getNode().classList.remove(className);
+  }
+
+  public toggleClass(className: string, force?: boolean) {
+    this.getNode().classList.toggle(className, force);
   }
 }

@@ -1,3 +1,4 @@
+import { UiAlertModal } from '~/components/ui-alert-modal';
 import { LotList } from '~/features/lot-list/components/lot-list';
 import { Wheel } from '~/features/wheel/components/wheel';
 import { getRandomNumber } from '~/utils/get-random-number';
@@ -6,10 +7,19 @@ export class App {
   render(root: HTMLElement) {
     const lotList = new LotList({
       onStartClick: (list) => {
-        const table = list.toSorted(() => getRandomNumber(-1, 1));
-        const wheel = new Wheel({ size: 512, table });
+        if (list.length < 2) {
+          const errorModal = new UiAlertModal({ alertText: 'Please add at least 2 valid lots.' });
 
-        wheel.render(root);
+          errorModal.render(root);
+
+          return;
+        }
+
+        const table = list.toSorted(() => getRandomNumber(-1, 1));
+
+        const modal = new Wheel({ size: 512, table });
+
+        modal.render(root);
       },
     });
 

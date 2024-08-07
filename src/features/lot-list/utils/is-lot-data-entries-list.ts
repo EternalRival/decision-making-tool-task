@@ -1,4 +1,4 @@
-import { LotData } from '../types/lot-data.type';
+import { type LotData } from '../types/lot-data.type';
 
 export function isLotDataEntriesList(value: unknown): value is [string, LotData][] {
   return (

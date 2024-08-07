@@ -1,9 +1,9 @@
-import { Button } from '~/components/button';
 import { Component } from '~/components/component';
+import { UiButton } from '~/components/ui-button';
 import { loadJsonFromFile } from '~/utils/load-json-from-file';
 import { saveAsJsonToFile } from '~/utils/save-as-json-to-file';
 import { type LotComponent } from '../types/lot-component.type';
-import { LotData } from '../types/lot-data.type';
+import { type LotData } from '../types/lot-data.type';
 import { createLotIdService } from '../utils/create-lot-id-service';
 import { createLotListService } from '../utils/create-lot-list-service';
 import { parseLotListJson } from '../utils/parse-lot-list-json';
@@ -18,7 +18,7 @@ export class LotList extends Component {
     const { lotsData, saveLotsToLS } = createLotListService();
 
     const heading = new Component('h1', { className: styles.heading, textContent: 'Wheel of fortune' });
-    const container = new Component('div', { className: styles.form });
+    const lotsContainer = new Component('div', { className: styles.lots });
 
     const lots = new Map<string, Lot>();
 
@@ -41,7 +41,7 @@ export class LotList extends Component {
       const lot = new Lot({ ...props, onDeleteClick: () => removeLot(props.id) });
 
       lots.set(props.id, lot);
-      container.append(lot);
+      lotsContainer.append(lot);
     }
 
     function getValidLotValues(lot: LotComponent) {
@@ -95,9 +95,7 @@ export class LotList extends Component {
         }
       });
 
-      if (lotsData.length > 0) {
-        onStartClick(lotsData);
-      }
+      onStartClick(lotsData);
     }
 
     function handleBeforeUnload() {
@@ -105,44 +103,44 @@ export class LotList extends Component {
       saveCurrentLastIdToLS();
     }
 
-    const addLotButton = new Button({
+    const addLotButton = new UiButton({
       className: styles.addLotButton,
       type: 'button',
       textContent: 'Add Lot',
       onclick: handleAddLotClick,
     });
 
-    const clearListButton = new Button({
+    const clearListButton = new UiButton({
       className: styles.clearListButton,
       type: 'button',
       textContent: 'Clear list',
       onclick: handleClearListClick,
     });
 
-    const saveToFileButton = new Button({
+    const saveToFileButton = new UiButton({
       className: styles.saveToFileButton,
       type: 'button',
       textContent: 'Save list to file',
       onclick: handleSaveToFileClick,
     });
 
-    const loadFromFileButton = new Button({
+    const loadFromFileButton = new UiButton({
       className: styles.loadFromFileButton,
       type: 'button',
       textContent: 'Load list from file',
       onclick: handleLoadFromFileClick,
     });
 
-    const startButton = new Button({
+    const startButton = new UiButton({
       className: styles.startButton,
       type: 'button',
       textContent: 'Start',
       onclick: handleStartClick,
     });
 
-    this.append<'h1' | 'div' | 'button'>(
+    this.append(
       heading,
-      container,
+      lotsContainer,
       addLotButton,
       clearListButton,
       saveToFileButton,
@@ -156,5 +154,7 @@ export class LotList extends Component {
       super.remove();
       window.removeEventListener('beforeunload', handleBeforeUnload);
     };
+
+    startButton.getNode().click();
   }
 }

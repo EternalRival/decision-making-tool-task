@@ -1,6 +1,6 @@
 import { LSService } from '~/utils/local-storage-service';
+import { type LotComponent } from '../types/lot-component.type';
 import { isLotDataEntriesList } from './is-lot-data-entries-list';
-import { LotComponent } from '../types/lot-component.type';
 
 export function createLotListService() {
   const lsLots = LSService.get('lots') ?? [];

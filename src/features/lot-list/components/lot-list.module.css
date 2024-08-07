@@ -1,89 +1,53 @@
 .lotList {
   display: grid;
-  grid-template-areas:
-    'heading heading'
-    'form form'
-    'addLotButton addLotButton'
-    'clearListButton clearListButton'
-    'saveToFileButton loadFromFileButton'
-    'startButton startButton';
-  grid-template-rows: repeat(5, min-content);
+  grid-template:
+    'heading heading' min-content
+    'lots lots' min-content
+    'addLotButton addLotButton' min-content
+    'clearListButton clearListButton' min-content
+    'saveToFileButton loadFromFileButton' min-content
+    'startButton startButton' min-content
+    / 1fr 1fr;
   gap: 1rem;
 
   width: 100%;
   max-width: 48rem;
   padding: 1rem;
-}
 
-.heading {
-  grid-area: heading;
+  .heading {
+    grid-area: heading;
 
-  margin: 0;
+    margin: 0;
 
-  color: inherit;
-  text-align: center;
-  text-shadow: 0 0 0.25rem inherit;
-}
-
-.form {
-  display: flex;
-  grid-area: form;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.addLotButton {
-  grid-area: addLotButton;
-}
-
-.startButton {
-  grid-area: startButton;
-}
-
-.saveToFileButton {
-  grid-area: saveToFileButton;
-}
-
-.loadFromFileButton {
-  grid-area: loadFromFileButton;
-}
-
-.clearListButton {
-  grid-area: clearListButton;
-}
-
-.addLotButton,
-.saveToFileButton,
-.loadFromFileButton,
-.clearListButton,
-.startButton {
-  cursor: pointer;
-
-  width: 100%;
-  height: fit-content;
-  padding: 0.5rem;
-
-  color: inherit;
-
-  background-color: #ffffff40;
-  border: none;
-  border-radius: 0.25rem;
-  box-shadow: 0 0 0.25rem 0.1rem #fffa;
-
-  transition-duration: 0.2s;
-
-  &:focus {
-    outline: none;
-    box-shadow: 0 0 0.25rem 0.1rem #fff;
+    color: inherit;
+    text-align: center;
+    text-shadow: 0 0 0.25rem inherit;
   }
 
-  &:active {
-    background-color: #ffffff40;
+  .lots {
+    display: flex;
+    grid-area: lots;
+    flex-direction: column;
+    gap: 0.5rem;
   }
 
-  @media (hover: hover) and (pointer: fine) {
-    &:hover {
-      background-color: #ffffff60;
-    }
+  .addLotButton {
+    grid-area: addLotButton;
+  }
+
+  .startButton {
+    grid-area: startButton;
+  }
+
+  .saveToFileButton {
+    grid-area: saveToFileButton;
+  }
+
+  .loadFromFileButton {
+    grid-area: loadFromFileButton;
+  }
+
+  .clearListButton {
+    grid-area: clearListButton;
   }
 }

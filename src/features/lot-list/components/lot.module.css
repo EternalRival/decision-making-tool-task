@@ -7,107 +7,84 @@
 
   background-color: lightseagreen;
   border-radius: 0.5rem;
-}
 
-.id {
-  cursor: pointer;
+  .id {
+    cursor: pointer;
 
-  flex-shrink: 0;
+    flex-shrink: 0;
 
-  width: 3rem;
-  padding: 0.5rem;
+    width: 3rem;
+    padding: 0.5rem;
 
-  text-align: center;
+    text-align: center;
 
-  background-color: #00000030;
-  border-radius: 0.2rem;
-  box-shadow: 0 0 0.25rem 0.1rem #ffffff80;
-}
-
-.title {
-  flex-grow: 1;
-  width: 100%;
-  min-width: 5rem;
-}
-
-.weight {
-  max-width: 5rem;
-
-  &::-webkit-outer-spin-button,
-  &::-webkit-inner-spin-button {
-    margin: 0;
-    appearance: none;
+    background-color: #00000030;
+    border-radius: 0.2rem;
+    box-shadow: 0 0 0.25rem 0.1rem #ffffff80;
   }
 
-  &[type='number'] {
-    appearance: textfield;
-  }
-}
-
-.title,
-.weight {
-  padding: 0.5rem;
-
-  color: inherit;
-
-  background-color: #00000060;
-  border: none;
-  outline: none;
-  box-shadow: 0 0 0.25rem 0.1rem #ffffff80;
-
-  transition-duration: 0.2s;
-
-  &::placeholder {
-    color: inherit;
-    opacity: 0.5;
+  .title {
+    flex-grow: 1;
+    width: 100%;
+    min-width: 5rem;
   }
 
-  &:focus {
-    box-shadow:
-      0 0 0.25rem 0.1rem #fff,
-      inset 0 0 0.1rem 0.05rem #fff;
-  }
+  .weight {
+    max-width: 5rem;
 
-  @media (hover: hover) and (pointer: fine) {
-    &:hover:not(&:focus) {
-      box-shadow: 0 0 0.25rem 0.1rem #fff;
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      margin: 0;
+      appearance: none;
+    }
+
+    &[type='number'] {
+      appearance: textfield;
     }
   }
-}
 
-.updateButton,
-.deleteButton {
-  cursor: pointer;
+  .title,
+  .weight {
+    padding: 0.5rem;
 
-  padding: 0.5rem;
+    color: inherit;
 
-  color: inherit;
-
-  background-color: #00000030;
-  border: none;
-  border-radius: 0.25rem;
-  box-shadow: 0 0 0.25rem 0.1rem #fffa;
-
-  transition-duration: 0.2s;
-
-  &:focus {
+    background-color: #00000060;
+    border: none;
     outline: none;
-    box-shadow: 0 0 0.25rem 0.1rem #fff;
+    box-shadow: 0 0 0.25rem 0.1rem #ffffff80;
+
+    transition-duration: 0.2s;
+
+    &::placeholder {
+      color: inherit;
+      opacity: 0.5;
+    }
+
+    &:focus {
+      box-shadow:
+        0 0 0.25rem 0.1rem #fff,
+        inset 0 0 0.1rem 0.05rem #fff;
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      &:hover:not(&:focus) {
+        box-shadow: 0 0 0.25rem 0.1rem #fff;
+      }
+    }
   }
 
-  &:active {
+  .deleteButton {
     background-color: #00000030;
-  }
 
-  &:disabled {
-    pointer-events: none;
-    opacity: 0.7;
-    background-color: #808080;
-  }
+    &:active {
+      background-color: #00000030;
+    }
 
-  @media (hover: hover) and (pointer: fine) {
-    &:hover {
-      background-color: #00000040;
+    @media (hover: hover) and (pointer: fine) {
+      &:hover:not(:active) {
+        background-color: #00000040;
+      }
     }
   }
 }

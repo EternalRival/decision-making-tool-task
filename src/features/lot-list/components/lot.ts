@@ -1,6 +1,6 @@
-import { Button } from '~/components/button';
 import { Component } from '~/components/component';
 import { Input } from '~/components/input';
+import { UiButton } from '~/components/ui-button';
 import { type LotComponent } from '../types/lot-component.type';
 import styles from './lot.module.css';
 
@@ -54,14 +54,14 @@ export class Lot extends Component<'div'> implements LotComponent {
       },
     });
 
-    const deleteButton = new Button({
+    const deleteButton = new UiButton({
       className: styles.deleteButton,
       type: 'button',
       textContent: 'Delete',
       onclick: onDeleteClick,
     });
 
-    this.append<'label' | 'input' | 'button'>(lotId, titleInput, weightInput, deleteButton);
+    this.append(lotId, titleInput, weightInput, deleteButton);
   }
 
   public getValues() {

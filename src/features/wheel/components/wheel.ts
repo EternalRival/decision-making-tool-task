@@ -1,5 +1,7 @@
 import { Button } from '~/components/button';
 import { Component } from '~/components/component';
+import { UiButton } from '~/components/ui-button';
+import { UiModal } from '~/components/ui-modal';
 import { type TableRow } from '../types/table-row.type';
 import { type WheelSlice } from '../types/wheel-slice.type';
 import { animate } from '../utils/animate';
@@ -8,7 +10,7 @@ import { easeInOut } from '../utils/ease-in-out';
 import { getSliceList } from '../utils/get-slice-list';
 import styles from './wheel.module.css';
 
-export class Wheel extends Component {
+export class Wheel extends UiModal {
   private ctx: CanvasRenderingContext2D;
   private size: number;
   private rotation: number;
@@ -16,43 +18,24 @@ export class Wheel extends Component {
   private renderSelected: () => void;
 
   constructor({ size = 512, table }: { size?: number; table: TableRow[] }) {
-    super('div', {
-      className: styles.wrapper,
-      onclick: (e) => {
-        if (e.target === e.currentTarget) {
-          this.remove();
-        }
-      },
-    });
+    super();
 
     this.size = size;
     this.sliceList = getSliceList(table);
     this.rotation = 0;
 
-    const handleStartSpin = ({
-      selectedClassList,
-      closeButtonClassList,
-      wrapperClassList,
-      spinButton,
-    }: {
-      selectedClassList: DOMTokenList;
-      closeButtonClassList: DOMTokenList;
-      wrapperClassList:DOMTokenList;
-      spinButton: Button;
-    }) => {
+    const handleStartSpin = ({ selected, spinButton }: { selected: Component<'p'>; spinButton: Button }) => {
       spinButton.setDisabled(true);
-      closeButtonClassList.add(styles.hidden);
-      wrapperClassList.add(styles.darkened);
-      selectedClassList.remove(styles.winner);
+      this.disableModalClose();
+      selected.removeClass(styles.winner);
 
       this.spin({
         duration: 5,
         targetRotationOffset: Math.PI * 2 * Math.random(),
         onFinish: () => {
           spinButton.setDisabled(false);
-          closeButtonClassList.remove(styles.hidden);
-          wrapperClassList.remove(styles.darkened);
-          selectedClassList.add(styles.winner);
+          this.enableModalClose();
+          selected.addClass(styles.winner);
         },
       });
     };
@@ -65,21 +48,12 @@ export class Wheel extends Component {
       height: size,
       textContent: 'wheel of fortune',
     });
-    const closeButton = new Button({
-      className: styles.closeButton,
-      textContent: '⨉',
-      onclick: () => this.remove(),
-    });
-    const spinButton = new Button({
+
+    const spinButton = new UiButton({
       className: styles.spinButton,
       textContent: 'Spin',
       onclick: () => {
-        handleStartSpin({
-          selectedClassList: selected.getNode().classList,
-          closeButtonClassList: closeButton.getNode().classList,
-          wrapperClassList: this.getNode().classList,
-          spinButton,
-        });
+        handleStartSpin({ selected, spinButton });
       },
     });
 
@@ -92,18 +66,8 @@ export class Wheel extends Component {
 
     this.renderWheel();
 
-    container.append<'button' | 'p' | 'canvas'>(spinButton, selected, canvas, closeButton);
+    container.append(spinButton, selected, canvas);
     this.append(container);
-
-    this.remove = () => {
-      if (spinButton.getNode().disabled) {
-        return;
-      }
-
-      super.remove();
-
-      document.body.classList.remove('body-no-scroll');
-    };
   }
 
   private spin({
@@ -158,10 +122,5 @@ export class Wheel extends Component {
       size: this.size,
       sliceList: this.sliceList,
     });
-  }
-
-  public render(root: HTMLElement) {
-    root.append(this.getNode());
-    document.body.classList.add('body-no-scroll');
   }
 }
