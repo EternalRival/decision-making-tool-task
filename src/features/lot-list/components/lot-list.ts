@@ -154,7 +154,5 @@ export class LotList extends Component {
       super.remove();
       window.removeEventListener('beforeunload', handleBeforeUnload);
     };
-
-    startButton.getNode().click();
   }
 }
