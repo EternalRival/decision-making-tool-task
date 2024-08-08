@@ -8,10 +8,10 @@
     "build": "tsc && vite build && npm run build:tor",
     "preview": "vite preview",
     "format": "prettier -luw src",
-    "build:tor": "mkdir -p dist/tor && marked -i README.md -o dist/tor/index.html"
+    "build:tor": "node build-tor-page.mjs"
   },
   "devDependencies": {
-    "marked": "^14.0.0",
+    "markdown-styles": "^3.2.0",
     "prettier": "^3.3.3",
     "typescript": "^5.2.2",
     "vite": "^5.3.4",
