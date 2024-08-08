@@ -10,6 +10,10 @@ The first part of the application allows you to edit the list of lots (sections 
 
 The second part of the application allows you to see the previously created list as `WoF` itself. There is also an element for displaying the selected lot, a button to start `WoF` rotation and a user-friendly option to return to the first part of the application (the list of lots).
 
+## Demo
+
+<https://er-wof-demo.netlify.app/>
+
 ## Functional requirements
 
 ### List of lots
@@ -51,7 +55,7 @@ The second part of the application allows you to see the previously created list
 
 1. The width of the "columns" ([`id`](#id), [`title`](#title), [`weight`](#weight), [`delete button`](#delete-button)) should match in "rows" ([lots](#lot)). (`flex`/`grid`/`table` can be useful here. How you do it is up to you.)
 
-#### Buttons
+#### List Buttons
 
 ##### New lot
 
