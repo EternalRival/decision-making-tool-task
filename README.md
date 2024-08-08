@@ -105,6 +105,8 @@ The second part of the application allows you to see the previously created list
 
 #### Wheel
 
+1. TBD
+
 #### Selected lot
 
 1. Displays a `selected lot` element next to the wheel.
