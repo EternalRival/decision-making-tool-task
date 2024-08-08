@@ -5,9 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "npm run copy-readme && tsc && vite build",
     "preview": "vite preview",
-    "format": "prettier -luw src"
+    "format": "prettier -luw src",
+    "copy-readme": "mkdir -p public/tor && cp ./README.md ./public/tor/index.md"
   },
   "devDependencies": {
     "prettier": "^3.3.3",
