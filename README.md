@@ -23,6 +23,34 @@ The second part of the application allows you to see the previously created list
 - Familiarize yourself with Canvas API.
 - Practice with animations. (e.g., via `Web API`'s `requestAnimationFrame`, `Animations API`, etc.)
 
+## Repository and Submission Requirements
+
+- Use a [private school repository](https://docs.rs.school/#/private-repository) to develop this application.
+- Use the `wheel-of-fortune` branch as your development branch.
+- Your commits in the development branch should reflect the development history. Commits must follow the [guideline](https://docs.rs.school/#/git-convention).
+- Use the `gh-pages` branch as the deploy branch (e.g. via the [`gh-pages`](https://www.npmjs.com/package/gh-pages) package).
+- Use the app **deploy link** to [submit](https://app.rs.school/course/student/cross-check-submit) the app to crosscheck in [app.rs](https://app.rs.school/course/student/cross-check-submit). **Make sure** your link is accessible to everyone by opening it in incognito mode
+- Create a Pull Request from the development branch into the `main` branch and format it according to [PR requirements](https://docs.rs.school/#/pull-request-review-process?id=Требования-к-pull-request-pr). **Do not merge** the development branch into the `main` branch
+<!-- - Use the **PR link** to [submit](https://app.rs.school/course/student/dashboard) the app to crosscheck in [app.rs](https://app.rs.school/course/student/dashboard). -->
+
+## General Requirements
+
+- `<body>` in the `index.html` must be empty (only `<script>` tag is allowed). (You can check this with the `View page source` option in the context menu in google chrome).
+- App must be supported at widths between `640px` and `1280px` at least (DOM elements should not go out of bounds of parent elements, overlap, etc.).
+- The use of `alert`, `prompt`, `confirm` is prohibited.
+- App must not have unexpected errors in the console (don't forget the favicon).
+- Crosscheck is performed in the latest version of the "google chrome" browser.
+
+## Technical Requirements
+
+- Language: Application written in JavaScript.
+<!-- - Language: Application written in TypeScript. -->
+- Allowed: Bundlers (webpack, vite)
+- Allowed: CSS modules, CSS Preprocessors (`Sass`, `Less`, `Stylus`, `PostCSS`), CSS in JS libraries (`tailwindcss`, `styled components`).
+- Prohibited: Frameworks like Angular, React, Vue, etc.
+- Prohibited: jQuery
+- Prohibited: Third-party libraries not listed in the allowed libraries.
+
 ## Functional requirements
 
 ### List of lots
@@ -114,7 +142,7 @@ The second part of the application allows you to see the previously created list
 
 #### Wheel
 
-1. TBD
+1. TBD (канвасноколёсные дела)
 
 #### Selected lot
 
@@ -146,6 +174,23 @@ The second part of the application allows you to see the previously created list
 2. The `spin button` click must initiate rotation of the wheel.
 3. In the wheel rotation state, `spin button` must be temporarily visually disabled and must not be functioning.
 4. In the initial and winning states `spin button` returns to its original state and functions as it should.
+
+## Crosscheck Penalties
+
+- Non-empty `<body>` in the `index.html` (only `<script>` tag is allowed).
+- The app is not supported at widths between 640px and 1280px at least (e.g., DOM elements go out of the bounds of parent elements, overlap, etc.).
+- Using `alert`, `prompt`, `confirm`.
+- App has unexpected errors in the console.
+
+## Mentor check
+
+- TBD (менторские приколы)
+
+## Mentor/Moderation Penalties
+
+- [Repository and Submission Requirements](#repository-and-submission-requirements) not met.
+- [General Requirements](#general-requirements) not met.
+- [Technical Requirements](#technical-requirements) not met.
 
 ## Useful links
 
