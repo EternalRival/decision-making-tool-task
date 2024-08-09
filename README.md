@@ -14,6 +14,15 @@ The second part of the application allows you to see the previously created list
 
 <https://er-wof-demo.netlify.app/>
 
+## Task Objectives
+
+- Acquire or refine skills in creating, modifying, and deleting HTML elements dynamically using code.
+- Practice storing user input between sessions (e.g., via `Web Storage API`).
+- Learn to collect and save user input data to a file.
+- Learn to load and process data from a file (e.g., via `File API`).
+- Familiarize yourself with Canvas API.
+- Practice with animations. (e.g., via `Web API`'s `requestAnimationFrame`, `Animations API`, etc.)
+
 ## Functional requirements
 
 ### List of lots
@@ -137,3 +146,11 @@ The second part of the application allows you to see the previously created list
 2. The `spin button` click must initiate rotation of the wheel.
 3. In the wheel rotation state, `spin button` must be temporarily visually disabled and must not be functioning.
 4. In the initial and winning states `spin button` returns to its original state and functions as it should.
+
+## Useful links
+
+- [Creating markup with JS](https://gist.github.com/TELEUZI/410d19772481d98b06e0b41ebf89fff1)
+- [MDN: Canvas API](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API)
+- [MDN: File API](https://developer.mozilla.org/en-US/docs/Web/API/File_API/Using_files_from_web_applications)
+- [MDN: Web Animations API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API)
+- [JavaScript animations](https://javascript.info/js-animation)
