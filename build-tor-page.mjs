@@ -24,8 +24,8 @@ consoleMute.enable();
 
 mds.render(
   mds.resolveArgs({
-    input: resolve(tempDirPath),
-    output: resolve(torPageDirPath),
+    input: tempDirPath,
+    output: torPageDirPath,
     layout: 'mixu-bootstrap-2col',
   }),
   () => {
