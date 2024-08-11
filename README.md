@@ -43,8 +43,8 @@ The second part of the application allows you to see the previously created list
 
 ## Technical Requirements
 
-- Language: Application written in JavaScript.
-<!-- - Language: Application written in TypeScript. -->
+<!-- - Language: Application written in JavaScript. -->
+- Language: Application written in TypeScript.
 - Allowed: Bundlers (webpack, vite)
 - Allowed: CSS modules, CSS Preprocessors (`Sass`, `Less`, `Stylus`, `PostCSS`), CSS in JS libraries (`tailwindcss`, `styled components`).
 - Prohibited: Frameworks like Angular, React, Vue, etc.
