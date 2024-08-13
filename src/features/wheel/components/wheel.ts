@@ -30,7 +30,8 @@ export class Wheel extends UiModal {
       selected.removeClass(styles.winner);
 
       this.spin({
-        duration: 5,
+        duration: 20
+      ,
         targetRotationOffset: Math.PI * 2 * Math.random(),
         onFinish: () => {
           spinButton.setDisabled(false);

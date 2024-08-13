@@ -17,33 +17,32 @@ The second part of the application allows you to see the previously created list
 ## Task Objectives
 
 - Acquire or refine skills in creating, modifying, and deleting HTML elements dynamically using code.
-- Practice storing user input between sessions (e.g., via `Web Storage API`).
+- Practice storing user input between sessions *(e.g., via `Web Storage API`)*.
 - Learn to collect and save user input data to a file.
-- Learn to load and process data from a file (e.g., via `File API`).
+- Learn to load and process data from a file *(e.g., via `File API`)*.
 - Familiarize yourself with Canvas API.
-- Practice with animations. (e.g., via `Web API`'s `requestAnimationFrame`, `Animations API`, etc.)
+- Practice with animations. *(e.g., via `Web API`'s `requestAnimationFrame`, `Animations API`, etc.)*
 
 ## Repository and Submission Requirements
 
 - Use a [private school repository](https://docs.rs.school/#/private-repository) to develop this application.
 - Use the `wheel-of-fortune` branch as your development branch.
 - Your commits in the development branch should reflect the development history. Commits must follow the [guideline](https://docs.rs.school/#/git-convention).
-- Use the `gh-pages` branch as the deploy branch (e.g. via the [`gh-pages`](https://www.npmjs.com/package/gh-pages) package).
+- Use the `gh-pages` branch as the deploy branch *(e.g. via the [`gh-pages`](https://www.npmjs.com/package/gh-pages) package)*.
 - Use the app **deploy link** to [submit](https://app.rs.school/course/student/cross-check-submit) the app to crosscheck in [app.rs](https://app.rs.school/course/student/cross-check-submit). **Make sure** your link is accessible to everyone by opening it in incognito mode
 - Create a Pull Request from the development branch into the `main` branch and format it according to [PR requirements](https://docs.rs.school/#/pull-request-review-process?id=Требования-к-pull-request-pr). **Do not merge** the development branch into the `main` branch
-<!-- - Use the **PR link** to [submit](https://app.rs.school/course/student/dashboard) the app to crosscheck in [app.rs](https://app.rs.school/course/student/dashboard). -->
+- Use the **PR link** to [submit](https://app.rs.school/course/student/dashboard) the app to mentor in [app.rs](https://app.rs.school/course/student/dashboard).
 
 ## General Requirements
 
-- `<body>` in the `index.html` must be empty (only `<script>` tag is allowed). (You can check this with the `View page source` option in the context menu in google chrome).
-- App must be supported at widths between `640px` and `1280px` at least (DOM elements should not go out of bounds of parent elements, overlap, etc.).
+- `<body>` in the `index.html` must be empty (only `<script>` tag is allowed). *(You can check this with the `View page source` option in the context menu in google chrome.)*
+- App must be supported at widths between `640px` and `1280px` at least *(DOM elements should not go out of bounds of parent elements, overlap, etc.)*.
 - The use of `alert`, `prompt`, `confirm` is prohibited.
-- App must not have unexpected errors in the console (don't forget the favicon).
+- App must not have unexpected errors in the console *(don't forget the favicon)*.
 - Crosscheck is performed in the latest version of the "google chrome" browser.
 
 ## Technical Requirements
 
-<!-- - Language: Application written in JavaScript. -->
 - Language: Application written in TypeScript.
 - Allowed: Bundlers (webpack, vite)
 - Allowed: CSS modules, CSS Preprocessors (`Sass`, `Less`, `Stylus`, `PostCSS`), CSS in JS libraries (`tailwindcss`, `styled components`).
@@ -59,9 +58,9 @@ The second part of the application allows you to see the previously created list
 
 1. Displays the app's name.
 2. Displays the list of lots.
-3. In the `initial state`, the list contains 1 empty lot (id === `#1`, empty `title` and `weight`). The `initial state` means the state of the application when the user first encounters it (this can be simulated by pre-closing all current incognito tabs, if any, and opening a new one).
-4. Current lots must remain the same (not reset, not shuffled) when reloading the page.
-5. Current lots must remain the same (not reset, not shuffled) when closing a tab/window and opening it in a new one.
+3. In the `initial state`, the list contains 1 empty lot *(id === `#1`, empty `title` and `weight`)*. *The `initial state` means the state of the application when the user first encounters it (this can be simulated by pre-closing all current incognito tabs, if any, and opening a new one)*.
+4. Current lots must remain the same *(not reset, not shuffled)* when reloading the page.
+5. Current lots must remain the same *(not reset, not shuffled)* when closing a tab/window and opening it in a new one.
 
 #### Lot
 
@@ -69,7 +68,7 @@ The second part of the application allows you to see the previously created list
 
 1. Each lot's `id` must be displayed.
 2. Each lot's `id` must be unique.
-3. Each lot's `id` must be in `#n` format (`#1`, `#2`, `#3`, etc.).
+3. Each lot's `id` must be in `#n` format *(`#1`, `#2`, `#3`, etc.)*.
 4. Each lot's `id` must be generated programmatically at creation and the user has no possibility to change it manually.
 
 ##### `title`
@@ -85,51 +84,51 @@ The second part of the application allows you to see the previously created list
 
 ##### `delete button`
 
-1. Each lot's `delete button` must be displayed. The appearance of this button should clearly indicate its purpose (contain appropriate text and/or icon. e.g., "delete", "remove", etc.).
+1. Each lot's `delete button` must be displayed. The appearance of this button should clearly indicate its purpose *(contain appropriate text and/or icon. e.g., "delete", "remove", etc.)*.
 2. Lot's `delete button` click must delete the current lot from the list.
-3. When the last lot is deleted (if the list has become completely empty), the id count must be reset.
+3. When the last lot is deleted *(if the list has become completely empty)*, the id count must be reset.
 
 ##### Lot columns
 
-1. The width of the "columns" ([`id`](#id), [`title`](#title), [`weight`](#weight), [`delete button`](#delete-button)) should match in "rows" ([lots](#lot)). (`flex`/`grid`/`table` can be useful here. How you do it is up to you.)
+1. The width of the "columns" ([`id`](#id), [`title`](#title), [`weight`](#weight), [`delete button`](#delete-button)) should match in "rows" ([lots](#lot)). *(`flex`/`grid`/`table` can be useful here. How you do it is up to you.)*
 
 #### List Buttons
 
 ##### New lot
 
-1. Displays a `add lot button` next to the list of lots for creating a "new lot". The appearance of this button should clearly indicate its purpose (contain appropriate text and/or icon. e.g., "add lot", "new lot", "+", etc.).
+1. Displays a `add lot button` next to the list of lots for creating a "new lot". The appearance of this button should clearly indicate its purpose *(contain appropriate text and/or icon. e.g., "add lot", "new lot", "+", etc.)*.
 2. The `add lot button` click must create a "new lot".
 3. "New lot" must have a unique `id`.
 4. "New lot" must have an empty `title`.
 5. "New lot" must have an empty `weight`.
 6. "New lot" must have a `delete button`.
-7. "New lot" must meet the [#Lot](#lot) requirements ([`id`](#id), [`title`](#title), [`weight`](#weight), [`delete button`](#delete-button) and [Lot columns](#lot-columns) requirements).
+7. "New lot" must meet the [#Lot](#lot) requirements *([`id`](#id), [`title`](#title), [`weight`](#weight), [`delete button`](#delete-button) and [Lot columns](#lot-columns) requirements)*.
 
 ##### Clear list
 
-1. Displays a `clear list button` next to the list of lots for removing all lots from the list. The appearance of this button should clearly indicate its purpose (contain appropriate text and/or icon. e.g., "clear list", "reset list", etc.).
+1. Displays a `clear list button` next to the list of lots for removing all lots from the list. The appearance of this button should clearly indicate its purpose *(contain appropriate text and/or icon. e.g., "clear list", "reset list", etc.)*.
 2. The `clear list button` click must remove all current lots from the list.
-3. In addition to clearing the list, an empty "new lot" with `id` `#1` should be added to the list (as at `initial state` or as if the `add lot button` was used when the list is completely empty).
+3. In addition to clearing the list, an empty "new lot" with `id` `#1` should be added to the list *(as at `initial state` or as if the `add lot button` was used when the list is completely empty)*.
 
 ##### Save list to file
 
-1. Displays a `save list button` next to the list of lots for saving all current lots to the `.json` file. The appearance of this button should clearly indicate its purpose (contain appropriate text and/or icon. e.g., "save list to file", "save list as json", etc.).
+1. Displays a `save list button` next to the list of lots for saving all current lots to the `.json` file. The appearance of this button should clearly indicate its purpose *(contain appropriate text and/or icon. e.g., "save list to file", "save list as json", etc.)*.
 2. The `save list button` click must collect the current lots data, convert it to a json object and save it to a `.json` file.
 3. The `title` and `weight` values of lots must be saved.
 4. The order of lots in the file must match the order of lots in the app.
 
 ##### Load list from file
 
-1. Displays a `load list button` next to the list of lots for loading lots from the `.json` file. The appearance of this button should clearly indicate its purpose (contain appropriate text and/or icon. e.g., "load list from file", "load list from json", etc.).
+1. Displays a `load list button` next to the list of lots for loading lots from the `.json` file. The appearance of this button should clearly indicate its purpose *(contain appropriate text and/or icon. e.g., "load list from file", "load list from json", etc.)*.
 2. The `save list button` click must open the interface to select the file.
 3. The type of files to be selected must be limited to a single file of type `.json`.
-4. The current list of lots must be completely replaced by the list from the `.json` file you uploaded (your app must be able to read and correctly parse the file created by your `save list button` click).
+4. The current list of lots must be completely replaced by the list from the `.json` file you uploaded *(your app must be able to read and correctly parse the file created by your `save list button` click)*.
 5. The order of lots in the app must match the order of lots in the file. The `id` of lots must be newly generated.
-6. Each "loaded lot" must meet the [#Lot](#lot) requirements ([`id`](#id), [`title`](#title), [`weight`](#weight), [`delete button`](#delete-button) and [Lot columns](#lot-columns) requirements).
+6. Each "loaded lot" must meet the [#Lot](#lot) requirements *([`id`](#id), [`title`](#title), [`weight`](#weight), [`delete button`](#delete-button) and [Lot columns](#lot-columns) requirements)*.
 
 ##### Start
 
-1. Displays a `start button` next to the list of lots for displaying the `WoF` generated by the data from the list of current lots. The appearance of this button should clearly indicate its purpose (contain appropriate text and/or icon. e.g., "start", "play", "open wheel of fortune", etc.).
+1. Displays a `start button` next to the list of lots for displaying the `WoF` generated by the data from the list of current lots. The appearance of this button should clearly indicate its purpose *(contain appropriate text and/or icon. e.g., "start", "play", "open wheel of fortune", etc.)*.
 2. The `start button` click must open `WoF` modal window.
 3. The list of current lots passed to the modal window must be filtered and contain only valid lots. A lot is considered valid if its [`title`](#title) is not empty and its [`weight`](#weight) is greater than `0`.
 
@@ -142,12 +141,49 @@ The second part of the application allows you to see the previously created list
 
 #### Wheel
 
-1. TBD (канвасноколёсные дела)
+##### General
+
+1. Displays the `wheel` element in the `WoF` modal window.
+
+##### Lot slice
+
+1. The `wheel` element must display lots as slices of a circle.
+2. The order of `lot slices` on the `wheel` element must be randomized when the modal window is opened and not change until it is closed.
+3. The fill color of each `lot slice` must be randomly generated when the modal window is opened and not change until it is closed.
+4. The width (angle) of each `lot slice` must depend on the `weight` field of the lot. *The main idea of this feature is that by setting the values of lot weight we can adjust the chance of winning a particular lot. That is, the higher the weight of a particular lot, the wider its slice, and therefore the higher the chance of winning it.*
+5. Each `lot slice` must be distinguishable from other elements. *This means that you need to handle the case where the fill color of a `lot slice` may happen to be very close to the fill color of an adjacent slice, cursor, or center element. *(Additional stroke, shadow, fill can be useful here.)**
+
+##### Lot slice title
+
+1. Each `lot slice` must display the `title` value of the lot as text (except in the case described in the next bullet point). The text should be placed on the slice from the center of the wheel to the edge (or from the edge to the center).
+2. Each `lot slice title` must not violate the boundaries of its slice. If the width (angle) of the slice is not wide enough to display the text, the text must not be displayed.
+3. Each `lot slice title` must not violate the boundaries of wheel. If `title` is too long, it should be clipped and end with ellipsis.
+4. Each displayed `lot slice title` must be distinguishable from the background. *This means that the background color of a `lot slice` may happen to be either light or dark. *(Additional stroke, shadow, fill can be useful here.)**
+
+##### Center element
+
+1. In the center of the `wheel`, there must be a decorative element to hide the point of contact between all the wheel slices *(e.g., a small circle, star, image, etc.)*.
+2. The `center element` must be distinguishable from other elements. *This means that you need to handle the case where the `cursor` fill color may happen to be very close to the fill color of an adjacent slice. *(Additional stroke, shadow, fill can be useful here.)**
+
+##### Cursor
+
+1. The `wheel` element must display a `cursor` that points to the current lot. It can be designed in the form of a triangle, arrow or any similar figure with a clearly defined pointer.
+2. The `cursor` must be placed at any position on the edge of the `wheel` and not overlapped by other elements.
+3. The `cursor` must be distinguishable from other elements. *This means that you need to handle the case where the `cursor` fill color may happen to be very close to the fill color of an adjacent slice or background. *(Additional stroke, shadow, fill can be useful here.)**
+
+##### Wheel rotating
+
+1. When wheel rotation is initiated, the wheel must start rotating and stop after a short time.
+2. The rotation time must be specified by the `time` element. That is, it should correspond to its value (in seconds) at the moment of rotation start. *Be loyal when crosschecking. A small inaccuracy is acceptable. There is no need to reduce points for a difference of a couple of seconds.*
+3. The rotation should have a non-linear velocity. Use a suitable easing *(e.g. `ease-in-out` or `ease-in-out-back' with a tiny magnitude)*.
+4. In the wheel rotation state, `lot slices` must not change their order, shape, color. *It means that visually the `lot slices` shall rotate as an indivisible whole wheel.*
+5. In the wheel rotation state, the `lot slice title` shall not change its location relative to the boundaries of its `lot slice`. *It means that visually `lot slice title` and `lot slice` should rotate as an indivisible element.*
+6. In the wheel rotation state, the `cursor` must stay in its place and not rotate.
 
 #### Selected lot
 
 1. Displays a `selected lot` element next to the wheel.
-2. In the wheel initial state, `selected lot` must display the `title` of the lot currently pointed to by the wheel cursor.
+2. In the wheel initial state, `selected lot` must display the `title` of the lot currently pointed to by the wheel `cursor`.
 3. In the wheel rotation state, `selected lot` must **dynamically** display the `title` of the lot currently pointed to by the wheel cursor.
 4. In the wheel winning state, `selected lot` must display the `title` of the lot currently pointed to by the wheel cursor.
 5. In the initial and rotation states, the `selected lot` must not be highlighted.
@@ -157,7 +193,7 @@ The second part of the application allows you to see the previously created list
 
 ##### Close button
 
-1. Displays a `close button` in the upper right corner of modal window for returning to the [list of lots](#list-of-lots). The appearance of this button should clearly indicate its purpose (contain appropriate text or icon. e.g., "⨉", "x", etc.).
+1. Displays a `close button` in the upper right corner of modal window for returning to the [list of lots](#list-of-lots). The appearance of this button should clearly indicate its purpose *(contain appropriate text or icon. e.g., "⨉", "x", etc.)*.
 2. The `close button` click must close `WoF` view and return the user to the [list of lots](#list-of-lots).
 3. In the wheel rotation state, `close button` must be temporarily visually disabled or hidden and must not be functioning.
 4. In the initial and winning states `close button` returns to its original state and functions as it should.
@@ -170,15 +206,24 @@ The second part of the application allows you to see the previously created list
 
 ##### Spin
 
-1. Displays a `spin button` next to the `wheel` for start rotation of the wheel. The appearance of this button should clearly indicate its purpose (contain appropriate text and/or icon. e.g., "spin", "play", etc.).
+1. Displays a `spin button` next to the `wheel` for start rotation of the wheel. The appearance of this button should clearly indicate its purpose *(contain appropriate text and/or icon. e.g., "spin", "play", etc.)*.
 2. The `spin button` click must initiate rotation of the wheel.
 3. In the wheel rotation state, `spin button` must be temporarily visually disabled and must not be functioning.
 4. In the initial and winning states `spin button` returns to its original state and functions as it should.
 
+##### Time
+
+1. Displays a `time` `<input>` element next to the `wheel` for setting the rotation time in seconds.
+2. `time` element must be able to be edited by the user.
+3. `time` element must take only numbers.
+4. `time` element must have a default value, which should be between 5 and 30 seconds.
+5. In the wheel rotation state, `time` element must be temporarily visually disabled and must not be functioning.
+6. In the initial and winning states `time` element returns to its original state and functions as it should.
+
 ## Crosscheck Penalties
 
 - Non-empty `<body>` in the `index.html` (only `<script>` tag is allowed).
-- The app is not supported at widths between 640px and 1280px at least (e.g., DOM elements go out of the bounds of parent elements, overlap, etc.).
+- The app is not supported at widths between 640px and 1280px at least *(e.g., DOM elements go out of the bounds of parent elements, overlap, etc.)*.
 - Using `alert`, `prompt`, `confirm`.
 - App has unexpected errors in the console.
 
@@ -199,3 +244,4 @@ The second part of the application allows you to see the previously created list
 - [MDN: File API](https://developer.mozilla.org/en-US/docs/Web/API/File_API/Using_files_from_web_applications)
 - [MDN: Web Animations API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API)
 - [JavaScript animations](https://javascript.info/js-animation)
+- [Easings](https://easings.net/)
