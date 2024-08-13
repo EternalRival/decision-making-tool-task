@@ -1,5 +1,7 @@
 # Wheel of fortune
 
+> The ToR is under development. The fulfillment scores contain placeholders, which will be changed later. Stage 2 requirements will be added later.
+
 ## Description
 
 Your task is to implement an single page application (SPA) for drawing lots using the wheel of fortune (hereafter `WoF`).
@@ -56,81 +58,81 @@ The second part of the application allows you to see the previously created list
 
 #### General
 
-1. Displays the app's name.
-2. Displays the list of lots.
-3. In the `initial state`, the list contains 1 empty lot *(id === `#1`, empty `title` and `weight`)*. *The `initial state` means the state of the application when the user first encounters it (this can be simulated by pre-closing all current incognito tabs, if any, and opening a new one)*.
-4. Current lots must remain the same *(not reset, not shuffled)* when reloading the page.
-5. Current lots must remain the same *(not reset, not shuffled)* when closing a tab/window and opening it in a new one.
+1. (+2) Displays the app's name.
+2. (+2) Displays the list of lots.
+3. (+2) In the `initial state`, the list contains 1 empty lot *(id === `#1`, empty `title` and `weight`)*. *The `initial state` means the state of the application when the user first encounters it (this can be simulated by pre-closing all current incognito tabs, if any, and opening a new one)*.
+4. (+2) Current lots must remain the same *(not reset, not shuffled)* when reloading the page.
+5. (+2) Current lots must remain the same *(not reset, not shuffled)* when closing a tab/window and opening it in a new one.
 
 #### Lot
 
 ##### `id`
 
-1. Each lot's `id` must be displayed.
-2. Each lot's `id` must be unique.
-3. Each lot's `id` must be in `#n` format *(`#1`, `#2`, `#3`, etc.)*.
-4. Each lot's `id` must be generated programmatically at creation and the user has no possibility to change it manually.
+1. (+2) Each lot's `id` must be displayed.
+2. (+2) Each lot's `id` must be unique.
+3. (+2) Each lot's `id` must be in `#n` format *(`#1`, `#2`, `#3`, etc.)*.
+4. (+2) Each lot's `id` must be generated programmatically at creation and the user has no possibility to change it manually.
 
 ##### `title`
 
-1. Each lot's `title` must be displayed.
-2. Each lot's `title` must be able to be edited by the user.
+1. (+2) Each lot's `title` must be displayed.
+2. (+2) Each lot's `title` must be able to be edited by the user.
 
 ##### `weight`
 
-1. Each lot's `weight` must be displayed.
-2. Each lot's `weight` must be able to be edited by the user.
-3. Each lot's `weight` must take only numbers.
+1. (+2) Each lot's `weight` must be displayed.
+2. (+2) Each lot's `weight` must be able to be edited by the user.
+3. (+2) Each lot's `weight` must take only numbers.
 
 ##### `delete button`
 
-1. Each lot's `delete button` must be displayed. The appearance of this button should clearly indicate its purpose *(contain appropriate text and/or icon. e.g., "delete", "remove", etc.)*.
-2. Lot's `delete button` click must delete the current lot from the list.
-3. When the last lot is deleted *(if the list has become completely empty)*, the id count must be reset.
+1. (+2) Each lot's `delete button` must be displayed. The appearance of this button should clearly indicate its purpose *(contain appropriate text and/or icon. e.g., "delete", "remove", etc.)*.
+2. (+2) Lot's `delete button` click must delete the current lot from the list.
+3. (+2) When the last lot is deleted *(if the list has become completely empty)*, the id count must be reset.
 
 ##### Lot columns
 
-1. The width of the "columns" ([`id`](#id), [`title`](#title), [`weight`](#weight), [`delete button`](#delete-button)) should match in "rows" ([lots](#lot)). *(`flex`/`grid`/`table` can be useful here. How you do it is up to you.)*
+1. (+2) The width of the "columns" ([`id`](#id), [`title`](#title), [`weight`](#weight), [`delete button`](#delete-button)) should match in "rows" ([lots](#lot)). *(`flex`/`grid`/`table` can be useful here. How you do it is up to you.)*
 
 #### List Buttons
 
 ##### New lot
 
-1. Displays a `add lot button` next to the list of lots for creating a "new lot". The appearance of this button should clearly indicate its purpose *(contain appropriate text and/or icon. e.g., "add lot", "new lot", "+", etc.)*.
-2. The `add lot button` click must create a "new lot".
-3. "New lot" must have a unique `id`.
-4. "New lot" must have an empty `title`.
-5. "New lot" must have an empty `weight`.
-6. "New lot" must have a `delete button`.
-7. "New lot" must meet the [#Lot](#lot) requirements *([`id`](#id), [`title`](#title), [`weight`](#weight), [`delete button`](#delete-button) and [Lot columns](#lot-columns) requirements)*.
+1. (+2) Displays a `add lot button` next to the list of lots for creating a "new lot". The appearance of this button should clearly indicate its purpose *(contain appropriate text and/or icon. e.g., "add lot", "new lot", "+", etc.)*.
+2. (+2) The `add lot button` click must create a "new lot".
+3. (+2) "New lot" must have a unique `id`.
+4. (+2) "New lot" must have an empty `title`.
+5. (+2) "New lot" must have an empty `weight`.
+6. (+2) "New lot" must have a `delete button`.
+7. (+2) "New lot" must meet the [#Lot](#lot) requirements *([`id`](#id), [`title`](#title), [`weight`](#weight), [`delete button`](#delete-button) and [Lot columns](#lot-columns) requirements)*.
 
 ##### Clear list
 
-1. Displays a `clear list button` next to the list of lots for removing all lots from the list. The appearance of this button should clearly indicate its purpose *(contain appropriate text and/or icon. e.g., "clear list", "reset list", etc.)*.
-2. The `clear list button` click must remove all current lots from the list.
-3. In addition to clearing the list, an empty "new lot" with `id` `#1` should be added to the list *(as at `initial state` or as if the `add lot button` was used when the list is completely empty)*.
+1. (+2) Displays a `clear list button` next to the list of lots for removing all lots from the list. The appearance of this button should clearly indicate its purpose *(contain appropriate text and/or icon. e.g., "clear list", "reset list", etc.)*.
+2. (+2) The `clear list button` click must remove all current lots from the list.
+3. (+2) In addition to clearing the list, an empty "new lot" with `id` `#1` should be added to the list *(as at `initial state` or as if the `add lot button` was used when the list is completely empty)*.
 
 ##### Save list to file
 
-1. Displays a `save list button` next to the list of lots for saving all current lots to the `.json` file. The appearance of this button should clearly indicate its purpose *(contain appropriate text and/or icon. e.g., "save list to file", "save list as json", etc.)*.
-2. The `save list button` click must collect the current lots data, convert it to a json object and save it to a `.json` file.
-3. The `title` and `weight` values of lots must be saved.
-4. The order of lots in the file must match the order of lots in the app.
+1. (+2) Displays a `save list button` next to the list of lots for saving all current lots to the `.json` file. The appearance of this button should clearly indicate its purpose *(contain appropriate text and/or icon. e.g., "save list to file", "save list as json", etc.)*.
+2. (+2) The `save list button` click must collect the current lots data, convert it to a json object and save it to a `.json` file.
+3. (+2) The `title` and `weight` values of lots must be saved.
+4. (+2) The order of lots in the file must match the order of lots in the app.
 
 ##### Load list from file
 
-1. Displays a `load list button` next to the list of lots for loading lots from the `.json` file. The appearance of this button should clearly indicate its purpose *(contain appropriate text and/or icon. e.g., "load list from file", "load list from json", etc.)*.
-2. The `save list button` click must open the interface to select the file.
-3. The type of files to be selected must be limited to a single file of type `.json`.
-4. The current list of lots must be completely replaced by the list from the `.json` file you uploaded *(your app must be able to read and correctly parse the file created by your `save list button` click)*.
-5. The order of lots in the app must match the order of lots in the file. The `id` of lots must be newly generated.
-6. Each "loaded lot" must meet the [#Lot](#lot) requirements *([`id`](#id), [`title`](#title), [`weight`](#weight), [`delete button`](#delete-button) and [Lot columns](#lot-columns) requirements)*.
+1. (+2) Displays a `load list button` next to the list of lots for loading lots from the `.json` file. The appearance of this button should clearly indicate its purpose *(contain appropriate text and/or icon. e.g., "load list from file", "load list from json", etc.)*.
+2. (+2) The `save list button` click must open the interface to select the file.
+3. (+2) The type of files to be selected must be limited to a single file of type `.json`.
+4. (+2) The current list of lots must be completely replaced by the list from the `.json` file you uploaded *(your app must be able to read and correctly parse the file created by your `save list button` click)*.
+5. (+2) The order of lots in the app must match the order of lots in the file. The `id` of lots must be newly generated.
+6. (+2) Each "loaded lot" must meet the [#Lot](#lot) requirements *([`id`](#id), [`title`](#title), [`weight`](#weight), [`delete button`](#delete-button) and [Lot columns](#lot-columns) requirements)*.
 
 ##### Start
 
-1. Displays a `start button` next to the list of lots for displaying the `WoF` generated by the data from the list of current lots. The appearance of this button should clearly indicate its purpose *(contain appropriate text and/or icon. e.g., "start", "play", "open wheel of fortune", etc.)*.
-2. The `start button` click must open `WoF` modal window.
-3. The list of current lots passed to the modal window must be filtered and contain only valid lots. A lot is considered valid if its [`title`](#title) is not empty and its [`weight`](#weight) is greater than `0`.
+1. (+2) Displays a `start button` next to the list of lots for displaying the `WoF` generated by the data from the list of current lots. The appearance of this button should clearly indicate its purpose *(contain appropriate text and/or icon. e.g., "start", "play", "open wheel of fortune", etc.)*.
+2. (+2) The `start button` click must open `WoF` modal window.
+3. (+2) The list of current lots passed to the modal window must be filtered and contain only valid lots. A lot is considered valid if its [`title`](#title) is not empty and its [`weight`](#weight) is greater than `0`.
 
 ### WoF Modal
 
@@ -146,100 +148,100 @@ The second part of the application allows you to see the previously created list
 
 #### General
 
-1. Displays the `WoF` modal window if the number of valid lots is two or more.
-2. Displays a modal window asking to add at least 2 valid lots if the number of valid lots is less than two.
+1. (+2) Displays the `WoF` modal window if the number of valid lots is two or more.
+2. (+2) Displays a modal window asking to add at least 2 valid lots if the number of valid lots is less than two.
 
 #### Wheel
 
 ##### General
 
-1. Displays the `wheel` element in the `WoF` modal window.
+1. (+2) Displays the `wheel` element in the `WoF` modal window.
 
 ##### Lot slice
 
-1. The `wheel` element must display lots as slices of a circle.
-2. The order of `lot slices` on the `wheel` element must be randomized when the modal window is opened and not change until it is closed.
-3. The fill color of each `lot slice` must be randomly generated when the modal window is opened and not change until it is closed.
-4. The width (angle) of each `lot slice` must depend on the `weight` field of the lot. *The main idea of this feature is that by setting the values of lot weight we can adjust the chance of winning a particular lot. That is, the higher the weight of a particular lot, the wider its slice, and therefore the higher the chance of winning it.*
-5. Each `lot slice` must be distinguishable from other elements. *This means that you need to handle the case where the fill color of a `lot slice` may happen to be very close to the fill color of an adjacent slice, cursor, or center element. *(Additional stroke, shadow, fill can be useful here.)**
+1. (+2) The `wheel` element must display lots as slices of a circle.
+2. (+2) The order of `lot slices` on the `wheel` element must be randomized when the modal window is opened and not change until it is closed.
+3. (+2) The fill color of each `lot slice` must be randomly generated when the modal window is opened and not change until it is closed.
+4. (+2) The width (angle) of each `lot slice` must depend on the `weight` field of the lot. *The main idea of this feature is that by setting the values of lot weight we can adjust the chance of winning a particular lot. That is, the higher the weight of a particular lot, the wider its slice, and therefore the higher the chance of winning it.*
+5. (+2) Each `lot slice` must be distinguishable from other elements. *This means that you need to handle the case where the fill color of a `lot slice` may happen to be very close to the fill color of an adjacent slice, cursor, or center element. *(Additional stroke, shadow, fill can be useful here.)**
 
 ##### Lot slice title
 
-1. Each `lot slice` must display the `title` value of the lot as text (except in the case described in the next bullet point). The text should be placed on the slice from the center of the wheel to the edge (or from the edge to the center).
-2. Each `lot slice title` must not violate the boundaries of its slice. If the width (angle) of the slice is not wide enough to display the text, the text must not be displayed.
-3. Each `lot slice title` must not violate the boundaries of wheel. If `title` is too long, it should be clipped and end with ellipsis.
-4. Each displayed `lot slice title` must be distinguishable from the background. *This means that the background color of a `lot slice` may happen to be either light or dark. *(Additional stroke, shadow, fill can be useful here.)**
+1. (+2) Each `lot slice` must display the `title` value of the lot as text (except in the case described in the next bullet point). The text should be placed on the slice from the center of the wheel to the edge (or from the edge to the center).
+2. (+2) Each `lot slice title` must not violate the boundaries of its slice. If the width (angle) of the slice is not wide enough to display the text, the text must not be displayed.
+3. (+2) Each `lot slice title` must not violate the boundaries of wheel. If `title` is too long, it should be clipped and end with ellipsis.
+4. (+2) Each displayed `lot slice title` must be distinguishable from the background. *This means that the background color of a `lot slice` may happen to be either light or dark. *(Additional stroke, shadow, fill can be useful here.)**
 
 ##### Center element
 
-1. In the center of the `wheel`, there must be a decorative element to hide the point of contact between all the wheel slices *(e.g., a small circle, star, image, etc.)*.
-2. The `center element` must be distinguishable from other elements. *This means that you need to handle the case where the `cursor` fill color may happen to be very close to the fill color of an adjacent slice. *(Additional stroke, shadow, fill can be useful here.)**
+1. (+2) In the center of the `wheel`, there must be a decorative element to hide the point of contact between all the wheel slices *(e.g., a small circle, star, image, etc.)*.
+2. (+2) The `center element` must be distinguishable from other elements. *This means that you need to handle the case where the `cursor` fill color may happen to be very close to the fill color of an adjacent slice. *(Additional stroke, shadow, fill can be useful here.)**
 
 ##### Cursor
 
-1. The `wheel` element must display a `cursor` that points to the current lot. It can be designed in the form of a triangle, arrow or any similar figure with a clearly defined pointer.
-2. The `cursor` must be placed at any position on the edge of the `wheel` and not overlapped by other elements.
-3. The `cursor` must be distinguishable from other elements. *This means that you need to handle the case where the `cursor` fill color may happen to be very close to the fill color of an adjacent slice or background. *(Additional stroke, shadow, fill can be useful here.)**
+1. (+2) The `wheel` element must display a `cursor` that points to the current lot. It can be designed in the form of a triangle, arrow or any similar figure with a clearly defined pointer.
+2. (+2) The `cursor` must be placed at any position on the edge of the `wheel` and not overlapped by other elements.
+3. (+2) The `cursor` must be distinguishable from other elements. *This means that you need to handle the case where the `cursor` fill color may happen to be very close to the fill color of an adjacent slice or background. *(Additional stroke, shadow, fill can be useful here.)**
 
 ##### Wheel rotating
 
-1. When wheel rotation is initiated, the wheel must start rotating and stop after a short duration.
-2. The rotation duration must be specified by the `duration` element. That is, it should correspond to its value (in seconds) at the moment of rotation start. *Be loyal when crosschecking. A small inaccuracy is acceptable. There is no need to reduce points for a difference of a couple of seconds.*
-3. The rotation should have a non-linear velocity. Use a suitable easing *(e.g. `ease-in-out` or `ease-in-out-back' with a tiny magnitude)*.
-4. The wheel must perform several full spins (minimum 5) and stop at a randomly selected lot.
-5. In the wheel rotation state, `lot slices` must not change their order, shape, color. *It means that visually the `lot slices` shall rotate as an indivisible whole wheel.*
-6. In the wheel rotation state, the `lot slice title` shall not change its location relative to the boundaries of its `lot slice`. *It means that visually `lot slice title` and `lot slice` should rotate as an indivisible element.*
-7. In the wheel rotation state, the `cursor` must stay in its place and not rotate.
+1. (+2) When wheel rotation is initiated, the wheel must start rotating and stop after a short duration.
+2. (+2) The rotation duration must be specified by the `duration` element. That is, it should correspond to its value (in seconds) at the moment of rotation start. *Be loyal when crosschecking. A small inaccuracy is acceptable. There is no need to reduce points for a difference of a couple of seconds.*
+3. (+2) The rotation should have a non-linear velocity. Use a suitable easing *(e.g. `ease-in-out` or `ease-in-out-back' with a tiny magnitude)*.
+4. (+2) The wheel must perform several full spins (minimum 5) and stop at a randomly selected lot.
+5. (+2) In the wheel rotation state, `lot slices` must not change their order, shape, color. *It means that visually the `lot slices` shall rotate as an indivisible whole wheel.*
+6. (+2) In the wheel rotation state, the `lot slice title` shall not change its location relative to the boundaries of its `lot slice`. *It means that visually `lot slice title` and `lot slice` should rotate as an indivisible element.*
+7. (+2) In the wheel rotation state, the `cursor` must stay in its place and not rotate.
 
 #### Selected lot
 
-1. Displays a `selected lot` element next to the wheel.
-2. In the wheel initial state, `selected lot` must display the `title` of the lot currently pointed to by the wheel `cursor`.
-3. In the wheel rotation state, `selected lot` must **dynamically** display the `title` of the lot currently pointed to by the wheel cursor.
-4. In the wheel winning state, `selected lot` must display the `title` of the lot currently pointed to by the wheel cursor.
-5. In the initial and rotation states, the `selected lot` must not be highlighted.
-6. In the winning state, the `selected lot` must be highlighted.
+1. (+2) Displays a `selected lot` element next to the wheel.
+2. (+2) In the wheel initial state, `selected lot` must display the `title` of the lot currently pointed to by the wheel `cursor`.
+3. (+2) In the wheel rotation state, `selected lot` must **dynamically** display the `title` of the lot currently pointed to by the wheel cursor.
+4. (+2) In the wheel winning state, `selected lot` must display the `title` of the lot currently pointed to by the wheel cursor.
+5. (+2) In the initial and rotation states, the `selected lot` must not be highlighted.
+6. (+2) In the winning state, the `selected lot` must be highlighted.
 
 #### Interactions
 
 ##### Close button
 
-1. Displays a `close button` in the upper right corner of modal window for returning to the [list of lots](#list-of-lots). The appearance of this button should clearly indicate its purpose *(contain appropriate text or icon. e.g., "⨉", "x", etc.)*.
-2. The `close button` click must close `WoF` modal window and return the user to the [list of lots](#list-of-lots).
-3. Closing `WoF` modal window must remove it from DOM.
-4. In the wheel rotation state, `close button` must be temporarily visually disabled or hidden and must not be functioning.
-5. In the initial and winning states `close button` returns to its original state and functions as it should.
+1. (+2) Displays a `close button` in the upper right corner of modal window for returning to the [list of lots](#list-of-lots). The appearance of this button should clearly indicate its purpose *(contain appropriate text or icon. e.g., "⨉", "x", etc.)*.
+2. (+2) The `close button` click must close `WoF` modal window and return the user to the [list of lots](#list-of-lots).
+3. (+2) Closing `WoF` modal window must remove it from DOM.
+4. (+2) In the wheel rotation state, `close button` must be temporarily visually disabled or hidden and must not be functioning.
+5. (+2) In the initial and winning states `close button` returns to its original state and functions as it should.
 
 ##### Outside click
 
-1. The `outside click` must close `WoF` view and return the user to the [list of lots](#list-of-lots).
-2. In the wheel rotation state, the `outside click` functionality must be temporarily disabled.
-3. In the initial and winning states `outside click` functions as it should.
+1. (+2) The `outside click` must close `WoF` view and return the user to the [list of lots](#list-of-lots).
+2. (+2) In the wheel rotation state, the `outside click` functionality must be temporarily disabled.
+3. (+2) In the initial and winning states `outside click` functions as it should.
 
 ##### Duration
 
-1. Displays a `duration` `<input>` element next to the `wheel` for setting the rotation duration in seconds.
-2. `duration` element must be able to be edited by the user.
-3. `duration` element must take only numbers.
-4. `duration` element must have a default value, which should be between 5 and 30 seconds.
-5. In the wheel rotation state, `duration` element must be temporarily visually disabled and must not be functioning.
-6. In the initial and winning states `duration` element returns to its original state and functions as it should.
+1. (+2) Displays a `duration` `<input>` element next to the `wheel` for setting the rotation duration in seconds.
+2. (+2) `duration` element must be able to be edited by the user.
+3. (+2) `duration` element must take only numbers.
+4. (+2) `duration` element must have a default value, which should be between 5 and 30 seconds.
+5. (+2) In the wheel rotation state, `duration` element must be temporarily visually disabled and must not be functioning.
+6. (+2) In the initial and winning states `duration` element returns to its original state and functions as it should.
 
 ##### Spin
 
-1. Displays a `spin button` next to the `wheel` for start rotation of the wheel. The appearance of this button should clearly indicate its purpose *(contain appropriate text and/or icon. e.g., "spin", "play", etc.)*.
-2. The `spin button` click must attempt to initiate rotation of the wheel.
+1. (+2) Displays a `spin button` next to the `wheel` for start rotation of the wheel. The appearance of this button should clearly indicate its purpose *(contain appropriate text and/or icon. e.g., "spin", "play", etc.)*.
+2. (+2) The `spin button` click must attempt to initiate rotation of the wheel.
    - If the `duration` input value is greater than five seconds inclusive, the wheel should successfully initiate rotation.
    - Otherwise, the user should be notified of incorrect input *(the default form validation is enough, but you can implement a custom one if you want)*.
-3. In the wheel rotation state, `spin button` must be temporarily visually disabled and must not be functioning.
-4. In the initial and winning states `spin button` returns to its original state and functions as it should.
+3. (+2) In the wheel rotation state, `spin button` must be temporarily visually disabled and must not be functioning.
+4. (+2) In the initial and winning states `spin button` returns to its original state and functions as it should.
 
 ## Crosscheck Penalties
 
-- Non-empty `<body>` in the `index.html` (only `<script>` tag is allowed).
-- The app is not supported at widths between 640px and 1280px at least *(e.g., DOM elements go out of the bounds of parent elements, overlap, etc.)*.
-- Using `alert`, `prompt`, `confirm`.
-- App has unexpected errors in the console.
+- (-100%) Non-empty `<body>` in the `index.html` (only `<script>` tag is allowed).
+- (-50) The app is not supported at widths between 640px and 1280px at least *(e.g., DOM elements go out of the bounds of parent elements, overlap, etc.)*.
+- (-100%) Using `alert`, `prompt`, `confirm`.
+- (-15?) App has unexpected errors in the console.
 
 ## Mentor check
 
@@ -247,9 +249,9 @@ The second part of the application allows you to see the previously created list
 
 ## Mentor/Moderation Penalties
 
-- [Repository and Submission Requirements](#repository-and-submission-requirements) not met.
-- [General Requirements](#general-requirements) not met.
-- [Technical Requirements](#technical-requirements) not met.
+- (-?) [Repository and Submission Requirements](#repository-and-submission-requirements) not met.
+- (-?) [General Requirements](#general-requirements) not met.
+- (-?) [Technical Requirements](#technical-requirements) not met.
 
 ## Useful links
 
