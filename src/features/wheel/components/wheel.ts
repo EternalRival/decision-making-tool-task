@@ -1,7 +1,8 @@
 import { Button } from '~/components/button';
 import { Component } from '~/components/component';
+import { Input } from '~/components/input';
 import { UiButton } from '~/components/ui-button';
-import { UiModal } from '~/components/ui-modal';
+import { UiDialog } from '~/components/ui-dialog';
 import { type TableRow } from '../types/table-row.type';
 import { type WheelSlice } from '../types/wheel-slice.type';
 import { animate } from '../utils/animate';
@@ -10,7 +11,7 @@ import { easeInOut } from '../utils/ease-in-out';
 import { getSliceList } from '../utils/get-slice-list';
 import styles from './wheel.module.css';
 
-export class Wheel extends UiModal {
+export class Wheel extends UiDialog {
   private ctx: CanvasRenderingContext2D;
   private size: number;
   private rotation: number;
@@ -24,18 +25,27 @@ export class Wheel extends UiModal {
     this.sliceList = getSliceList(table);
     this.rotation = 0;
 
-    const handleStartSpin = ({ selected, spinButton }: { selected: Component<'p'>; spinButton: Button }) => {
+    const handleStartSpin = ({
+      selected,
+      spinButton,
+      durationInput,
+    }: {
+      selected: Component<'p'>;
+      spinButton: Button;
+      durationInput: Input;
+    }) => {
       spinButton.setDisabled(true);
-      this.disableModalClose();
+      durationInput.setDisabled(true);
+      this.modalLock();
       selected.removeClass(styles.winner);
 
       this.spin({
-        duration: 20
-      ,
+        duration: Number(durationInput.getValue()),
         targetRotationOffset: Math.PI * 2 * Math.random(),
         onFinish: () => {
           spinButton.setDisabled(false);
-          this.enableModalClose();
+          durationInput.setDisabled(false);
+          this.modalUnlock();
           selected.addClass(styles.winner);
         },
       });
@@ -52,9 +62,23 @@ export class Wheel extends UiModal {
 
     const spinButton = new UiButton({
       className: styles.spinButton,
+      type: 'submit',
       textContent: 'Spin',
-      onclick: () => {
-        handleStartSpin({ selected, spinButton });
+      autofocus: true,
+    });
+    const durationLabel = new Component('label', { className: styles.durationLabel, textContent: 'Duration:' });
+    const durationInput = new Input({
+      className: styles.durationInput,
+      type: 'number',
+      min: '1',
+      value: '20',
+      placeholder: 'seconds',
+    });
+    const spinForm = new Component('form', {
+      className: styles.spinForm,
+      onsubmit: (e) => {
+        e.preventDefault();
+        handleStartSpin({ selected, spinButton, durationInput });
       },
     });
 
@@ -67,7 +91,9 @@ export class Wheel extends UiModal {
 
     this.renderWheel();
 
-    container.append(spinButton, selected, canvas);
+    durationLabel.append(durationInput);
+    spinForm.append(spinButton, durationLabel);
+    container.append(spinForm, selected, canvas);
     this.append(container);
   }
 

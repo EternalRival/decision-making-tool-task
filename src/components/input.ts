@@ -8,6 +8,10 @@ export class Input extends Component<'input'> {
   }
 
   public getValue() {
-    return this.node.value;
+    return this.getNode().value;
+  }
+
+  public setDisabled(value: boolean) {
+    this.getNode().disabled = value;
   }
 }

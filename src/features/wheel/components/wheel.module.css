@@ -7,17 +7,76 @@
   padding: 1rem;
 }
 
-.spinButton {
-  padding: 0.5rem 1rem;
-  background-color: #007c7c;
+.spinForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 
-  &:active {
+  .spinButton {
+    padding: 0.5rem 1rem;
     background-color: #007c7c;
+
+    &:active {
+      background-color: #007c7c;
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      &:hover:not(:active) {
+        background-color: #008c8c;
+      }
+    }
   }
 
-  @media (hover: hover) and (pointer: fine) {
-    &:hover:not(:active) {
-      background-color: #008c8c;
+  .durationLabel {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+
+    .durationInput {
+      max-width: 3.5rem;
+      padding: 0.5rem;
+
+      color: inherit;
+
+      background-color: #00000060;
+      border: none;
+      outline: none;
+      box-shadow: 0 0 0.25rem 0.1rem #ffffff80;
+
+      transition-duration: 0.2s;
+
+      &::-webkit-outer-spin-button,
+      &::-webkit-inner-spin-button {
+        margin: 0;
+        appearance: none;
+      }
+
+      &::placeholder {
+        color: inherit;
+        opacity: 0.5;
+      }
+
+      &[type='number'] {
+        appearance: textfield;
+      }
+
+      &:disabled {
+        pointer-events: none;
+        opacity: 0.7;
+        background-color: #808080;
+      }
+
+      &:focus {
+        box-shadow:
+          0 0 0.25rem 0.1rem #fff,
+          inset 0 0 0.1rem 0.05rem #fff;
+      }
+
+      @media (hover: hover) and (pointer: fine) {
+        &:hover:not(&:focus, &:disabled) {
+          box-shadow: 0 0 0.25rem 0.1rem #fff;
+        }
+      }
     }
   }
 }
