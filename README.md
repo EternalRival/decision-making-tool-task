@@ -134,6 +134,16 @@ The second part of the application allows you to see the previously created list
 
 ### WoF Modal
 
+> Great place to get familiar with the `<dialog>` element, but the old-fashioned `div.modal>div.modal-content` pattern is ok too.
+>
+> Briefly, the states mentioned below are:
+>
+> 1. Modal window `WoF` opened - the wheel is in the `initial state`.
+> 2. A successful start of rotation has been initiated - the wheel is in the `rotation state`.
+> 3. The rotation has finished and the winning lot has been determined - the wheel is in the `winning state`.
+> After that `rotation state` and `winning state` cyclically change each other according to points 2 and 3.
+> If the modal window `WoF` was closed and reopened, the life cycle starts again with `initial state`
+
 #### General
 
 1. Displays the `WoF` modal window if the number of valid lots is two or more.
@@ -176,9 +186,10 @@ The second part of the application allows you to see the previously created list
 1. When wheel rotation is initiated, the wheel must start rotating and stop after a short duration.
 2. The rotation duration must be specified by the `duration` element. That is, it should correspond to its value (in seconds) at the moment of rotation start. *Be loyal when crosschecking. A small inaccuracy is acceptable. There is no need to reduce points for a difference of a couple of seconds.*
 3. The rotation should have a non-linear velocity. Use a suitable easing *(e.g. `ease-in-out` or `ease-in-out-back' with a tiny magnitude)*.
-4. In the wheel rotation state, `lot slices` must not change their order, shape, color. *It means that visually the `lot slices` shall rotate as an indivisible whole wheel.*
-5. In the wheel rotation state, the `lot slice title` shall not change its location relative to the boundaries of its `lot slice`. *It means that visually `lot slice title` and `lot slice` should rotate as an indivisible element.*
-6. In the wheel rotation state, the `cursor` must stay in its place and not rotate.
+4. The wheel must perform several full spins (minimum 5) and stop at a randomly selected lot.
+5. In the wheel rotation state, `lot slices` must not change their order, shape, color. *It means that visually the `lot slices` shall rotate as an indivisible whole wheel.*
+6. In the wheel rotation state, the `lot slice title` shall not change its location relative to the boundaries of its `lot slice`. *It means that visually `lot slice title` and `lot slice` should rotate as an indivisible element.*
+7. In the wheel rotation state, the `cursor` must stay in its place and not rotate.
 
 #### Selected lot
 
@@ -194,9 +205,10 @@ The second part of the application allows you to see the previously created list
 ##### Close button
 
 1. Displays a `close button` in the upper right corner of modal window for returning to the [list of lots](#list-of-lots). The appearance of this button should clearly indicate its purpose *(contain appropriate text or icon. e.g., "⨉", "x", etc.)*.
-2. The `close button` click must close `WoF` view and return the user to the [list of lots](#list-of-lots).
-3. In the wheel rotation state, `close button` must be temporarily visually disabled or hidden and must not be functioning.
-4. In the initial and winning states `close button` returns to its original state and functions as it should.
+2. The `close button` click must close `WoF` modal window and return the user to the [list of lots](#list-of-lots).
+3. Closing `WoF` modal window must remove it from DOM.
+4. In the wheel rotation state, `close button` must be temporarily visually disabled or hidden and must not be functioning.
+5. In the initial and winning states `close button` returns to its original state and functions as it should.
 
 ##### Outside click
 
@@ -219,8 +231,8 @@ The second part of the application allows you to see the previously created list
 2. The `spin button` click must attempt to initiate rotation of the wheel.
    - If the `duration` input value is greater than five seconds inclusive, the wheel should successfully initiate rotation.
    - Otherwise, the user should be notified of incorrect input *(the default form validation is enough, but you can implement a custom one if you want)*.
-4. In the wheel rotation state, `spin button` must be temporarily visually disabled and must not be functioning.
-5. In the initial and winning states `spin button` returns to its original state and functions as it should.
+3. In the wheel rotation state, `spin button` must be temporarily visually disabled and must not be functioning.
+4. In the initial and winning states `spin button` returns to its original state and functions as it should.
 
 ## Crosscheck Penalties
 
