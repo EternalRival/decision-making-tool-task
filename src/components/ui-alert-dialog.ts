@@ -1,8 +1,8 @@
 import { Component } from '~/components/component';
-import styles from './ui-alert-modal.module.css';
-import { UiModal } from './ui-modal';
+import styles from './ui-alert-dialog.module.css';
+import { UiDialog } from './ui-dialog';
 
-export class UiAlertModal extends UiModal {
+export class UiAlertDialog extends UiDialog {
   constructor({ alertText }: { alertText: string }) {
     super();
 
