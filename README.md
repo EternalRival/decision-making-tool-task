@@ -254,6 +254,7 @@ The second part of the application allows you to see the previously created list
 ## Useful links
 
 - [Creating markup with JS](https://gist.github.com/TELEUZI/410d19772481d98b06e0b41ebf89fff1)
+- [MDN: \<dialog\>](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog)
 - [MDN: Canvas API](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API)
 - [MDN: File API](https://developer.mozilla.org/en-US/docs/Web/API/File_API/Using_files_from_web_applications)
 - [MDN: Web Animations API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API)
