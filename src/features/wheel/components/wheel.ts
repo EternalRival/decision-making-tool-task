@@ -70,9 +70,10 @@ export class Wheel extends UiDialog {
     const durationInput = new Input({
       className: styles.durationInput,
       type: 'number',
-      min: '1',
+      min: '5',
       value: '20',
-      placeholder: 'seconds',
+      placeholder: 'sec',
+      required: true,
     });
     const spinForm = new Component('form', {
       className: styles.spinForm,

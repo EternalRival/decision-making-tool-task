@@ -173,8 +173,8 @@ The second part of the application allows you to see the previously created list
 
 ##### Wheel rotating
 
-1. When wheel rotation is initiated, the wheel must start rotating and stop after a short time.
-2. The rotation time must be specified by the `time` element. That is, it should correspond to its value (in seconds) at the moment of rotation start. *Be loyal when crosschecking. A small inaccuracy is acceptable. There is no need to reduce points for a difference of a couple of seconds.*
+1. When wheel rotation is initiated, the wheel must start rotating and stop after a short duration.
+2. The rotation duration must be specified by the `duration` element. That is, it should correspond to its value (in seconds) at the moment of rotation start. *Be loyal when crosschecking. A small inaccuracy is acceptable. There is no need to reduce points for a difference of a couple of seconds.*
 3. The rotation should have a non-linear velocity. Use a suitable easing *(e.g. `ease-in-out` or `ease-in-out-back' with a tiny magnitude)*.
 4. In the wheel rotation state, `lot slices` must not change their order, shape, color. *It means that visually the `lot slices` shall rotate as an indivisible whole wheel.*
 5. In the wheel rotation state, the `lot slice title` shall not change its location relative to the boundaries of its `lot slice`. *It means that visually `lot slice title` and `lot slice` should rotate as an indivisible element.*
@@ -204,21 +204,23 @@ The second part of the application allows you to see the previously created list
 2. In the wheel rotation state, the `outside click` functionality must be temporarily disabled.
 3. In the initial and winning states `outside click` functions as it should.
 
+##### Duration
+
+1. Displays a `duration` `<input>` element next to the `wheel` for setting the rotation duration in seconds.
+2. `duration` element must be able to be edited by the user.
+3. `duration` element must take only numbers.
+4. `duration` element must have a default value, which should be between 5 and 30 seconds.
+5. In the wheel rotation state, `duration` element must be temporarily visually disabled and must not be functioning.
+6. In the initial and winning states `duration` element returns to its original state and functions as it should.
+
 ##### Spin
 
 1. Displays a `spin button` next to the `wheel` for start rotation of the wheel. The appearance of this button should clearly indicate its purpose *(contain appropriate text and/or icon. e.g., "spin", "play", etc.)*.
-2. The `spin button` click must initiate rotation of the wheel.
-3. In the wheel rotation state, `spin button` must be temporarily visually disabled and must not be functioning.
-4. In the initial and winning states `spin button` returns to its original state and functions as it should.
-
-##### Time
-
-1. Displays a `time` `<input>` element next to the `wheel` for setting the rotation time in seconds.
-2. `time` element must be able to be edited by the user.
-3. `time` element must take only numbers.
-4. `time` element must have a default value, which should be between 5 and 30 seconds.
-5. In the wheel rotation state, `time` element must be temporarily visually disabled and must not be functioning.
-6. In the initial and winning states `time` element returns to its original state and functions as it should.
+2. The `spin button` click must attempt to initiate rotation of the wheel.
+   - If the `duration` input value is greater than five seconds inclusive, the wheel should successfully initiate rotation.
+   - Otherwise, the user should be notified of incorrect input *(the default form validation is enough, but you can implement a custom one if you want)*.
+4. In the wheel rotation state, `spin button` must be temporarily visually disabled and must not be functioning.
+5. In the initial and winning states `spin button` returns to its original state and functions as it should.
 
 ## Crosscheck Penalties
 
