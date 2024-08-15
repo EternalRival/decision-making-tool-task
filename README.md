@@ -56,15 +56,18 @@ The second part of the application allows you to see the previously created list
 
 ### Code Formatting and Linting
 
-- TBD  <!-- TODO дописать/убрать -->
+> TBD  <!-- TODO дописать/убрать -->
+
 - husky
 - `strict: true` в конфиге ts
 - `no-explicit-any` в конфиге eslint
 
 ### Code Quality
 
-- TBD  <!-- TODO дописать/убрать -->
-- Код разбит на модули
+> TBD  <!-- TODO дописать/убрать -->
+
+- Тайпгварды пиши
+- Код на модули разбивай
 - У ментора нет замечаний к качеству кода, либо все замечания ментора исправлены.
 
 ## Functional Requirements (+256)
@@ -276,15 +279,17 @@ The second part of the application allows you to see the previously created list
 - (-100%) Using `alert`, `prompt`, `confirm`.
 - (-15?) App has unexpected errors in the console.
 
-## Mentor review
+## Mentor review Evaluation
+
+> TBD (менторские приколы) <!-- TODO дописать/убрать -->
 
 - Submit app for mentor review according to [Submission Requirements](#repository-and-submission-requirements)
 - Evaluation is based on [Technical Requirements](#technical-requirements). <!-- TODO поправить ссылку -->
-- TBD (менторские приколы) <!-- TODO дописать/убрать -->
 
 ## Mentor/Moderation Penalties
 
-- TBD <!-- TODO дописать/убрать -->
+> TBD <!-- TODO дописать/убрать -->
+
 - (-?) [Repository and Submission Requirements](#repository-and-submission-requirements) not met.
 - (-?) [Technical Requirements](#technical-requirements) not met.
 
