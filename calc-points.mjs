@@ -16,8 +16,6 @@ function getSectionContent({ content, sectionName, sectionChar }) {
     throw new Error('Section chars not found');
   }
 
-  [headingChars] = headingChars;
-
   let startIndex = content.indexOf(`${EOL}${sectionName}`);
 
   if (startIndex < 0) {
@@ -28,11 +26,14 @@ function getSectionContent({ content, sectionName, sectionChar }) {
 
   const startIndexWithOffset = content.indexOf('\n', startIndex) + 1;
 
-  let endIndex = content.indexOf(`${EOL}${headingChars} `, startIndexWithOffset);
+  let endIndex;
 
-  if (endIndex < 0) {
-    endIndex = content.indexOf(`${EOL}${sectionChar}`, startIndexWithOffset);
-  }
+  [headingChars] = headingChars;
+
+  do {
+    endIndex = content.indexOf(`${EOL}${headingChars} `, startIndexWithOffset);
+    headingChars = headingChars.slice(0, -1);
+  } while (endIndex < 0);
 
   return content.slice(startIndex, endIndex);
 }
@@ -57,4 +58,27 @@ const functionalPoints = getSectionPoints({
   pointsPattern: /^\d+\. \(\+(\d+)\) /gm,
 });
 
-Object.entries({ functionalPoints }).forEach(([title, points]) => console.log(`${title}:`, points));
+const listOfLotsPoints = getSectionPoints({
+  sectionContent: getSectionContent({
+    content: getFileContent(fileName),
+    sectionChar: '#',
+    sectionName: '### List of lots',
+  }),
+  pointsPattern: /^\d+\. \(\+(\d+)\) /gm,
+});
+
+const wofModalPoints = getSectionPoints({
+  sectionContent: getSectionContent({
+    content: getFileContent(fileName),
+    sectionChar: '#',
+    sectionName: '### WoF Modal',
+  }),
+  pointsPattern: /^\d+\. \(\+(\d+)\) /gm,
+});
+
+console.table({
+  'Functional Requirements': functionalPoints,
+  '  List of lots': listOfLotsPoints,
+  '  WoF Modal': wofModalPoints,
+  'List of lots + WoF Modal': listOfLotsPoints + wofModalPoints,
+});

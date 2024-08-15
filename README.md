@@ -72,7 +72,7 @@ The second part of the application allows you to see the previously created list
 
 ## Functional Requirements (+256)
 
-### List of lots
+### List of lots (+92)
 
 #### General
 
@@ -152,7 +152,7 @@ The second part of the application allows you to see the previously created list
 2. (+4) The `start button` click must open `WoF` modal window.
 3. (+4) The list of current lots passed to the modal window must be filtered and contain only valid lots. A lot is considered valid if its [`title`](#title) is not empty and its [`weight`](#weight) is greater than `0`.
 
-### WoF Modal
+### WoF Modal (+164)
 
 > Great place to get familiar with the `<dialog>` element, but the old-fashioned `div.modal>div.modal-content` pattern is ok too.
 >
