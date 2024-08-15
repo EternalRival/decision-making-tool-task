@@ -56,14 +56,14 @@ The second part of the application allows you to see the previously created list
 
 ### Code Formatting and Linting
 
-- TBD
+- TBD  <!-- TODO дописать/убрать -->
 - husky
 - `strict: true` в конфиге ts
 - `no-explicit-any` в конфиге eslint
 
 ### Code Quality
 
-- TBD
+- TBD  <!-- TODO дописать/убрать -->
 - Код разбит на модули
 - У ментора нет замечаний к качеству кода, либо все замечания ментора исправлены.
 
@@ -279,11 +279,12 @@ The second part of the application allows you to see the previously created list
 ## Mentor review
 
 - Submit app for mentor review according to [Submission Requirements](#repository-and-submission-requirements)
-- TBD (менторские приколы)
+- Evaluation is based on [Technical Requirements](#technical-requirements). <!-- TODO поправить ссылку -->
+- TBD (менторские приколы) <!-- TODO дописать/убрать -->
 
 ## Mentor/Moderation Penalties
 
-- TBD
+- TBD <!-- TODO дописать/убрать -->
 - (-?) [Repository and Submission Requirements](#repository-and-submission-requirements) not met.
 - (-?) [Technical Requirements](#technical-requirements) not met.
 
