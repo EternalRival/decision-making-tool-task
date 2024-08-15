@@ -58,9 +58,13 @@ export class Wheel extends UiDialog {
     }) => {
       spinButton.setDisabled(true);
       durationInput.setDisabled(true);
-      header.toggleClass(styles.hidden, true);
       this.setModalLock(true);
-      selected.removeClass(styles.winner);
+      if (styles['hidden']) {
+        header.addClass(styles['hidden']);
+      }
+      if (styles['winner']) {
+        selected.removeClass(styles['winner']);
+      }
 
       this.spin({
         duration: Number(durationInput.getValue()),
@@ -68,9 +72,13 @@ export class Wheel extends UiDialog {
         onFinish: () => {
           spinButton.setDisabled(false);
           durationInput.setDisabled(false);
-          header.toggleClass(styles.hidden, false);
           this.setModalLock(false);
-          selected.addClass(styles.winner);
+          if (styles['hidden']) {
+            header.removeClass(styles['hidden']);
+          }
+          if (styles['winner']) {
+            selected.addClass(styles['winner']);
+          }
           winningSoundPlay();
         },
       });
@@ -80,24 +88,24 @@ export class Wheel extends UiDialog {
       saveMuteStateToLS();
     };
 
-    const container = new Component('div', { className: styles.container });
-    const header = new Component('div', { className: styles.header });
-    const selected = new Component('p', { className: styles.selected, textContent: this.getCurrentSliceTitle() });
+    const container = new Component('div', { className: styles['container'] });
+    const header = new Component('div', { className: styles['header'] });
+    const selected = new Component('p', { className: styles['selected'], textContent: this.getCurrentSliceTitle() });
     const canvas = new Component('canvas', {
-      className: styles.canvas,
+      className: styles['canvas'],
       width: size,
       height: size,
       textContent: 'wheel of fortune',
     });
 
     const closeButton = new Button({
-      className: styles.closeButton,
+      className: styles['closeButton'],
       textContent: '⨉',
       onclick: () => this.remove(),
     });
 
     const soundButton = new Button({
-      className: styles.soundButton,
+      className: styles['soundButton'],
       onclick: () => {
         toggleMuteState();
 
@@ -108,15 +116,15 @@ export class Wheel extends UiDialog {
     soundButton.getNode().insertAdjacentHTML('beforeend', getSoundButtonIcon());
 
     const spinButton = new UiButton({
-      className: styles.spinButton,
+      className: styles['spinButton'],
       type: 'submit',
       textContent: 'Spin',
       autofocus: true,
     });
 
-    const durationLabel = new Component('label', { className: styles.durationLabel, textContent: 'Duration:' });
+    const durationLabel = new Component('label', { className: styles['durationLabel'], textContent: 'Duration:' });
     const durationInput = new Input({
-      className: styles.durationInput,
+      className: styles['durationInput'],
       type: 'number',
       min: '5',
       value: '20',
@@ -124,7 +132,7 @@ export class Wheel extends UiDialog {
       required: true,
     });
     const spinForm = new Component('form', {
-      className: styles.spinForm,
+      className: styles['spinForm'],
       onsubmit: (e) => {
         e.preventDefault();
         handleStartSpin({ selected, spinButton, durationInput, header });
@@ -149,7 +157,7 @@ export class Wheel extends UiDialog {
     window.addEventListener('beforeunload', this.handleBeforeUnload);
   }
 
-  public remove() {
+  public override remove() {
     super.remove();
     window.removeEventListener('beforeunload', this.handleBeforeUnload);
     this.handleBeforeUnload();
@@ -190,7 +198,7 @@ export class Wheel extends UiDialog {
 
     const isCurrentSlice = (slice: WheelSlice) => slice.startAngle <= rotation && slice.endAngle > rotation;
 
-    return (this.sliceList.find(isCurrentSlice) ?? this.sliceList[0]).title;
+    return this.sliceList.find(isCurrentSlice)?.title ?? 'untitled lot';
   }
 
   private withRotationOffset(angle: number): number {

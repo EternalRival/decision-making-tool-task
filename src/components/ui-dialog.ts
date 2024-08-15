@@ -6,7 +6,7 @@ export class UiDialog extends Component<'dialog'> {
 
   constructor() {
     super('dialog', {
-      className: styles.uiDialog,
+      className: styles['uiDialog'],
       onclick: (e) => {
         if (e.target === e.currentTarget) {
           this.remove();
@@ -22,10 +22,13 @@ export class UiDialog extends Component<'dialog'> {
 
   protected setModalLock(value: boolean) {
     this.isModalLocked = value;
-    this.toggleClass(styles.darkened, value);
+
+    if (styles['darkened']) {
+      this.toggleClass(styles['darkened'], value);
+    }
   }
 
-  public remove() {
+  public override remove() {
     if (this.isModalLocked) {
       return;
     }

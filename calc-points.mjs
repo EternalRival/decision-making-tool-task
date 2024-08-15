@@ -26,7 +26,7 @@ function getSectionContent({ content, sectionName, sectionChar }) {
 
   startIndex += 1;
 
-  const startIndexWithOffset = startIndex + sectionName.length + 1;
+  const startIndexWithOffset = content.indexOf('\n', startIndex) + 1;
 
   let endIndex = content.indexOf(`${EOL}${headingChars} `, startIndexWithOffset);
 
@@ -57,4 +57,4 @@ const functionalPoints = getSectionPoints({
   pointsPattern: /^\d+\. \(\+(\d+)\) /gm,
 });
 
-console.log(functionalPoints);
+Object.entries({ functionalPoints }).forEach(([title, points]) => console.log(`${title}:`, points));

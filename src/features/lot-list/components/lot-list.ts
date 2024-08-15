@@ -14,13 +14,13 @@ export class LotList extends Component {
   private handleBeforeUnload: () => void;
 
   constructor({ onStartClick }: { onStartClick: (list: { title: string; weight: number }[]) => void }) {
-    super('div', { className: styles.lotList });
+    super('div', { className: styles['lotList'] });
 
     const { getNextId, resetId, saveCurrentLastIdToLS } = createLotIdService();
     const { lotsData, saveLotsToLS } = createLotListService();
 
-    const heading = new Component('h1', { className: styles.heading, textContent: 'Wheel of fortune' });
-    const lotsContainer = new Component('div', { className: styles.lots });
+    const heading = new Component('h1', { className: styles['heading'], textContent: 'Wheel of fortune' });
+    const lotsContainer = new Component('div', { className: styles['lots'] });
 
     const lots = new Map<string, Lot>();
 
@@ -106,35 +106,35 @@ export class LotList extends Component {
     };
 
     const addLotButton = new UiButton({
-      className: styles.addLotButton,
+      className: styles['addLotButton'],
       type: 'button',
       textContent: 'Add Lot',
       onclick: handleAddLotClick,
     });
 
     const clearListButton = new UiButton({
-      className: styles.clearListButton,
+      className: styles['clearListButton'],
       type: 'button',
       textContent: 'Clear list',
       onclick: handleClearListClick,
     });
 
     const saveToFileButton = new UiButton({
-      className: styles.saveToFileButton,
+      className: styles['saveToFileButton'],
       type: 'button',
       textContent: 'Save list to file',
       onclick: handleSaveToFileClick,
     });
 
     const loadFromFileButton = new UiButton({
-      className: styles.loadFromFileButton,
+      className: styles['loadFromFileButton'],
       type: 'button',
       textContent: 'Load list from file',
       onclick: handleLoadFromFileClick,
     });
 
     const startButton = new UiButton({
-      className: styles.startButton,
+      className: styles['startButton'],
       type: 'button',
       textContent: 'Start',
       onclick: handleStartClick,
@@ -153,7 +153,7 @@ export class LotList extends Component {
     window.addEventListener('beforeunload', this.handleBeforeUnload);
   }
 
-  public remove() {
+  public override remove() {
     super.remove();
     window.removeEventListener('beforeunload', this.handleBeforeUnload);
     this.handleBeforeUnload();

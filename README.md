@@ -41,9 +41,11 @@ The second part of the application allows you to see the previously created list
 - App must be supported at widths between `640px` and `1280px` at least *(DOM elements should not go out of bounds of parent elements, overlap, etc.)*.
 - The use of `alert`, `prompt`, `confirm` is prohibited.
 - App must not have unexpected errors in the console *(don't forget the favicon)*.
-- Crosscheck is performed in the latest version of the "google chrome" browser.
+- The app must be supported by at least the latest version of the “google chrome” browser
 
 ## Technical Requirements
+
+### General
 
 - Language: Application written in TypeScript.
 - Allowed: Bundlers (webpack, vite)
@@ -52,7 +54,20 @@ The second part of the application allows you to see the previously created list
 - Prohibited: jQuery
 - Prohibited: Third-party libraries not listed in the allowed libraries.
 
-## Functional Requirements
+### Code Formatting and Linting
+
+- TBD
+- husky
+- `strict: true` в конфиге ts
+- `no-explicit-any` в конфиге eslint
+
+### Code Quality
+
+- TBD
+- Код разбит на модули
+- У ментора нет замечаний к качеству кода, либо все замечания ментора исправлены.
+
+## Functional Requirements (+256)
 
 ### List of lots
 
@@ -240,13 +255,19 @@ The second part of the application allows you to see the previously created list
 
 ##### Sound
 
-> Keeping or not keeping the mute state is at your choice and is not evaluated at crosscheck.
+> Keeping or not keeping mute state between sessions is at your choice and is not evaluated on crosscheck.
 
 1. (+1) Displays a `sound button` within the `WoF` modal window for toggling sound on/off. The appearance of this button should clearly indicate its purpose *(contain appropriate text and/or icon. e.g., "sound: on", "sound: off", "🔊", "🔇", etc.)*.
 2. (+4) The `sound button` click must toggle sound on/off.
 3. (+2) The `sound button` appearance must correspond to the current mute state (dynamically). *This means that if the sound is muted, the button shows that it is muted and vice versa.*
 4. (+4) In the wheel rotation state, `sound button` must be temporarily visually disabled or hidden and must not be functioning.
 5. (+4) In the initial and winning states `sound button` returns to its original state and functions as it should.
+
+## Crosscheck Evaluation
+
+- Submit app for crosscheck according to [Submission Requirements](#repository-and-submission-requirements).
+- Evaluation is based on [Functional Requirements](#functional-requirements-256).
+- Check on the latest version of the “google chrome” browser.
 
 ## Crosscheck Penalties
 
@@ -255,14 +276,15 @@ The second part of the application allows you to see the previously created list
 - (-100%) Using `alert`, `prompt`, `confirm`.
 - (-15?) App has unexpected errors in the console.
 
-## Mentor check
+## Mentor review
 
+- Submit app for mentor review according to [Submission Requirements](#repository-and-submission-requirements)
 - TBD (менторские приколы)
 
 ## Mentor/Moderation Penalties
 
+- TBD
 - (-?) [Repository and Submission Requirements](#repository-and-submission-requirements) not met.
-- (-?) [General Requirements](#general-requirements) not met.
 - (-?) [Technical Requirements](#technical-requirements) not met.
 
 ## Useful links
