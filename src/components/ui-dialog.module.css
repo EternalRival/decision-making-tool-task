@@ -1,4 +1,8 @@
 .uiDialog {
+  position: relative;
+
+  padding: 0;
+
   color: inherit;
 
   background-color: #008c8ccc;
@@ -18,42 +22,5 @@
 
   &.darkened::backdrop {
     backdrop-filter: blur(3px) brightness(0.75);
-  }
-
-  .closeButton {
-    cursor: pointer;
-
-    position: absolute;
-    top: 0.5rem;
-    right: 0.5rem;
-
-    width: 1.5rem;
-    height: 1.5rem;
-    padding: 0;
-
-    color: inherit;
-
-    background-color: transparent;
-    border: none;
-    border-radius: 0.5rem;
-
-    transition-duration: 0.2s;
-
-    &.hidden {
-      pointer-events: none;
-      opacity: 0;
-    }
-
-    &:focus {
-      outline: none;
-      box-shadow: 0 0 0.25rem 0.1rem #fff;
-    }
-
-    @media (hover: hover) and (pointer: fine) {
-      &:hover {
-        background-color: #007c7c;
-        box-shadow: 0 0 0.25rem 0.1rem #fffa;
-      }
-    }
   }
 }

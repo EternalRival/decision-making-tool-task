@@ -11,6 +11,8 @@ import { Lot } from './lot';
 import styles from './lot-list.module.css';
 
 export class LotList extends Component {
+  private handleBeforeUnload: () => void;
+
   constructor({ onStartClick }: { onStartClick: (list: { title: string; weight: number }[]) => void }) {
     super('div', { className: styles.lotList });
 
@@ -98,10 +100,10 @@ export class LotList extends Component {
       onStartClick(lotsData);
     }
 
-    function handleBeforeUnload() {
+    this.handleBeforeUnload = () => {
       saveLotsToLS(lots);
       saveCurrentLastIdToLS();
-    }
+    };
 
     const addLotButton = new UiButton({
       className: styles.addLotButton,
@@ -148,11 +150,12 @@ export class LotList extends Component {
       startButton
     );
 
-    window.addEventListener('beforeunload', handleBeforeUnload);
+    window.addEventListener('beforeunload', this.handleBeforeUnload);
+  }
 
-    this.remove = () => {
-      super.remove();
-      window.removeEventListener('beforeunload', handleBeforeUnload);
-    };
+  public remove() {
+    super.remove();
+    window.removeEventListener('beforeunload', this.handleBeforeUnload);
+    this.handleBeforeUnload();
   }
 }

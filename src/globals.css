@@ -14,6 +14,10 @@ body {
   background-color: darkcyan;
 }
 
+button {
+  user-select: none;
+}
+
 .body-no-scroll {
   overflow: hidden;
 }

@@ -62,7 +62,7 @@ function normalizeText(ctx: CanvasRenderingContext2D, text: string, maxWidth: nu
     return text;
   }
 
-  return normalizeText(ctx, `${text.slice(0, -2)}…`, maxWidth);
+  return normalizeText(ctx, `${text.slice(0, -2).trimEnd()}…`, maxWidth);
 }
 
 function drawSliceText({
