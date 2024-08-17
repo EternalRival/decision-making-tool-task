@@ -1,16 +1,9 @@
 import { type LotData } from '../types/lot-data.type';
+import isLotData from './is-lot-data';
 
-export function isLotDataEntriesList(value: unknown): value is [string, LotData][] {
+export default function isLotDataEntriesList(value: unknown): value is [string, LotData][] {
   return (
     Array.isArray(value) &&
-    value.every(
-      (item) =>
-        Array.isArray(item) &&
-        typeof item[0] === 'string' &&
-        typeof item[1] === 'object' &&
-        item[1] !== null &&
-        typeof item[1].title === 'string' &&
-        typeof item[1].weight === 'string'
-    )
+    value.every((item) => Array.isArray(item) && item.length === 2 && typeof item[0] === 'string' && isLotData(item[1]))
   );
 }

@@ -1,19 +1,23 @@
 import { LSService } from '~/utils/local-storage-service';
 
-export function createLotIdService() {
-  let lastId = LSService.get('lastId') ?? 0;
+export default function createLotIdService(): {
+  getNextId: () => string;
+  resetId: () => void;
+  saveCurrentLastIdToLS: () => void;
+} {
+  let lastId = Number(LSService.get('lastId')) || 0;
 
   return {
-    getNextId() {
+    getNextId: (): string => {
       lastId += 1;
-      return `#${lastId}`;
+      return `#${lastId.toString()}`;
     },
 
-    resetId() {
+    resetId: (): void => {
       lastId = 0;
     },
 
-    saveCurrentLastIdToLS() {
+    saveCurrentLastIdToLS: (): void => {
       LSService.set('lastId', lastId);
     },
   };

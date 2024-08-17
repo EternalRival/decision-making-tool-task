@@ -12,6 +12,6 @@ const easing = {
   },
 };
 
-export function easeInOut(progress: number): number {
+export default function easeInOut(progress: number): number {
   return easing.easeInOutCubic(progress);
 }

@@ -1,26 +1,31 @@
-import { Button } from '~/components/button';
-import { Component } from '~/components/component';
-import { Input } from '~/components/input';
-import { UiButton } from '~/components/ui-button';
-import { UiDialog } from '~/components/ui-dialog';
+import Button from '~/components/button';
+import Component from '~/components/component';
+import Input from '~/components/input';
+import UiButton from '~/components/ui-button';
+import UiDialog from '~/components/ui-dialog';
 import soundOffIconSrc from '../assets/sound-off.svg?raw';
 import soundOnIconSrc from '../assets/sound-on.svg?raw';
 import winningSoundSrc from '../assets/ta-da.mp3';
 import { type TableRow } from '../types/table-row.type';
 import { type WheelSlice } from '../types/wheel-slice.type';
-import { animate } from '../utils/animate';
-import { createMuteStateService } from '../utils/create-mute-state-service';
-import { drawWheel } from '../utils/draw-wheel';
-import { easeInOut } from '../utils/ease-in-out';
-import { getSliceList } from '../utils/get-slice-list';
+import animate from '../utils/animate';
+import createMuteStateService from '../utils/create-mute-state-service';
+import drawWheel from '../utils/draw-wheel';
+import easeInOut from '../utils/ease-in-out';
+import getSliceList from '../utils/get-slice-list';
 import styles from './wheel.module.css';
 
-export class Wheel extends UiDialog {
+export default class Wheel extends UiDialog {
   private ctx: CanvasRenderingContext2D;
+
   private size: number;
+
   private rotation: number;
+
   private sliceList: WheelSlice[];
+
   private renderSelected: () => void;
+
   private handleBeforeUnload: () => void;
 
   constructor({ size = 512, table }: { size?: number; table: TableRow[] }) {
@@ -34,16 +39,14 @@ export class Wheel extends UiDialog {
 
     const winningSound = new Audio(winningSoundSrc);
     winningSound.volume = 0.5;
-    const winningSoundPlay = () => {
+    const winningSoundPlay = async (): Promise<void> => {
       if (!getMuteState()) {
         winningSound.currentTime = 0;
-        winningSound.play();
+        await winningSound.play();
       }
     };
 
-    const getSoundButtonIcon = () => {
-      return getMuteState() ? soundOffIconSrc : soundOnIconSrc;
-    };
+    const getSoundButtonIcon = (): string => (getMuteState() ? soundOffIconSrc : soundOnIconSrc);
 
     const handleStartSpin = ({
       selected,
@@ -55,7 +58,7 @@ export class Wheel extends UiDialog {
       header: Component;
       spinButton: Button;
       durationInput: Input;
-    }) => {
+    }): void => {
       spinButton.setDisabled(true);
       durationInput.setDisabled(true);
       this.setModalLock(true);
@@ -79,12 +82,14 @@ export class Wheel extends UiDialog {
           if (styles['winner']) {
             selected.addClass(styles['winner']);
           }
-          winningSoundPlay();
+          winningSoundPlay().catch((error: unknown) => {
+            console.error(error);
+          });
         },
       });
     };
 
-    this.handleBeforeUnload = () => {
+    this.handleBeforeUnload = (): void => {
       saveMuteStateToLS();
     };
 
@@ -101,12 +106,14 @@ export class Wheel extends UiDialog {
     const closeButton = new Button({
       className: styles['closeButton'],
       textContent: '⨉',
-      onclick: () => this.remove(),
+      onclick: (): void => {
+        this.remove();
+      },
     });
 
     const soundButton = new Button({
       className: styles['soundButton'],
-      onclick: () => {
+      onclick: (): void => {
         toggleMuteState();
 
         soundButton.getNode().replaceChildren();
@@ -133,7 +140,7 @@ export class Wheel extends UiDialog {
     });
     const spinForm = new Component('form', {
       className: styles['spinForm'],
-      onsubmit: (e) => {
+      onsubmit: (e): void => {
         e.preventDefault();
         handleStartSpin({ selected, spinButton, durationInput, header });
       },
@@ -144,7 +151,9 @@ export class Wheel extends UiDialog {
     if (!ctx) throw new Error();
 
     this.ctx = ctx;
-    this.renderSelected = () => selected.setTextContent(this.getCurrentSliceTitle());
+    this.renderSelected = (): void => {
+      selected.setTextContent(this.getCurrentSliceTitle());
+    };
 
     this.renderWheel();
 
@@ -157,7 +166,7 @@ export class Wheel extends UiDialog {
     window.addEventListener('beforeunload', this.handleBeforeUnload);
   }
 
-  public override remove() {
+  public override remove(): void {
     super.remove();
     window.removeEventListener('beforeunload', this.handleBeforeUnload);
     this.handleBeforeUnload();
@@ -175,11 +184,11 @@ export class Wheel extends UiDialog {
     const fullSpinsRotation = duration * Math.PI * 2;
     const targetRotation = fullSpinsRotation + targetRotationOffset;
 
-    const drawFn = (progress: number) => {
+    const drawFn = (progress: number): void => {
       this.renderWheel(progress * targetRotation);
     };
 
-    const onSpinFinish = () => {
+    const onSpinFinish = (): void => {
       this.renderWheel(targetRotationOffset);
       onFinish();
     };
@@ -196,13 +205,13 @@ export class Wheel extends UiDialog {
 
     const rotation = circle - (this.rotation % circle);
 
-    const isCurrentSlice = (slice: WheelSlice) => slice.startAngle <= rotation && slice.endAngle > rotation;
+    const isCurrentSlice = (slice: WheelSlice): boolean => slice.startAngle <= rotation && slice.endAngle > rotation;
 
     return this.sliceList.find(isCurrentSlice)?.title ?? 'untitled lot';
   }
 
-  private withRotationOffset(angle: number): number {
-    return angle + Math.PI * 1.5;
+  private get rotationWithOffset(): number {
+    return this.rotation + Math.PI * 1.5;
   }
 
   private renderWheel(newRotation: number = this.rotation): void {
@@ -211,7 +220,7 @@ export class Wheel extends UiDialog {
 
     drawWheel({
       ctx: this.ctx,
-      rotation: this.withRotationOffset(this.rotation),
+      rotation: this.rotationWithOffset,
       size: this.size,
       sliceList: this.sliceList,
     });

@@ -1,17 +1,17 @@
-import { Component } from './component';
+import Component from './component';
 
 type Props = ConstructorParameters<typeof Component<'input'>>[1];
 
-export class Input extends Component<'input'> {
+export default class Input extends Component<'input'> {
   constructor(props?: Props) {
     super('input', props);
   }
 
-  public getValue() {
+  public getValue(): string {
     return this.getNode().value;
   }
 
-  public setDisabled(value: boolean) {
+  public setDisabled(value: boolean): void {
     this.getNode().disabled = value;
   }
 }

@@ -92,7 +92,7 @@ function drawSliceText({
 
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
-    ctx.font = `${fontSize}px Inter`;
+    ctx.font = `${fontSize.toString()}px Inter`;
 
     ctx.lineWidth = fontSize / 8;
     ctx.strokeStyle = '#000';
@@ -134,7 +134,15 @@ function drawCenterCircle({
   ctx.restore();
 }
 
-function drawCursor({ ctx, center, padding }: { ctx: CanvasRenderingContext2D; center: number; padding: number }) {
+function drawCursor({
+  ctx,
+  center,
+  padding,
+}: {
+  ctx: CanvasRenderingContext2D;
+  center: number;
+  padding: number;
+}): void {
   ctx.save();
 
   const path = new Path2D();
@@ -154,7 +162,7 @@ function drawCursor({ ctx, center, padding }: { ctx: CanvasRenderingContext2D; c
   ctx.restore();
 }
 
-export function drawWheel({
+export default function drawWheel({
   ctx,
   size,
   rotation,
@@ -166,7 +174,7 @@ export function drawWheel({
   rotation: number;
   sliceList: WheelSlice[];
   centerCircleColor?: string;
-}) {
+}): void {
   const center = size / 2;
   const padding = size / 32;
   const fontSize = size / 32;

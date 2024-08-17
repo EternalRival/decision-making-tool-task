@@ -1,6 +1,6 @@
-import { clampValue } from './clamp-value';
+import clampValue from './clamp-value';
 
-export function animate({
+export default function animate({
   duration,
   drawFn,
   easingFn,
@@ -10,7 +10,7 @@ export function animate({
   drawFn: (progress: number) => void;
   easingFn: (progress: number) => number;
   onFinish: () => void;
-}) {
+}): void {
   const start = performance.now();
 
   const callback: FrameRequestCallback = (time) => {

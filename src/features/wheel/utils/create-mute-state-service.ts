@@ -1,18 +1,20 @@
 import { LSService } from '~/utils/local-storage-service';
 
-export function createMuteStateService() {
-  let muteState = LSService.get('mute-state') ?? false;
+export default function createMuteStateService(): {
+  getMuteState: () => boolean;
+  toggleMuteState: (state?: boolean) => void;
+  saveMuteStateToLS: () => void;
+} {
+  let muteState = LSService.get('mute-state') === true;
 
   return {
-    getMuteState() {
-      return muteState;
-    },
+    getMuteState: () => muteState,
 
-    toggleMuteState(state?: boolean) {
+    toggleMuteState: (state): void => {
       muteState = typeof state === 'boolean' ? state : !muteState;
     },
 
-    saveMuteStateToLS() {
+    saveMuteStateToLS: (): void => {
       LSService.set('mute-state', muteState);
     },
   };

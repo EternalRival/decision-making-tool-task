@@ -1,6 +1,5 @@
+import type { LotData } from './lot-data.type';
+
 export type LotComponent = {
-  getValues: () => {
-    title: string;
-    weight: string;
-  };
+  getValues: () => LotData;
 };

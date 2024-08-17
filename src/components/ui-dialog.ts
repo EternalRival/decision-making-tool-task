@@ -1,7 +1,7 @@
-import { Component } from './component';
+import Component from './component';
 import styles from './ui-dialog.module.css';
 
-export class UiDialog extends Component<'dialog'> {
+export default class UiDialog extends Component<'dialog'> {
   private isModalLocked = false;
 
   constructor() {
@@ -20,7 +20,7 @@ export class UiDialog extends Component<'dialog'> {
     });
   }
 
-  protected setModalLock(value: boolean) {
+  protected setModalLock(value: boolean): void {
     this.isModalLocked = value;
 
     if (styles['darkened']) {
@@ -28,7 +28,7 @@ export class UiDialog extends Component<'dialog'> {
     }
   }
 
-  public override remove() {
+  public override remove(): void {
     if (this.isModalLocked) {
       return;
     }
@@ -38,7 +38,7 @@ export class UiDialog extends Component<'dialog'> {
     super.remove();
   }
 
-  public render(root: HTMLElement) {
+  public render(root: HTMLElement): void {
     root.append(this.getNode());
     this.getNode().showModal();
     document.body.classList.add('body-no-scroll');

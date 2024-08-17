@@ -24,6 +24,8 @@ The second part of the application allows you to see the previously created list
 - Learn to load and process data from a file *(e.g., via `File API`)*.
 - Familiarize yourself with Canvas API.
 - Practice with animations. *(e.g., via `Web API`'s `requestAnimationFrame`, `Animations API`, etc.)*
+- Familiarize yourself with setting up project configurations.
+- Familiarize yourself with writing clean code with strict rules.
 
 ## Repository and Submission Requirements
 
@@ -43,32 +45,109 @@ The second part of the application allows you to see the previously created list
 - App must not have unexpected errors in the console *(don't forget the favicon)*.
 - The app must be supported by at least the latest version of the “google chrome” browser
 
-## Technical Requirements
+## Technical Requirements (+160)
 
 ### General
 
 - Language: Application written in TypeScript.
-- Allowed: Bundlers (webpack, vite)
+- Required: Prettier, ESLint, StyleLint and libraries for them.
+- Required: Husky, lint-staged, commitlint.
+- Required: Bundlers (webpack, vite). *(It is allowed to use bundler's plugins.)*
 - Allowed: CSS modules, CSS Preprocessors (`Sass`, `Less`, `Stylus`, `PostCSS`), CSS in JS libraries (`tailwindcss`, `styled components`).
 - Prohibited: Frameworks like Angular, React, Vue, etc.
 - Prohibited: jQuery
 - Prohibited: Third-party libraries not listed in the allowed libraries.
 
-### Code Formatting and Linting
+### Code Formatting and Linting (+80)
 
-> TBD  <!-- TODO дописать/убрать -->
+#### TypeScript
 
-- husky
-- `strict: true` в конфиге ts
-- `no-explicit-any` в конфиге eslint
+> TypeScript helps us avoid unnecessary code errors at runtime and helps the IDE give us relevant hints during development.
 
-### Code Quality
+1. (+2) [TypeScript](https://www.typescriptlang.org/) must be installed to developer dependencies.
+2. (+2) TypeScript configuration file is added to the project and used.
+3. (+8) TypeScript configuration file must include the `strict` options enabled.
 
-> TBD  <!-- TODO дописать/убрать -->
+#### Prettier
 
-- Тайпгварды пиши
-- Код на модули разбивай
-- У ментора нет замечаний к качеству кода, либо все замечания ментора исправлены.
+> The formatter allows us to be less distracted by manual indentation and comma spacing, allowing us to better focus on writing code.
+
+1. (+2) [Prettier](https://prettier.io/) must be installed to developer dependencies.
+2. (+2) Prettier configuration file is added to the project and used.
+3. (+4) `package.json` must contain 2 scripts: `ci:format` for checking issues with CI and `format` for manually formatting project files. *The `prettier` command has many useful options, such as `--list-different` and `--ignore-unknown`.*
+
+#### ESLint
+
+> Linter allows us to keep our code clean. Clean code is more readable, maintainable, and reusable. And its auto-fixing of errors allows us to save time on refactoring.
+
+1. (+2) [ESLint](https://eslint.org/) must be installed to developer dependencies.
+2. (+2) ESLint configuration file is added to the project and used.
+3. (+8) ESLint configuration file must include the `noInlineConfig` and `reportUnusedDisableDirectives` options enabled.
+4. (+8) ESLint configuration file must include all of the following rules included:
+
+   ```json
+   {
+     '@typescript-eslint/consistent-type-imports': 'error',
+     '@typescript-eslint/explicit-function-return-type': 'error',
+     '@typescript-eslint/consistent-type-assertions': ['error', { assertionStyle: 'never' }]
+   }
+   ```
+
+5. (+16) ESLint configuration file must be configured with [`typescript-eslint`](https://typescript-eslint.io/) (with enabled [type checking rules](https://typescript-eslint.io/getting-started/typed-linting/)), [`eslint-config-airbnb-typescript`](https://www.npmjs.com/package/eslint-config-airbnb-typescript), [`eslint-config-prettier`](https://github.com/prettier/eslint-config-prettier) and the necessary dependencies for them to work.
+   - *With the mentor's permission, it is acceptable to disable or tweak some rules (e.g. `import/prefer-default-export`, `no-underscore-dangle`, etc.) as long as it does not conflict with penalties.*
+   - *It is allowed to tweak the config to be stricter to make your code even cleaner (according to your or your mentor's preference).*
+6. (+4) `package.json` must contain 2 scripts: `ci:lint` for checking issues with CI and `lint` for manually checking project files.
+
+#### StyleLint
+
+> Linter allows us to keep our code clean. Clean code is more readable, maintainable, and reusable. And its auto-fixing of errors allows us to save time on refactoring.
+
+1. (+2) [StyleLint](https://stylelint.io/) must be installed to developer dependencies.
+2. (+2) StyleLint configuration file is added to the project and used.
+3. (+2) StyleLint configuration file must be configured with [`stylelint-config-standard`](https://github.com/stylelint/stylelint-config-standard) and [`stylelint-config-clean-order`](https://github.com/kutsan/stylelint-config-clean-order). *It is acceptable to disable or tweak some rules for better DX.*
+4. (+4) `package.json` must contain 2 scripts: `ci:stylelint` for checking issues with CI and `stylelint` for manually checking project files.
+
+#### Husky (with lint-staged and commitlint)
+
+> `husky` allows us to run some code during various git events using git hooks.
+> `lint-staged` allows us to run linters/formatters only on code that is prepared for commit.
+> `commitlint` keeps track of commit names and allows us to avoid unnecessary `git rebase -i`.
+
+1. (+2) [`husky`](https://typicode.github.io/husky/), [`lint-staged`](https://github.com/lint-staged/lint-staged) and [`commitlint`](https://commitlint.js.org/) must be installed to developer dependencies.
+2. (+2) `husky` must be configured to run `lint-staged` on the `pre-commit` hook.
+3. (+2) `husky` must be configured to run `commitlint` on the `commit-msg` hook.
+4. (+2) `lint-staged` must be configured to run `ci:` scripts at least for javascript/typescript and css/scss/etc. files.
+5. (+2) `commitlint` must be configured with [`@commitlint/config-conventional`](https://www.npmjs.com/package/@commitlint/config-conventional).
+
+### Code Quality (+80)
+
+> The use of innerHTML is prohibited. Use of DOM search methods is prohibited. ([there are good reasons for not using them](https://gist.github.com/TELEUZI/410d19772481d98b06e0b41ebf89fff1#naive-implementation-).)
+> For creating elements that will need to be accessed by code, a great solution is to use `createElement` and variables. For clearing/replacing element content, `replaceChildren` may be useful. To add elements that will not need to be accessed by code, it is acceptable to use `insertAdjacentHTML`.
+> This won't cause any pain if you at least just write a reusable function that takes in the necessary element settings (`tagName`, `className`, `textContent`, etc.) and returns a ready-to-use element.
+
+#### Code Smells
+
+1. (+2) The code does not contain magic values.
+2. (+2) Code contains minimal or no code duplication at all.
+
+#### Bundling and Modularity
+
+1. (+4) HTML elements are generated using a utility function or class.
+2. (+4) The code is logically divided into modules/layers. *(you can consult your mentor about architecture.)*.
+3. (+4) The application is built by a bundler.
+
+#### Clear and Reusable Functions
+
+1. (+8) The code is divided into small functions (≤ 40 lines each) with clear names and purposes. The same applies to classes and their methods. *ESLint rule `max-lines-per-function` may be useful for this.
+2. (+8) Arguments and return values of functions and methods are explicitly typed.
+
+#### Care About Types
+
+> [There is no point in using TypeScript if you don’t care about types](https://javascript.plainenglish.io/there-is-no-point-to-use-typescript-in-your-project-if-you-dont-care-about-types-68131deeb43a)
+
+1. (+16) The code does not contain any type assertions.
+2. (+16) The code does not contain any explicit or implicit `any`.
+3. (+16) The code contains and uses [type guards](https://www.typescriptlang.org/docs/handbook/2/narrowing.html) *(e.g., type narrowing type predicates, assertion functions, etc.)*. *(small hint: functions to get data from a json file and/or localStorage are great places to apply typeguards.)*
 
 ## Functional Requirements (+256)
 
@@ -171,6 +250,8 @@ The second part of the application allows you to see the previously created list
 
 #### Wheel
 
+> Canvas API and requestAnimationFrame are very good for this part of the assignment.
+
 ##### General
 
 1. (+1) Displays the `wheel` element in the `WoF` modal window.
@@ -226,15 +307,15 @@ The second part of the application allows you to see the previously created list
 
 ##### Close button
 
-1. (+1) Displays a `close button` in the upper right corner of modal window for returning to the [list of lots](#list-of-lots). The appearance of this button should clearly indicate its purpose *(contain appropriate text or icon. e.g., "⨉", "x", etc.)*.
-2. (+4) The `close button` click must close `WoF` modal window and return the user to the [list of lots](#list-of-lots).
+1. (+1) Displays a `close button` in the upper right corner of modal window for returning to the [list of lots](#list-of-lots-92). The appearance of this button should clearly indicate its purpose *(contain appropriate text or icon. e.g., "⨉", "x", etc.)*.
+2. (+4) The `close button` click must close `WoF` modal window and return the user to the [list of lots](#list-of-lots-92).
 3. (+4) Closing `WoF` modal window must remove it from DOM.
 4. (+4) In the wheel rotation state, `close button` must be temporarily visually disabled or hidden and must not be functioning.
 5. (+4) In the initial and winning states `close button` returns to its original state and functions as it should.
 
 ##### Outside click
 
-1. (+4) The `outside click` must close `WoF` view and return the user to the [list of lots](#list-of-lots).
+1. (+4) The `outside click` must close `WoF` view and return the user to the [list of lots](#list-of-lots-92).
 2. (+4) In the wheel rotation state, the `outside click` functionality must be temporarily disabled.
 3. (+4) In the initial and winning states `outside click` functions as it should.
 
@@ -277,28 +358,32 @@ The second part of the application allows you to see the previously created list
 - (-100%) Non-empty `<body>` in the `index.html` (only `<script>` tag is allowed).
 - (-50) The app is not supported at widths between 640px and 1280px at least *(e.g., DOM elements go out of the bounds of parent elements, overlap, etc.)*.
 - (-100%) Using `alert`, `prompt`, `confirm`.
-- (-15?) App has unexpected errors in the console.
+- (-10 per error) For repeated app errors, the deduction is only allowed once for each distinct kind of error.
 
 ## Mentor review Evaluation
 
-> TBD (менторские приколы) <!-- TODO дописать/убрать -->
-
 - Submit app for mentor review according to [Submission Requirements](#repository-and-submission-requirements)
-- Evaluation is based on [Technical Requirements](#technical-requirements). <!-- TODO поправить ссылку -->
+- Evaluation is based on [Technical Requirements](#technical-requirements-160).
 
-## Mentor/Moderation Penalties
+## Mentor/Moderation Penalties (Up to -100%)
 
-> TBD <!-- TODO дописать/убрать -->
-
-- (-?) [Repository and Submission Requirements](#repository-and-submission-requirements) not met.
-- (-?) [Technical Requirements](#technical-requirements) not met.
+- (up to -100%) [Repository and Submission Requirements](#repository-and-submission-requirements) not met.
+- (-100%) The application is not written in TypeScript.
+- (-100%) Prohibited libraries are used.
+- (-70%) Use of innerHTML or DOM search methods (querySelector*, getElement*, etc.).
+- (-5 per error) Every error related to linters, TypeScript, or Prettier results in a 5 point penalty.
+- (-5 per instance) Every use of any in a project results in a 5 point penalty.
+- (-5 per instance) Each use of type assertion in a project results in a 5 point penalty
+- (up to -50) There are unresolved mentor comments on the quality of the code or the content of the configs.
 
 ## Useful links
 
 - [Creating markup with JS](https://gist.github.com/TELEUZI/410d19772481d98b06e0b41ebf89fff1)
+- [Comparing Methods for Appending and Inserting With JavaScript](https://css-tricks.com/comparing-methods-for-appending-and-inserting-with-javascript/)
 - [MDN: \<dialog\>](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog)
 - [MDN: Canvas API](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API)
 - [MDN: File API](https://developer.mozilla.org/en-US/docs/Web/API/File_API/Using_files_from_web_applications)
 - [MDN: Web Animations API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API)
 - [JavaScript animations](https://javascript.info/js-animation)
 - [Easings](https://easings.net/)
+- [There is no point in using TypeScript if you don’t care about types](https://javascript.plainenglish.io/there-is-no-point-to-use-typescript-in-your-project-if-you-dont-care-about-types-68131deeb43a)

@@ -1,4 +1,4 @@
-import { App } from './app/app';
+import App from './app/app';
 import './globals.css';
 
 const app = new App();

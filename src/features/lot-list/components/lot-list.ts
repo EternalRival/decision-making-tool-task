@@ -1,16 +1,16 @@
-import { Component } from '~/components/component';
-import { UiButton } from '~/components/ui-button';
-import { loadJsonFromFile } from '~/utils/load-json-from-file';
-import { saveAsJsonToFile } from '~/utils/save-as-json-to-file';
+import Component from '~/components/component';
+import UiButton from '~/components/ui-button';
+import loadJsonFromFile from '~/utils/load-json-from-file';
+import saveAsJsonToFile from '~/utils/save-as-json-to-file';
 import { type LotComponent } from '../types/lot-component.type';
 import { type LotData } from '../types/lot-data.type';
-import { createLotIdService } from '../utils/create-lot-id-service';
-import { createLotListService } from '../utils/create-lot-list-service';
-import { parseLotListJson } from '../utils/parse-lot-list-json';
-import { Lot } from './lot';
+import createLotIdService from '../utils/create-lot-id-service';
+import createLotListService from '../utils/create-lot-list-service';
+import parseLotListJson from '../utils/parse-lot-list-json';
+import Lot from './lot';
 import styles from './lot-list.module.css';
 
-export class LotList extends Component {
+export default class LotList extends Component {
   private handleBeforeUnload: () => void;
 
   constructor({ onStartClick }: { onStartClick: (list: { title: string; weight: number }[]) => void }) {
@@ -19,12 +19,12 @@ export class LotList extends Component {
     const { getNextId, resetId, saveCurrentLastIdToLS } = createLotIdService();
     const { lotsData, saveLotsToLS } = createLotListService();
 
-    const heading = new Component('h1', { className: styles['heading'], textContent: 'Wheel of fortune' });
+    const heading = new Component('h1', { className: styles['heading'], textContent: 'Wheel of Fortune' });
     const lotsContainer = new Component('div', { className: styles['lots'] });
 
     const lots = new Map<string, Lot>();
 
-    function removeLot(id: string) {
+    function removeLot(id: string): void {
       lots.get(id)?.remove();
       lots.delete(id);
 
@@ -33,20 +33,27 @@ export class LotList extends Component {
       }
     }
 
-    function clearLotList() {
-      lots.forEach((lot) => lot.remove());
+    function clearLotList(): void {
+      lots.forEach((lot) => {
+        lot.remove();
+      });
       lots.clear();
       resetId();
     }
 
-    function addLot(props: LotData & { id: string } = { id: getNextId(), title: '', weight: '' }) {
-      const lot = new Lot({ ...props, onDeleteClick: () => removeLot(props.id) });
+    function addLot(props: LotData & { id: string } = { id: getNextId(), title: '', weight: '' }): void {
+      const lot = new Lot({
+        ...props,
+        onDeleteClick: (): void => {
+          removeLot(props.id);
+        },
+      });
 
       lots.set(props.id, lot);
       lotsContainer.append(lot);
     }
 
-    function getValidLotValues(lot: LotComponent) {
+    function parseValidLotValues(lot: LotComponent): { title: string; weight: number } | null {
       const { title, weight: weightString } = lot.getValues();
       const weight = Number(weightString);
 
@@ -61,46 +68,46 @@ export class LotList extends Component {
       addLot();
     }
 
-    function handleAddLotClick() {
+    function handleAddLotClick(): void {
       addLot();
     }
 
-    function handleSaveToFileClick() {
+    function handleSaveToFileClick(): void {
       const data = { list: Array.from(lots.values()).map((lot) => lot.getValues()) };
       const fileName = 'wheel-of-fortune-lots';
 
       saveAsJsonToFile({ data, fileName });
     }
 
-    function handleLoadFromFileClick() {
-      (async () => {
-        const rawJsonString = await loadJsonFromFile();
-        const { list } = parseLotListJson(rawJsonString);
-        clearLotList();
-        list.forEach(({ title, weight }) => addLot({ id: getNextId(), title, weight }));
-      })();
+    async function handleLoadFromFileClick(): Promise<void> {
+      const rawJsonString = await loadJsonFromFile();
+      const { list } = parseLotListJson(rawJsonString);
+      clearLotList();
+      list.forEach(({ title, weight }) => {
+        addLot({ id: getNextId(), title, weight });
+      });
     }
 
-    function handleClearListClick() {
+    function handleClearListClick(): void {
       clearLotList();
       addLot();
     }
 
-    function handleStartClick() {
-      const lotsData: { title: string; weight: number }[] = [];
+    function handleStartClick(): void {
+      const validLotsData: { title: string; weight: number }[] = [];
 
       lots.forEach((lot) => {
-        const lotValues = getValidLotValues(lot);
+        const lotValues = parseValidLotValues(lot);
 
         if (lotValues) {
-          lotsData.push(lotValues);
+          validLotsData.push(lotValues);
         }
       });
 
-      onStartClick(lotsData);
+      onStartClick(validLotsData);
     }
 
-    this.handleBeforeUnload = () => {
+    this.handleBeforeUnload = (): void => {
       saveLotsToLS(lots);
       saveCurrentLastIdToLS();
     };
@@ -153,7 +160,7 @@ export class LotList extends Component {
     window.addEventListener('beforeunload', this.handleBeforeUnload);
   }
 
-  public override remove() {
+  public override remove(): void {
     super.remove();
     window.removeEventListener('beforeunload', this.handleBeforeUnload);
     this.handleBeforeUnload();

@@ -1,9 +1,9 @@
-import { Button } from '~/components/button';
-import { Component } from '~/components/component';
+import Button from '~/components/button';
+import Component from '~/components/component';
 import styles from './ui-alert-dialog.module.css';
-import { UiDialog } from './ui-dialog';
+import UiDialog from './ui-dialog';
 
-export class UiAlertDialog extends UiDialog {
+export default class UiAlertDialog extends UiDialog {
   constructor({ alertText }: { alertText: string }) {
     super();
 
@@ -15,7 +15,9 @@ export class UiAlertDialog extends UiDialog {
     const closeButton = new Button({
       className: styles['closeButton'],
       textContent: '⨉',
-      onclick: () => this.remove(),
+      onclick: (): void => {
+        this.remove();
+      },
     });
 
     this.append(closeButton, errorMessage);

@@ -1,12 +1,15 @@
-import { UiAlertDialog } from '~/components/ui-alert-dialog';
-import { LotList } from '~/features/lot-list/components/lot-list';
-import { Wheel } from '~/features/wheel/components/wheel';
-import { getRandomNumber } from '~/utils/get-random-number';
+import type Component from '~/components/component';
+import UiAlertDialog from '~/components/ui-alert-dialog';
+import LotList from '~/features/lot-list/components/lot-list';
+import Wheel from '~/features/wheel/components/wheel';
+import getRandomNumber from '~/utils/get-random-number';
 
-export class App {
-  render(root: HTMLElement) {
-    const lotList = new LotList({
-      onStartClick: (list) => {
+export default class App {
+  private currentPageComponent?: Component;
+
+  render(root: HTMLElement): void {
+    const lotListPage = new LotList({
+      onStartClick: (list): void => {
         if (list.length < 2) {
           const errorModal = new UiAlertDialog({ alertText: 'Please add at least 2 valid lots.' });
 
@@ -23,6 +26,8 @@ export class App {
       },
     });
 
-    root.append(lotList.getNode());
+    this.currentPageComponent = lotListPage;
+
+    root.append(this.currentPageComponent.getNode());
   }
 }

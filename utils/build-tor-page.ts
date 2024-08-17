@@ -9,10 +9,10 @@ const torPageDirPath = resolve('dist/tor');
 
 const consoleMute = {
   log: console.log,
-  enable() {
-    console.log = () => {};
+  enable(): void {
+    console.log = (): void => void 0;
   },
-  disable() {
+  disable(): void {
     console.log = this.log;
   },
 };

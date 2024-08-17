@@ -1,11 +1,13 @@
-import { Component } from '~/components/component';
-import { Input } from '~/components/input';
-import { UiButton } from '~/components/ui-button';
+import Component from '~/components/component';
+import Input from '~/components/input';
+import UiButton from '~/components/ui-button';
 import { type LotComponent } from '../types/lot-component.type';
+import { type LotData } from '../types/lot-data.type';
 import styles from './lot.module.css';
 
-export class Lot extends Component<'div'> implements LotComponent {
+export default class Lot extends Component implements LotComponent {
   private title: string;
+
   private weight: string;
 
   constructor({
@@ -34,7 +36,7 @@ export class Lot extends Component<'div'> implements LotComponent {
       value: title,
       placeholder: 'Title',
       name: 'title',
-      oninput: (e) => {
+      oninput: (e): void => {
         if (e.target instanceof HTMLInputElement) {
           this.title = e.target.value;
         }
@@ -47,7 +49,7 @@ export class Lot extends Component<'div'> implements LotComponent {
       value: weight,
       placeholder: 'Weight',
       name: 'weight',
-      oninput: (e) => {
+      oninput: (e): void => {
         if (e.target instanceof HTMLInputElement) {
           this.weight = e.target.value;
         }
@@ -64,7 +66,7 @@ export class Lot extends Component<'div'> implements LotComponent {
     this.append(lotId, titleInput, weightInput, deleteButton);
   }
 
-  public getValues() {
+  public getValues(): LotData {
     return { title: this.title, weight: this.weight };
   }
 }
