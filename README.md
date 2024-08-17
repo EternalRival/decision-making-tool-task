@@ -379,7 +379,7 @@ The second part of the application allows you to see the previously created list
 - (-100%) Prohibited libraries are used.
 - (-70%) Use of innerHTML or DOM search methods (querySelector*, getElement*, etc.).
 - (-5 per error) Every error related to linters, TypeScript, or Prettier results in a 5 point penalty.
-- (-5 per instance) Every use of any in a project results in a 5 point penalty.
+- (-5 per instance) Each use of any in a project results in a 5 point penalty.
 - (-5 per instance) Each use of type assertion in a project results in a 5 point penalty.
 - (up to -50) There are unresolved mentor comments on the quality of the code or the content of the configs.
 
