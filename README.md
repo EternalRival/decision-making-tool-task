@@ -40,9 +40,9 @@ The second part of the application allows you to see the previously created list
 ## General Requirements
 
 - `<body>` in the `index.html` must be empty (only `<script>` tag is allowed). *(You can check this with the `View page source` option in the context menu in google chrome.)*
-- App must be supported at widths between `640px` and `1280px` at least *(DOM elements should not go out of bounds of parent elements, overlap, etc.)*.
+- App must be supported at `640px <= width <= 1280px` at least *(DOM elements should not go out of bounds of parent elements, overlap, etc.)*.
 - The use of `alert`, `prompt`, `confirm` is prohibited.
-- App must not have unexpected errors in the console *(don't forget the favicon)*.
+- App must not have unexpected errors in the console.
 - The app must be supported by at least the latest version of the “google chrome” browser
 
 ## Technical Requirements (+160)
@@ -147,7 +147,7 @@ The second part of the application allows you to see the previously created list
 
 1. (+16) The code does not contain any type assertions.
 2. (+16) The code does not contain any explicit or implicit `any`.
-3. (+16) The code contains and uses [type guards](https://www.typescriptlang.org/docs/handbook/2/narrowing.html) *(e.g., type narrowing type predicates, assertion functions, etc.)*. *(small hint: functions to get data from a json file and/or localStorage are great places to apply typeguards.)*
+3. (+16) The code contains and uses [type guards](https://www.typescriptlang.org/docs/handbook/2/narrowing.html) *(e.g., type narrowing type predicates, assertion functions, etc.)*. *(small hint: functions to get data from a json file and/or localStorage are great places to apply type guards.)*
 
 ## Functional Requirements (+256)
 
@@ -356,7 +356,7 @@ The second part of the application allows you to see the previously created list
 ## Crosscheck Penalties
 
 - (-100%) Non-empty `<body>` in the `index.html` (only `<script>` tag is allowed).
-- (-50) The app is not supported at widths between 640px and 1280px at least *(e.g., DOM elements go out of the bounds of parent elements, overlap, etc.)*.
+- (-50) The app is not supported at `640px <= width <= 1280px` at least *(e.g., DOM elements go out of the bounds of parent elements, overlap, etc.)*.
 - (-100%) Using `alert`, `prompt`, `confirm`.
 - (-10 per error) For repeated app errors, the deduction is only allowed once for each distinct kind of error.
 
