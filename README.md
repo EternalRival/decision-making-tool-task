@@ -1,7 +1,5 @@
 # Wheel of fortune
 
-> The ToR is under development. The fulfillment scores contain placeholders, which will be changed later. Stage 2 requirements will be added later.
-
 ## Description
 
 Your task is to implement an single page application (SPA) for drawing lots using the wheel of fortune (hereafter `WoF`).
