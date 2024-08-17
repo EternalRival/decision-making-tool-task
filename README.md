@@ -31,8 +31,8 @@ The second part of the application allows you to see the previously created list
 - Use the `wheel-of-fortune` branch as your development branch.
 - Your commits in the development branch should reflect the development history. Commits must follow the [guideline](https://docs.rs.school/#/git-convention).
 - Use the `gh-pages` branch as the deploy branch *(e.g. via the [`gh-pages`](https://www.npmjs.com/package/gh-pages) package)*.
-- Use the app **deploy link** to [submit](https://app.rs.school/course/student/cross-check-submit) the app to crosscheck in [app.rs](https://app.rs.school/course/student/cross-check-submit). **Make sure** your link is accessible to everyone by opening it in incognito mode
-- Create a Pull Request from the development branch into the `main` branch and format it according to [PR requirements](https://docs.rs.school/#/pull-request-review-process?id=Требования-к-pull-request-pr). **Do not merge** the development branch into the `main` branch
+- Use the app **deploy link** to [submit](https://app.rs.school/course/student/cross-check-submit) the app to crosscheck in [app.rs](https://app.rs.school/course/student/cross-check-submit). **Make sure** your link is accessible to everyone by opening it in incognito mode.
+- Create a Pull Request from the development branch into the `main` branch and format it according to [PR requirements](https://docs.rs.school/#/pull-request-review-process?id=Требования-к-pull-request-pr). **Do not merge** the development branch into the `main` branch.
 - Use the **PR link** to [submit](https://app.rs.school/course/student/dashboard) the app to mentor in [app.rs](https://app.rs.school/course/student/dashboard).
 
 ## General Requirements
@@ -41,7 +41,7 @@ The second part of the application allows you to see the previously created list
 - App must be supported at `640px <= width <= 1280px` at least *(DOM elements should not go out of bounds of parent elements, overlap, etc.)*.
 - The use of `alert`, `prompt`, `confirm` is prohibited.
 - App must not have unexpected errors in the console.
-- The app must be supported by at least the latest version of the “google chrome” browser
+- The app must be supported by at least the latest version of the “google chrome” browser.
 
 ## Technical Requirements (+160)
 
@@ -92,7 +92,7 @@ The second part of the application allows you to see the previously created list
    }
    ```
 
-5. (+16) ESLint configuration file must be configured with [`typescript-eslint`](https://typescript-eslint.io/) (with enabled [type checking rules](https://typescript-eslint.io/getting-started/typed-linting/)), [`eslint-config-airbnb-typescript`](https://www.npmjs.com/package/eslint-config-airbnb-typescript), [`eslint-config-prettier`](https://github.com/prettier/eslint-config-prettier) (do not confuse it with `eslint-plugin-prettier`. it is [not recommended]() by the prettier documentation). and the necessary dependencies for them to work.
+5. (+16) ESLint configuration file must be configured with [`typescript-eslint`](https://typescript-eslint.io/) (with enabled [type checking rules](https://typescript-eslint.io/getting-started/typed-linting/)), [`eslint-config-airbnb-typescript`](https://www.npmjs.com/package/eslint-config-airbnb-typescript), [`eslint-config-prettier`](https://github.com/prettier/eslint-config-prettier) (do not confuse it with `eslint-plugin-prettier`. it is [not recommended](https://prettier.io/docs/en/integrating-with-linters.html#:~:text=generally%20not%20recommended) by the prettier documentation). and the necessary dependencies for them to work.
    - *With the mentor's permission, it is acceptable to disable or tweak some rules (e.g. `import/prefer-default-export`, `no-underscore-dangle`, etc.) as long as it does not conflict with penalties.*
    - *It is allowed to tweak the config to be stricter to make your code even cleaner (according to your or your mentor's preference).*
 6. (+4) `package.json` must contain 2 scripts: `ci:lint` for checking issues with CI and `lint` for manually checking project files.
@@ -248,7 +248,7 @@ The second part of the application allows you to see the previously created list
 >
 > After that `rotation state` and `winning state` cyclically change each other according to points 2 and 3.
 >
-> If the modal window `WoF` was closed and reopened, the life cycle starts again with `initial state`
+> If the modal window `WoF` was closed and reopened, the life cycle starts again with `initial state`.
 
 #### General
 
@@ -369,7 +369,7 @@ The second part of the application allows you to see the previously created list
 
 ## Mentor review Evaluation
 
-- Submit app for mentor review according to [Submission Requirements](#repository-and-submission-requirements)
+- Submit app for mentor review according to [Submission Requirements](#repository-and-submission-requirements).
 - Evaluation is based on [Technical Requirements](#technical-requirements-160).
 
 ## Mentor/Moderation Penalties (Up to -100%)
@@ -380,7 +380,7 @@ The second part of the application allows you to see the previously created list
 - (-70%) Use of innerHTML or DOM search methods (querySelector*, getElement*, etc.).
 - (-5 per error) Every error related to linters, TypeScript, or Prettier results in a 5 point penalty.
 - (-5 per instance) Every use of any in a project results in a 5 point penalty.
-- (-5 per instance) Each use of type assertion in a project results in a 5 point penalty
+- (-5 per instance) Each use of type assertion in a project results in a 5 point penalty.
 - (up to -50) There are unresolved mentor comments on the quality of the code or the content of the configs.
 
 ## Useful links
