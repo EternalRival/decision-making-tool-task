@@ -47,6 +47,7 @@
   .weight {
     padding: 0.5rem;
 
+    line-height: normal;
     color: inherit;
 
     background-color: #00000060;
