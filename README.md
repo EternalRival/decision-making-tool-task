@@ -87,9 +87,9 @@ The second part of the application allows you to see the previously created list
 
    ```json
    {
-     '@typescript-eslint/consistent-type-imports': 'error',
-     '@typescript-eslint/explicit-function-return-type': 'error',
-     '@typescript-eslint/consistent-type-assertions': ['error', { assertionStyle: 'never' }]
+     "@typescript-eslint/consistent-type-imports": "error",
+     "@typescript-eslint/explicit-function-return-type": "error",
+     "@typescript-eslint/consistent-type-assertions": ["error", { "assertionStyle": "never" }]
    }
    ```
 
