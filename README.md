@@ -55,7 +55,8 @@ The second part of the application allows you to see the previously created list
 - Required: Bundlers (webpack, vite). *(It is allowed to use bundler's plugins.)*
 - Allowed: CSS modules, CSS Preprocessors (`Sass`, `Less`, `Stylus`, `PostCSS`), CSS in JS libraries (`tailwindcss`, `styled components`).
 - Prohibited: Frameworks like Angular, React, Vue, etc.
-- Prohibited: jQuery
+- Prohibited: jQuery.
+- Prohibited: eslint-plugin-prettier.
 - Prohibited: Third-party libraries not listed in the allowed libraries.
 
 ### Code Formatting and Linting (+80)
@@ -93,7 +94,7 @@ The second part of the application allows you to see the previously created list
    }
    ```
 
-5. (+16) ESLint configuration file must be configured with [`typescript-eslint`](https://typescript-eslint.io/) (with enabled [type checking rules](https://typescript-eslint.io/getting-started/typed-linting/)), [`eslint-config-airbnb-typescript`](https://www.npmjs.com/package/eslint-config-airbnb-typescript), [`eslint-config-prettier`](https://github.com/prettier/eslint-config-prettier) and the necessary dependencies for them to work.
+5. (+16) ESLint configuration file must be configured with [`typescript-eslint`](https://typescript-eslint.io/) (with enabled [type checking rules](https://typescript-eslint.io/getting-started/typed-linting/)), [`eslint-config-airbnb-typescript`](https://www.npmjs.com/package/eslint-config-airbnb-typescript), [`eslint-config-prettier`](https://github.com/prettier/eslint-config-prettier) (do not confuse it with `eslint-plugin-prettier`. it is [not recommended]() by the prettier documentation). and the necessary dependencies for them to work.
    - *With the mentor's permission, it is acceptable to disable or tweak some rules (e.g. `import/prefer-default-export`, `no-underscore-dangle`, etc.) as long as it does not conflict with penalties.*
    - *It is allowed to tweak the config to be stricter to make your code even cleaner (according to your or your mentor's preference).*
 6. (+4) `package.json` must contain 2 scripts: `ci:lint` for checking issues with CI and `lint` for manually checking project files.
@@ -110,7 +111,9 @@ The second part of the application allows you to see the previously created list
 #### Husky (with lint-staged and commitlint)
 
 > `husky` allows us to run some code during various git events using git hooks.
+>
 > `lint-staged` allows us to run linters/formatters only on code that is prepared for commit.
+>
 > `commitlint` keeps track of commit names and allows us to avoid unnecessary `git rebase -i`.
 
 1. (+2) [`husky`](https://typicode.github.io/husky/), [`lint-staged`](https://github.com/lint-staged/lint-staged) and [`commitlint`](https://commitlint.js.org/) must be installed to developer dependencies.
@@ -122,7 +125,9 @@ The second part of the application allows you to see the previously created list
 ### Code Quality (+80)
 
 > The use of innerHTML is prohibited. Use of DOM search methods is prohibited. ([there are good reasons for not using them](https://gist.github.com/TELEUZI/410d19772481d98b06e0b41ebf89fff1#naive-implementation-).)
+>
 > For creating elements that will need to be accessed by code, a great solution is to use `createElement` and variables. For clearing/replacing element content, `replaceChildren` may be useful. To add elements that will not need to be accessed by code, it is acceptable to use `insertAdjacentHTML`.
+>
 > This won't cause any pain if you at least just write a reusable function that takes in the necessary element settings (`tagName`, `className`, `textContent`, etc.) and returns a ready-to-use element.
 
 #### Code Smells
@@ -238,9 +243,13 @@ The second part of the application allows you to see the previously created list
 > Briefly, the states mentioned below are:
 >
 > 1. Modal window `WoF` opened - the wheel is in the `initial state`.
+>
 > 2. A successful start of rotation has been initiated - the wheel is in the `rotation state`.
+>
 > 3. The rotation has finished and the winning lot has been determined - the wheel is in the `winning state`.
+>
 > After that `rotation state` and `winning state` cyclically change each other according to points 2 and 3.
+>
 > If the modal window `WoF` was closed and reopened, the life cycle starts again with `initial state`
 
 #### General
