@@ -1,7 +1,7 @@
 import type Component from '~/components/component';
 import UiAlertDialog from '~/components/ui-alert-dialog';
-import LotList from '~/features/lot-list/components/lot-list';
-import Wheel from '~/features/wheel/components/wheel';
+import LotList from '~/widgets/lot-list/components/lot-list';
+import Wheel from '~/widgets/wheel/components/wheel';
 import getRandomNumber from '~/utils/get-random-number';
 
 export default class App {
