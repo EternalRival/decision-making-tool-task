@@ -158,6 +158,8 @@ export default class LotList extends Component {
     );
 
     window.addEventListener('beforeunload', this.handleBeforeUnload);
+
+    startButton.getNode().click();
   }
 
   public override remove(): void {

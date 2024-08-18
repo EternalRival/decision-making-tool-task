@@ -43,7 +43,8 @@ export default tsEslint.config(
   {
     name: 'customize some rules',
     rules: {
-      'no-console': ['error', { allow: ['warn', 'error'] }],
+      'no-console': ['error', { allow: ['debug', 'warn', 'error'] }],
+      'no-underscore-dangle': 'off',
       'no-void': 'off',
       '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
       '@typescript-eslint/consistent-type-assertions': ['error', { assertionStyle: 'never' }],

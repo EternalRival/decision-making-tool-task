@@ -7,7 +7,16 @@ export default class Button extends Component<'button'> {
     super('button', props);
   }
 
-  public setDisabled(value: boolean): void {
-    this.getNode().disabled = value;
+  public toggleDisabled(value?: boolean): void {
+    const node = this.getNode();
+
+    node.disabled = typeof value === 'boolean' ? value : !node.disabled;
+  }
+
+  public setSVGIcon(svgString: string): void {
+    const node = this.getNode();
+
+    node.replaceChildren();
+    node.insertAdjacentHTML('beforeend', svgString);
   }
 }

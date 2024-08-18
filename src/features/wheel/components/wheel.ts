@@ -3,63 +3,101 @@ import Component from '~/components/component';
 import Input from '~/components/input';
 import UiButton from '~/components/ui-button';
 import UiDialog from '~/components/ui-dialog';
-import soundOffIconSrc from '../assets/sound-off.svg?raw';
-import soundOnIconSrc from '../assets/sound-on.svg?raw';
-import winningSoundSrc from '../assets/ta-da.mp3';
+import { CIRCLE } from '../model/constants';
+import MuteStateService from '../services/mute-state.service';
+import WheelCanvasService from '../services/wheel-canvas.service';
+import WheelLotsService from '../services/wheel-lots.service';
+import WheelRotationService from '../services/wheel-rotation.service';
 import { type TableRow } from '../types/table-row.type';
-import { type WheelSlice } from '../types/wheel-slice.type';
 import animate from '../utils/animate';
-import createMuteStateService from '../utils/create-mute-state-service';
-import drawWheel from '../utils/draw-wheel';
 import easeInOut from '../utils/ease-in-out';
-import getSliceList from '../utils/get-slice-list';
+import getSoundIcon from '../utils/get-sound-icon';
+import playWinningSound from '../utils/play-winning-sound';
 import styles from './wheel.module.css';
 
 export default class Wheel extends UiDialog {
-  private ctx: CanvasRenderingContext2D;
-
   private size: number;
 
-  private rotation: number;
+  private muteStateService: MuteStateService;
 
-  private sliceList: WheelSlice[];
+  private wheelRotationService: WheelRotationService;
 
-  private renderSelected: () => void;
+  private wheelLotsService: WheelLotsService;
 
-  private handleBeforeUnload: () => void;
+  private wheelCanvasService: WheelCanvasService;
 
   constructor({ size = 512, table }: { size?: number; table: TableRow[] }) {
     super();
 
     this.size = size;
-    this.sliceList = getSliceList(table);
-    this.rotation = 0;
+    this.muteStateService = new MuteStateService();
+    this.wheelCanvasService = new WheelCanvasService();
+    this.wheelLotsService = new WheelLotsService({ table });
+    this.wheelRotationService = new WheelRotationService();
 
-    const { getMuteState, toggleMuteState, saveMuteStateToLS } = createMuteStateService();
+    this.renderUI();
 
-    const winningSound = new Audio(winningSoundSrc);
-    winningSound.volume = 0.5;
-    const winningSoundPlay = async (): Promise<void> => {
-      if (!getMuteState()) {
-        winningSound.currentTime = 0;
-        await winningSound.play();
-      }
-    };
+    this.muteStateService.init();
+  }
 
-    const getSoundButtonIcon = (): string => (getMuteState() ? soundOffIconSrc : soundOnIconSrc);
+  public override remove(): void {
+    super.remove();
+    this.muteStateService.destroy();
+    this.wheelRotationService.destroy();
+  }
 
-    const handleStartSpin = ({
-      selected,
-      header,
-      spinButton,
-      durationInput,
-    }: {
-      selected: Component<'p'>;
-      header: Component;
-      spinButton: Button;
-      durationInput: Input;
-    }): void => {
-      spinButton.setDisabled(true);
+  private renderUI(): void {
+    const getSoundButtonIcon = (): string => getSoundIcon({ isMuted: this.muteStateService.get() });
+    const getSelectedTitle = (): string => this.wheelLotsService.getTitleByRadian(this.wheelRotationService.get());
+
+    const header = new Component('header', { className: styles['header'] });
+    const container = new Component('div', { className: styles['container'] });
+
+    const closeButton = new Button({ className: styles['closeButton'], textContent: '⨉' });
+    const soundButton = new Button({ className: styles['soundButton'] });
+    soundButton.setSVGIcon(getSoundButtonIcon());
+
+    const spinForm = new Component('form', { className: styles['spinForm'] });
+    const selected = new Component('p', {
+      className: styles['selected'],
+      textContent: getSelectedTitle(),
+    });
+
+    const canvas = new Component('canvas', {
+      className: styles['canvas'],
+      width: this.size,
+      height: this.size,
+      textContent: 'Wheel of Fortune',
+    });
+
+    const spinButton = new UiButton({
+      className: styles['spinButton'],
+      type: 'submit',
+      textContent: 'Spin',
+      autofocus: true,
+    });
+    const durationLabel = new Component('label', { className: styles['durationLabel'], textContent: 'Duration:' });
+    const durationInput = new Input({
+      className: styles['durationInput'],
+      type: 'number',
+      min: '5',
+      value: '20',
+      placeholder: 'sec',
+      required: true,
+    });
+
+    closeButton.getNode().addEventListener('click', () => {
+      this.remove();
+    });
+    soundButton.getNode().addEventListener('click', () => {
+      this.muteStateService.toggle();
+      soundButton.setSVGIcon(getSoundButtonIcon());
+    });
+
+    spinForm.getNode().addEventListener('submit', (event) => {
+      event.preventDefault();
+
+      spinButton.toggleDisabled(true);
       durationInput.setDisabled(true);
       this.setModalLock(true);
       if (styles['hidden']) {
@@ -71,9 +109,9 @@ export default class Wheel extends UiDialog {
 
       this.spin({
         duration: Number(durationInput.getValue()),
-        targetRotationOffset: Math.PI * 2 * Math.random(),
+        targetRotationOffset: CIRCLE * Math.random(),
         onFinish: () => {
-          spinButton.setDisabled(false);
+          spinButton.toggleDisabled(false);
           durationInput.setDisabled(false);
           this.setModalLock(false);
           if (styles['hidden']) {
@@ -82,94 +120,25 @@ export default class Wheel extends UiDialog {
           if (styles['winner']) {
             selected.addClass(styles['winner']);
           }
-          winningSoundPlay().catch((error: unknown) => {
+          playWinningSound().catch((error: unknown) => {
             console.error(error);
           });
         },
       });
-    };
-
-    this.handleBeforeUnload = (): void => {
-      saveMuteStateToLS();
-    };
-
-    const container = new Component('div', { className: styles['container'] });
-    const header = new Component('div', { className: styles['header'] });
-    const selected = new Component('p', { className: styles['selected'], textContent: this.getCurrentSliceTitle() });
-    const canvas = new Component('canvas', {
-      className: styles['canvas'],
-      width: size,
-      height: size,
-      textContent: 'wheel of fortune',
     });
 
-    const closeButton = new Button({
-      className: styles['closeButton'],
-      textContent: '⨉',
-      onclick: (): void => {
-        this.remove();
-      },
+    this.wheelRotationService.on(() => selected.setTextContent(getSelectedTitle()));
+    this.wheelCanvasService.init({ canvas: canvas.getNode() }).draw({
+      rotation: this.wheelRotationService.get(),
+      size: this.size,
+      sliceList: this.wheelLotsService.getSliceList(),
     });
 
-    const soundButton = new Button({
-      className: styles['soundButton'],
-      onclick: (): void => {
-        toggleMuteState();
-
-        soundButton.getNode().replaceChildren();
-        soundButton.getNode().insertAdjacentHTML('beforeend', getSoundButtonIcon());
-      },
-    });
-    soundButton.getNode().insertAdjacentHTML('beforeend', getSoundButtonIcon());
-
-    const spinButton = new UiButton({
-      className: styles['spinButton'],
-      type: 'submit',
-      textContent: 'Spin',
-      autofocus: true,
-    });
-
-    const durationLabel = new Component('label', { className: styles['durationLabel'], textContent: 'Duration:' });
-    const durationInput = new Input({
-      className: styles['durationInput'],
-      type: 'number',
-      min: '5',
-      value: '20',
-      placeholder: 'sec',
-      required: true,
-    });
-    const spinForm = new Component('form', {
-      className: styles['spinForm'],
-      onsubmit: (e): void => {
-        e.preventDefault();
-        handleStartSpin({ selected, spinButton, durationInput, header });
-      },
-    });
-
-    const ctx = canvas.getNode().getContext('2d');
-
-    if (!ctx) throw new Error();
-
-    this.ctx = ctx;
-    this.renderSelected = (): void => {
-      selected.setTextContent(this.getCurrentSliceTitle());
-    };
-
-    this.renderWheel();
-
-    header.append(closeButton, soundButton);
-    durationLabel.append(durationInput);
-    spinForm.append(spinButton, durationLabel);
-    container.append(spinForm, selected, canvas);
     this.append(header, container);
-
-    window.addEventListener('beforeunload', this.handleBeforeUnload);
-  }
-
-  public override remove(): void {
-    super.remove();
-    window.removeEventListener('beforeunload', this.handleBeforeUnload);
-    this.handleBeforeUnload();
+    header.append(closeButton, soundButton);
+    container.append(spinForm, selected, canvas);
+    spinForm.append(spinButton, durationLabel);
+    durationLabel.append(durationInput);
   }
 
   private spin({
@@ -181,48 +150,29 @@ export default class Wheel extends UiDialog {
     targetRotationOffset: number;
     onFinish: () => void;
   }): void {
-    const fullSpinsRotation = duration * Math.PI * 2;
+    const fullSpinsRotation = duration * CIRCLE;
     const targetRotation = fullSpinsRotation + targetRotationOffset;
 
     const drawFn = (progress: number): void => {
-      this.renderWheel(progress * targetRotation);
+      this.wheelRotationService.set(progress * targetRotation);
+      this.wheelCanvasService.draw({
+        rotation: this.wheelRotationService.get(),
+        size: this.size,
+        sliceList: this.wheelLotsService.getSliceList(),
+      });
     };
 
     const onSpinFinish = (): void => {
-      this.renderWheel(targetRotationOffset);
+      this.wheelRotationService.set(targetRotationOffset);
+      this.wheelCanvasService.draw({
+        rotation: this.wheelRotationService.get(),
+        size: this.size,
+        sliceList: this.wheelLotsService.getSliceList(),
+      });
+
       onFinish();
     };
 
     animate({ duration, drawFn, easingFn: easeInOut, onFinish: onSpinFinish });
-  }
-
-  private setRotation(offset: number): void {
-    this.rotation = offset;
-  }
-
-  private getCurrentSliceTitle(): string {
-    const circle = Math.PI * 2;
-
-    const rotation = circle - (this.rotation % circle);
-
-    const isCurrentSlice = (slice: WheelSlice): boolean => slice.startAngle <= rotation && slice.endAngle > rotation;
-
-    return this.sliceList.find(isCurrentSlice)?.title ?? 'untitled lot';
-  }
-
-  private get rotationWithOffset(): number {
-    return this.rotation + Math.PI * 1.5;
-  }
-
-  private renderWheel(newRotation: number = this.rotation): void {
-    this.setRotation(newRotation);
-    this.renderSelected();
-
-    drawWheel({
-      ctx: this.ctx,
-      rotation: this.rotationWithOffset,
-      size: this.size,
-      sliceList: this.sliceList,
-    });
   }
 }
