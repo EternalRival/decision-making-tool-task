@@ -188,7 +188,7 @@ The second part of the application allows you to see the previously created list
 
 1. (+1) Each lot's `delete button` must be displayed. The appearance of this button should clearly indicate its purpose *(contain appropriate text and/or icon. e.g., "delete", "remove", etc.)*.
 2. (+4) Lot's `delete button` click must delete the current lot from the list.
-3. (+2) When the last lot is deleted *(if the list has become completely empty)*, the id count must be reset.
+3. (+2) When the last lot is deleted *(if the list has become completely empty)*, the id count must be reset and empty "new lot" with `id` `#1` should be added to the list *(as at `initial state`)*
 
 ##### Lot columns
 
@@ -210,7 +210,7 @@ The second part of the application allows you to see the previously created list
 
 1. (+1) Displays a `clear list button` next to the list of lots for removing all lots from the list. The appearance of this button should clearly indicate its purpose *(contain appropriate text and/or icon. e.g., "clear list", "reset list", etc.)*.
 2. (+4) The `clear list button` click must remove all current lots from the list.
-3. (+2) In addition to clearing the list, an empty "new lot" with `id` `#1` should be added to the list *(as at `initial state` or as if the `add lot button` was used when the list is completely empty)*.
+3. (+2) In addition to clearing the list, an empty "new lot" with `id` `#1` should be added to the list *(as at `initial state`)*.
 
 ##### Save list to file
 

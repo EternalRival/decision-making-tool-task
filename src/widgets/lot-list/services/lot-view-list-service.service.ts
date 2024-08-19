@@ -1,0 +1,116 @@
+import type Component from '~/components/component';
+import { LSService } from '~/utils/local-storage-service';
+import Lot from '../components/lot';
+import { type LotComponent } from '../types/lot-component.type';
+import { type LotData } from '../types/lot-data.type';
+import isLotDataEntriesList from '../utils/is-lot-data-entries-list';
+import LotIdService from './lot-id.service';
+
+export default class LotViewListService {
+  private idService = new LotIdService();
+
+  private lots = new Map<string, Lot>();
+
+  private _lotsContainer: Component<'div'> | null = null;
+
+  private get lotsContainer(): Component<'div'> {
+    if (!this._lotsContainer) {
+      throw new Error('lotsContainer is not defined');
+    }
+
+    return this._lotsContainer;
+  }
+
+  private saveLotsToLS = (): void => {
+    const serializedLots = Array.from(this.lots.entries(), ([id, lot]) => {
+      const { title, weight } = lot.getValues();
+      return [id, { title, weight: weight.toString() }];
+    });
+
+    LSService.set('lots', serializedLots);
+  };
+
+  private saveCurrentLastIdToLS = (): void => {
+    this.idService.saveCurrentLastIdToLS();
+  };
+
+  public init({ lotsContainer }: { lotsContainer: Component<'div'> }): this {
+    this._lotsContainer = lotsContainer;
+
+    const lsLots = LSService.get('lots');
+    const lotsEntries = isLotDataEntriesList(lsLots) ? lsLots : [];
+
+    if (lotsEntries.length > 0) {
+      lotsEntries.forEach(([id, { title, weight }]) => {
+        this.add({ id, title, weight });
+      });
+    } else {
+      this.add();
+    }
+
+    window.addEventListener('beforeunload', this.saveLotsToLS);
+    window.addEventListener('beforeunload', this.saveCurrentLastIdToLS);
+
+    return this;
+  }
+
+  public destroy(): void {
+    window.removeEventListener('beforeunload', this.saveLotsToLS);
+    window.removeEventListener('beforeunload', this.saveCurrentLastIdToLS);
+    this.saveLotsToLS();
+    this.saveCurrentLastIdToLS();
+  }
+
+  public remove(id: string): void {
+    this.lots.get(id)?.remove();
+    this.lots.delete(id);
+
+    if (this.lots.size < 1) {
+      this.idService.resetId();
+      this.add();
+    }
+  }
+
+  public clear(): void {
+    this.lots.forEach((lot) => lot.remove());
+    this.lots.clear();
+    this.idService.resetId();
+    this.add();
+  }
+
+  public add(props: LotData & { id?: string } = { title: '', weight: '' }): void {
+    const id = props.id ?? this.idService.getNextId();
+    const { title, weight } = props;
+    const onDeleteClick = (): void => this.remove(id);
+
+    const lot = new Lot({ id, title, weight, onDeleteClick });
+
+    this.lots.set(id, lot);
+    this.lotsContainer.append(lot);
+  }
+
+  public getValues(): LotData[] {
+    return Array.from(this.lots.values()).map((lot) => lot.getValues());
+  }
+
+  public getValidValues(): { title: string; weight: number }[] {
+    const validLotsData: { title: string; weight: number }[] = [];
+
+    this.lots.forEach((lot) => {
+      const lotValues = LotViewListService.parseValidLotValues(lot);
+
+      if (lotValues) {
+        validLotsData.push(lotValues);
+      }
+    });
+
+    return validLotsData;
+  }
+
+  private static parseValidLotValues = (lot: LotComponent): { title: string; weight: number } | null => {
+    const { title, weight: weightString } = lot.getValues();
+    const weight = Number(weightString);
+
+    return title && weight > 0 ? { title, weight } : null;
+  };
+}
