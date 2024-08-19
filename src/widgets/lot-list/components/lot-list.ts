@@ -4,8 +4,8 @@ import loadJsonFromFile from '~/utils/load-json-from-file';
 import saveAsJsonToFile from '~/utils/save-as-json-to-file';
 import LotViewListService from '../services/lot-view-list-service.service';
 import parseLotListJson from '../utils/parse-lot-list-json';
-import styles from './lot-list.module.css';
 import Lot from './lot';
+import styles from './lot-list.module.css';
 
 type OnStartClick = (list: { title: string; weight: number }[]) => void;
 
@@ -64,10 +64,8 @@ export default class LotList extends Component {
       void (async (): Promise<void> => {
         const rawJsonString = await loadJsonFromFile();
         const { list } = parseLotListJson(rawJsonString);
-        this.lotViewListService.clear();
-        list.forEach(({ title, weight }) => {
-          this.lotViewListService.add({ title, weight });
-        });
+
+        this.lotViewListService.loadList(list);
       })();
     });
 

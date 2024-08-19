@@ -79,13 +79,13 @@ export default class LotViewListService {
   }
 
   public clear(): void {
-    this.lots.forEach((lot) => lot.remove());
+    this.lotsContainer.replaceChildren();
     this.lots.clear();
     this.idService.resetId();
     this.add();
   }
 
-  public add(props: LotData & { id?: string } = { title: '', weight: '' }): void {
+  public add = (props: LotData & { id?: string } = { title: '', weight: '' }): void => {
     const id = props.id ?? this.idService.getNextId();
     const { title, weight } = props;
     const onDeleteClick = (): void => this.remove(id);
@@ -94,6 +94,13 @@ export default class LotViewListService {
 
     this.lots.set(id, lot);
     this.lotsContainer.append(lot);
+  };
+
+  public loadList(lotDataList: LotData[]): void {
+    this.lotsContainer.replaceChildren();
+    this.lots.clear();
+    this.idService.resetId();
+    lotDataList.forEach(this.add);
   }
 
   public getValues(): LotData[] {

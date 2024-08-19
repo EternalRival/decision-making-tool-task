@@ -37,7 +37,9 @@ export default class WheelLotsService {
 
   public getTitleByRadian(radian: number): string {
     const offset = CIRCLE - (radian % CIRCLE);
-    const slice = this.wheelSliceList.find(({ startAngle, endAngle }) => offset >= startAngle && offset <= endAngle);
+    const slice =
+      this.wheelSliceList.find(({ startAngle, endAngle }) => offset >= startAngle && offset <= endAngle) ??
+      this.wheelSliceList.at(-1);
 
     if (!slice) {
       throw new Error('Slice not found');
