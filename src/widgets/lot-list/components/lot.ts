@@ -1,11 +1,10 @@
 import Component from '~/components/component';
 import Input from '~/components/input';
 import UiButton from '~/components/ui-button';
-import { type LotComponent } from '../types/lot-component.type';
 import { type LotData } from '../types/lot-data.type';
 import styles from './lot.module.css';
 
-export default class Lot extends Component implements LotComponent {
+export default class Lot extends Component {
   private title: string;
 
   private weight: string;

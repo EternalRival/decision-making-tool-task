@@ -5,6 +5,7 @@ import saveAsJsonToFile from '~/utils/save-as-json-to-file';
 import LotViewListService from '../services/lot-view-list-service.service';
 import parseLotListJson from '../utils/parse-lot-list-json';
 import styles from './lot-list.module.css';
+import Lot from './lot';
 
 type OnStartClick = (list: { title: string; weight: number }[]) => void;
 
@@ -14,7 +15,7 @@ export default class LotList extends Component {
   constructor({ onStartClick }: { onStartClick: OnStartClick }) {
     super('div', { className: styles['lotList'] });
 
-    this.lotViewListService = new LotViewListService();
+    this.lotViewListService = new LotViewListService({ createLotComponent: (lotData): Lot => new Lot(lotData) });
 
     this.renderUI({ onStartClick });
   }

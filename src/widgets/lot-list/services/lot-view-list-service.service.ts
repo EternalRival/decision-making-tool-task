@@ -1,10 +1,11 @@
 import type Component from '~/components/component';
 import { LSService } from '~/utils/local-storage-service';
-import Lot from '../components/lot';
-import { type LotComponent } from '../types/lot-component.type';
+import type Lot from '../components/lot';
 import { type LotData } from '../types/lot-data.type';
 import isLotDataEntriesList from '../utils/is-lot-data-entries-list';
 import LotIdService from './lot-id.service';
+
+type CreateLotComponent = (lotData: ConstructorParameters<typeof Lot>[0]) => Lot;
 
 export default class LotViewListService {
   private idService = new LotIdService();
@@ -12,6 +13,12 @@ export default class LotViewListService {
   private lots = new Map<string, Lot>();
 
   private _lotsContainer: Component<'div'> | null = null;
+
+  private createLotComponent: CreateLotComponent;
+
+  constructor({ createLotComponent }: { createLotComponent: CreateLotComponent }) {
+    this.createLotComponent = createLotComponent;
+  }
 
   private get lotsContainer(): Component<'div'> {
     if (!this._lotsContainer) {
@@ -83,7 +90,7 @@ export default class LotViewListService {
     const { title, weight } = props;
     const onDeleteClick = (): void => this.remove(id);
 
-    const lot = new Lot({ id, title, weight, onDeleteClick });
+    const lot = this.createLotComponent({ id, title, weight, onDeleteClick });
 
     this.lots.set(id, lot);
     this.lotsContainer.append(lot);
@@ -107,7 +114,7 @@ export default class LotViewListService {
     return validLotsData;
   }
 
-  private static parseValidLotValues = (lot: LotComponent): { title: string; weight: number } | null => {
+  private static parseValidLotValues = (lot: Lot): { title: string; weight: number } | null => {
     const { title, weight: weightString } = lot.getValues();
     const weight = Number(weightString);
 
