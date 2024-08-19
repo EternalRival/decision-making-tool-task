@@ -120,9 +120,12 @@ export default class Wheel extends UiDialog {
           if (styles['winner']) {
             selected.addClass(styles['winner']);
           }
-          playWinningSound().catch((error: unknown) => {
-            console.error(error);
-          });
+
+          if (!this.muteStateService.get()) {
+            playWinningSound().catch((error: unknown) => {
+              console.error(error);
+            });
+          }
         },
       });
     });
