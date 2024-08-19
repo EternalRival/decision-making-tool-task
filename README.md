@@ -322,7 +322,7 @@ The second part of the application allows you to see the previously created list
 
 ##### Outside click
 
-1. (+4) The `outside click` must close `WoF` view and return the user to the [list of lots](#list-of-lots-92).
+1. (+4) The `outside click` must close `WoF` modal window and return the user to the [list of lots](#list-of-lots-92).
 2. (+4) In the wheel rotation state, the `outside click` functionality must be temporarily disabled.
 3. (+4) In the initial and winning states `outside click` functions as it should.
 
