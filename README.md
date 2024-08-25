@@ -394,3 +394,7 @@ The second part of the application allows you to see the previously created list
 - [JavaScript animations](https://javascript.info/js-animation)
 - [Easings](https://easings.net/)
 - [There is no point in using TypeScript if you don’t care about types](https://javascript.plainenglish.io/there-is-no-point-to-use-typescript-in-your-project-if-you-dont-care-about-types-68131deeb43a)
+
+## Assignment Feedback
+
+[Feedback](https://forms.gle/LZ8jYqKueJpCrqSR7) | [Q&A (form)](https://forms.gle/GvhN7VPSCGPyb6ad8) | [Q&A (answers)](https://docs.google.com/spreadsheets/d/1MZMyL9h9zK6flH3QGuX_7FkrXnRkMOZtbQw5ITsBp-g/pubhtml?gid=1977116421&single=true)
