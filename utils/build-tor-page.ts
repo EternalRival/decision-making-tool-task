@@ -3,7 +3,7 @@ import { copyFileSync, mkdirSync, rmSync } from 'node:fs';
 import { resolve } from 'node:path';
 
 const sourceFilePath = resolve('README.md');
-const tempDirPath = resolve('dist/tor-temp');
+const tempDirPath = resolve(`dist/tor/source-${Date.now()}`);
 const tempFilePath = resolve(tempDirPath, 'index.md');
 const torPageDirPath = resolve('dist/tor');
 
