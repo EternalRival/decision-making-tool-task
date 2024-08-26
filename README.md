@@ -360,7 +360,7 @@ The second part of the application allows you to see the previously created list
 - Evaluation is based on [Functional Requirements](#functional-requirements-256).
 - Check on the latest version of the “google chrome” browser.
 
-## Crosscheck Penalties
+## Crosscheck Penalties (Up to -100%)
 
 - (-100%) Non-empty `<body>` in the `index.html` (only `<script>` tag is allowed).
 - (-50) The app is not supported at `640px <= width <= 1280px` at least *(e.g., DOM elements go out of the bounds of parent elements, overlap, etc.)*.
@@ -393,7 +393,9 @@ The second part of the application allows you to see the previously created list
 - [MDN: Web Animations API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API)
 - [JavaScript animations](https://javascript.info/js-animation)
 - [Easings](https://easings.net/)
+- [TS: Type Guards](https://www.typescriptlang.org/docs/handbook/2/narrowing.html)
 - [There is no point in using TypeScript if you don’t care about types](https://javascript.plainenglish.io/there-is-no-point-to-use-typescript-in-your-project-if-you-dont-care-about-types-68131deeb43a)
+- [Prettier: Integrating with Linters](https://prettier.io/docs/en/integrating-with-linters.html)
 
 ## Assignment Feedback
 
