@@ -12,6 +12,9 @@ The second part of the application allows you to see the previously created list
 
 ## Demo
 
+> This is a demo of the app's functionality.  
+> The app design is up to you as long as it meets the requirements of the assignment.
+
 <https://er-wof-demo.netlify.app/>
 
 ## Task Objectives
@@ -108,10 +111,8 @@ The second part of the application allows you to see the previously created list
 
 #### Husky (with lint-staged and commitlint)
 
-> `husky` allows us to run some code during various git events using git hooks.
->
-> `lint-staged` allows us to run linters/formatters only on code that is prepared for commit.
->
+> `husky` allows us to run some code during various git events using git hooks.  
+> `lint-staged` allows us to run linters/formatters only on code that is prepared for commit.  
 > `commitlint` keeps track of commit names and allows us to avoid unnecessary `git rebase -i`.
 
 1. (+2) [`husky`](https://typicode.github.io/husky/), [`lint-staged`](https://github.com/lint-staged/lint-staged) and [`commitlint`](https://commitlint.js.org/) must be installed to developer dependencies.
