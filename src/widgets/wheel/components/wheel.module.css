@@ -34,7 +34,7 @@
 
     transition-duration: 0.2s;
 
-    &:focus {
+    &:focus-visible {
       outline: none;
       box-shadow: 0 0 0.25rem 0.1rem #fff;
     }
@@ -122,14 +122,14 @@
           background-color: #808080;
         }
 
-        &:focus {
+        &:focus-visible {
           box-shadow:
             0 0 0.25rem 0.1rem #fff,
             inset 0 0 0.1rem 0.05rem #fff;
         }
 
         @media (hover: hover) and (pointer: fine) {
-          &:hover:not(&:focus, &:disabled) {
+          &:hover:not(&:focus-visible, &:disabled) {
             box-shadow: 0 0 0.25rem 0.1rem #fff;
           }
         }

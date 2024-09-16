@@ -62,14 +62,14 @@
       opacity: 0.5;
     }
 
-    &:focus {
+    &:focus-visible {
       box-shadow:
         0 0 0.25rem 0.1rem #fff,
         inset 0 0 0.1rem 0.05rem #fff;
     }
 
     @media (hover: hover) and (pointer: fine) {
-      &:hover:not(&:focus) {
+      &:hover:not(&:focus-visible) {
         box-shadow: 0 0 0.25rem 0.1rem #fff;
       }
     }
