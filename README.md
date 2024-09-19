@@ -270,25 +270,25 @@ The second part of the application allows you to see the previously created list
 2. (+4) The order of `lot slices` on the `wheel` element must be randomized when the modal window is opened and not change until it is closed.
 3. (+4) The fill color of each `lot slice` must be randomly generated when the modal window is opened and not change until it is closed.
 4. (+8) The width (angle) of each `lot slice` must depend on the `weight` field of the lot. *The main idea of this feature is that by setting the values of lot weight we can adjust the chance of winning a particular lot. That is, the higher the weight of a particular lot, the wider its slice, and therefore the higher the chance of winning it.*
-5. (+2) Each `lot slice` must be distinguishable from other elements. *This means that you need to handle the case where the fill color of a `lot slice` may happen to be very close to the fill color of an adjacent slice, cursor, or center element. *(Additional stroke, shadow, fill can be useful here.)**
+5. (+2) Each `lot-slice` must have a visual boundary to distinguish it from other elements (e.g., adjacent slices, cursor, center element), even if their fill colors are similar. *(Additional stroke, shadow, fill can be useful here.)*
 
 ##### Lot slice title
 
 1. (+2) Each `lot slice` must display the `title` value of the lot as text (except in the case described in the next bullet point). The text should be placed on the slice from the center of the wheel to the edge (or from the edge to the center).
 2. (+4) Each `lot slice title` must not violate the boundaries of its slice. If the width (angle) of the slice is not wide enough to display the text, the text must not be displayed.
 3. (+4) Each `lot slice title` must not violate the boundaries of wheel. If `title` is too long, it should be clipped and end with ellipsis *(e.g., `"some very very long title" -> "some very very long t…"`)*.
-4. (+2) Each displayed `lot slice title` must be distinguishable from the background. *This means that the background color of a `lot slice` may happen to be either light or dark. *(Additional stroke, shadow, fill can be useful here.)**
+4. (+2) Each displayed `lot slice title` must have a visual boundary to distinguish it from the randomized `lot slice` fill color. *(Additional stroke, shadow, fill can be useful here.)*
 
 ##### Center element
 
 1. (+2) In the center of the `wheel`, there must be a decorative element to hide the point of contact between all the wheel slices *(e.g., a small circle, star, image, etc.)*.
-2. (+2) The `center element` must be distinguishable from other elements. *This means that you need to handle the case where the `cursor` fill color may happen to be very close to the fill color of an adjacent slice. *(Additional stroke, shadow, fill can be useful here.)**
+2. (+2) The `center element` must have a visual boundary to distinguish it from other elements (e.g., adjacent slices), even if their fill colors are similar. *(Additional stroke, shadow, fill can be useful here.)*
 
 ##### Cursor
 
 1. (+4) The `wheel` element must display a `cursor` that points to the current lot. It can be designed in the form of a triangle, arrow or any similar figure with a clearly defined pointer.
 2. (+4) The `cursor` must be placed at any position on the edge of the `wheel` and not overlapped by other elements.
-3. (+2) The `cursor` must be distinguishable from other elements. *This means that you need to handle the case where the `cursor` fill color may happen to be very close to the fill color of an adjacent slice or background. *(Additional stroke, shadow, fill can be useful here.)**
+3. (+2) The `cursor` must have a visual boundary to distinguish it from other elements (e.g., adjacent slices, background), even if their fill colors are similar. *(Additional stroke, shadow, fill can be useful here.)*
 
 ##### Wheel rotating
 
