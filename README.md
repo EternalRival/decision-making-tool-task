@@ -142,7 +142,7 @@ The second part of the application allows you to see the previously created list
 
 #### Clear and Reusable Functions
 
-1. (+8) The code is divided into small functions (≤ 40 lines each) with clear names and purposes. The same applies to classes and their methods. *ESLint rule `max-lines-per-function` may be useful for this.
+1. (+8) The code is divided into small functions (≤ 40 lines each) with clear names and purposes. The same applies to classes and their methods. *(ESLint rule `max-lines-per-function` may be useful for this.)*
 2. (+8) Arguments and return values of functions and methods are explicitly typed.
 
 #### Care About Types
