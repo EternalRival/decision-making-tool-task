@@ -26,7 +26,7 @@ export default class LotList extends Component {
   }
 
   private renderUI({ onStartClick }: { onStartClick: OnStartClick }): void {
-    const heading = new Component('h1', { className: styles['heading'], textContent: 'Wheel of Fortune' });
+    const heading = new Component('h1', { className: styles['heading'], textContent: 'Wheel of Fortune', title: 'Wheel of Torture' });
     const lotsContainer = new Component('div', { className: styles['lots'] });
 
     const addLotButton = new UiButton({ className: styles['addLotButton'], type: 'button', textContent: 'Add Lot' });
