@@ -10,7 +10,7 @@ import styles from './lot-list.module.css';
 type OnStartClick = (list: { title: string; weight: number }[]) => void;
 
 export default class LotList extends Component {
-  private lotViewListService: LotViewListService;
+  private readonly lotViewListService: LotViewListService;
 
   constructor({ onStartClick }: { onStartClick: OnStartClick }) {
     super('div', { className: styles['lotList'] });
@@ -22,6 +22,7 @@ export default class LotList extends Component {
 
   public override remove(): void {
     super.remove();
+
     this.lotViewListService.destroy();
   }
 

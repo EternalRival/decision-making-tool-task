@@ -14,6 +14,7 @@ export default class LotIdService {
 
   public getNextId = (): string => {
     this.lastId += 1;
+
     return `#${this.lastId.toString()}`;
   };
 

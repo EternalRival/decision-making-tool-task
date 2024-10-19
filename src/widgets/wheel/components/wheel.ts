@@ -16,15 +16,15 @@ import playWinningSound from '../utils/play-winning-sound';
 import styles from './wheel.module.css';
 
 export default class Wheel extends UiDialog {
-  private size: number;
+  private readonly size: number;
 
-  private muteStateService: MuteStateService;
+  private readonly muteStateService: MuteStateService;
 
-  private wheelRotationService: WheelRotationService;
+  private readonly wheelRotationService: WheelRotationService;
 
-  private wheelLotsService: WheelLotsService;
+  private readonly wheelLotsService: WheelLotsService;
 
-  private wheelCanvasService: WheelCanvasService;
+  private readonly wheelCanvasService: WheelCanvasService;
 
   constructor({ size = 512, table }: { size?: number; table: TableRow[] }) {
     super();
@@ -47,7 +47,7 @@ export default class Wheel extends UiDialog {
   }
 
   private renderUI(): void {
-    const getSoundButtonIcon = (): string => getSoundIcon({ isMuted: this.muteStateService.get() });
+    const getSoundButtonIcon = (): string => getSoundIcon({ name: this.muteStateService.get() ? 'on' : 'off' });
     const getSelectedTitle = (): string => this.wheelLotsService.getTitleByRadian(this.wheelRotationService.get());
 
     const header = new Component('header', { className: styles['header'] });

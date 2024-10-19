@@ -8,13 +8,13 @@ import LotIdService from './lot-id.service';
 type CreateLotComponent = (lotData: ConstructorParameters<typeof Lot>[0]) => Lot;
 
 export default class LotViewListService {
-  private idService = new LotIdService();
+  private readonly idService = new LotIdService();
 
-  private lots = new Map<string, Lot>();
+  private readonly lots = new Map<string, Lot>();
 
   private _lotsContainer: Component<'div'> | null = null;
 
-  private createLotComponent: CreateLotComponent;
+  private readonly createLotComponent: CreateLotComponent;
 
   constructor({ createLotComponent }: { createLotComponent: CreateLotComponent }) {
     this.createLotComponent = createLotComponent;
@@ -28,7 +28,7 @@ export default class LotViewListService {
     return this._lotsContainer;
   }
 
-  private saveLotsToLS = (): void => {
+  private readonly saveLotsToLS = (): void => {
     const serializedLots = Array.from(this.lots.entries(), ([id, lot]) => {
       const { title, weight } = lot.getValues();
       return [id, { title, weight: weight.toString() }];
@@ -37,7 +37,7 @@ export default class LotViewListService {
     LSService.set('lots', serializedLots);
   };
 
-  private saveCurrentLastIdToLS = (): void => {
+  private readonly saveCurrentLastIdToLS = (): void => {
     this.idService.saveCurrentLastIdToLS();
   };
 
@@ -121,7 +121,7 @@ export default class LotViewListService {
     return validLotsData;
   }
 
-  private static parseValidLotValues = (lot: Lot): { title: string; weight: number } | null => {
+  private static readonly parseValidLotValues = (lot: Lot): { title: string; weight: number } | null => {
     const { title, weight: weightString } = lot.getValues();
     const weight = Number(weightString);
 

@@ -8,9 +8,9 @@ type PS<T> = {
 };
 
 export default class PubSub<T> implements PS<T> {
-  constructor(private getValue: () => T) {}
+  constructor(private readonly getValue: () => T) {}
 
-  private listeners = new Set<Callback<T>>();
+  private readonly listeners = new Set<Callback<T>>();
 
   public destroy = (): void => {
     this.listeners.clear();

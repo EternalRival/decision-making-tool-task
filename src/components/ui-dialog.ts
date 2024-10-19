@@ -37,8 +37,10 @@ export default class UiDialog extends Component<'dialog'> {
     super.remove();
   }
 
-  public render(root: HTMLElement): void {
+  public render(root: HTMLElement): this {
     root.append(this.getNode());
     this.getNode().showModal();
+
+    return this;
   }
 }

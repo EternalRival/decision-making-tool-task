@@ -4,9 +4,9 @@ import type { TableRow } from '../types/table-row.type';
 import type { WheelSlice } from '../types/wheel-slice.type';
 
 export default class WheelLotsService {
-  private total: number;
+  private readonly total: number;
 
-  private wheelSliceList: WheelSlice[];
+  private readonly wheelSliceList: WheelSlice[];
 
   constructor({ table }: { table: TableRow[] }) {
     this.total = table.reduce((acc, item) => acc + item.weight, 0);

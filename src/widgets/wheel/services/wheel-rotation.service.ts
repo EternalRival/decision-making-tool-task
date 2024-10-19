@@ -3,7 +3,7 @@ import PubSub from '~/utils/pubsub';
 export default class WheelRotationService {
   private rotation = 0;
 
-  private pubSub = new PubSub(() => this.get());
+  private readonly pubSub = new PubSub(() => this.get());
 
   public get(): number {
     return this.rotation;

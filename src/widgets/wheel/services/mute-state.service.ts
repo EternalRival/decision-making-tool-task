@@ -3,7 +3,7 @@ import { LSService } from '~/utils/local-storage-service';
 export default class MuteStateService {
   private muteState = LSService.get('mute-state') === true;
 
-  private saveMuteStateToLS = (): void => {
+  private readonly saveMuteStateToLS = (): void => {
     LSService.set('mute-state', this.muteState);
   };
 
