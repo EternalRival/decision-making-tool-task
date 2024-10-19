@@ -1,4 +1,4 @@
-import { type LotData } from '../types/lot-data.type';
+import type { LotData } from '../types/lot-data.type';
 import isLotData from './is-lot-data';
 
 function isLotListJson(value: unknown): value is { list: LotData[] } {

@@ -1,4 +1,4 @@
-import { type LotData } from '../types/lot-data.type';
+import type { LotData } from '../types/lot-data.type';
 import isLotData from './is-lot-data';
 
 export default function isLotDataEntriesList(value: unknown): value is [string, LotData][] {

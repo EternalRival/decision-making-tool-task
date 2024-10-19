@@ -1,7 +1,7 @@
 import type Component from '~/components/component';
 import { LSService } from '~/utils/local-storage-service';
 import type Lot from '../components/lot';
-import { type LotData } from '../types/lot-data.type';
+import type { LotData } from '../types/lot-data.type';
 import isLotDataEntriesList from '../utils/is-lot-data-entries-list';
 import LotIdService from './lot-id.service';
 

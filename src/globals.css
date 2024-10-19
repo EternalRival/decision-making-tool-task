@@ -12,12 +12,12 @@ body {
   color: #fff;
 
   background-color: darkcyan;
+
+  &:has(dialog[open]) {
+    overflow: hidden;
+  }
 }
 
 button {
   user-select: none;
-}
-
-.body-no-scroll {
-  overflow: hidden;
 }

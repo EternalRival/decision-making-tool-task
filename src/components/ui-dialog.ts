@@ -33,7 +33,6 @@ export default class UiDialog extends Component<'dialog'> {
       return;
     }
 
-    document.body.classList.remove('body-no-scroll');
     this.getNode().close();
     super.remove();
   }
@@ -41,6 +40,5 @@ export default class UiDialog extends Component<'dialog'> {
   public render(root: HTMLElement): void {
     root.append(this.getNode());
     this.getNode().showModal();
-    document.body.classList.add('body-no-scroll');
   }
 }

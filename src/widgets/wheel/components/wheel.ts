@@ -8,7 +8,7 @@ import MuteStateService from '../services/mute-state.service';
 import WheelCanvasService from '../services/wheel-canvas.service';
 import WheelLotsService from '../services/wheel-lots.service';
 import WheelRotationService from '../services/wheel-rotation.service';
-import { type TableRow } from '../types/table-row.type';
+import type { TableRow } from '../types/table-row.type';
 import animate from '../utils/animate';
 import easeInOut from '../utils/ease-in-out';
 import getSoundIcon from '../utils/get-sound-icon';

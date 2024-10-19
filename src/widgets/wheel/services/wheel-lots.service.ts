@@ -1,7 +1,7 @@
 import getRandomColor from '~/utils/get-random-color';
-import { type TableRow } from '../types/table-row.type';
-import { type WheelSlice } from '../types/wheel-slice.type';
 import { CIRCLE } from '../model/constants';
+import type { TableRow } from '../types/table-row.type';
+import type { WheelSlice } from '../types/wheel-slice.type';
 
 export default class WheelLotsService {
   private total: number;
