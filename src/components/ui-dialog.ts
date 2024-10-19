@@ -20,14 +20,6 @@ export default class UiDialog extends Component<'dialog'> {
     });
   }
 
-  protected setModalLock(value: boolean): void {
-    this.isModalLocked = value;
-
-    if (styles['darkened']) {
-      this.toggleClass(styles['darkened'], value);
-    }
-  }
-
   public override remove(): void {
     if (this.isModalLocked) {
       return;
@@ -42,5 +34,13 @@ export default class UiDialog extends Component<'dialog'> {
     this.getNode().showModal();
 
     return this;
+  }
+
+  protected setModalLock(value: boolean): void {
+    this.isModalLocked = value;
+
+    if (styles['darkened']) {
+      this.toggleClass(styles['darkened'], value);
+    }
   }
 }

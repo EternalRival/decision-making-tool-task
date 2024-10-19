@@ -50,6 +50,7 @@ export default tsEslint.config(
       '@typescript-eslint/consistent-type-assertions': ['error', { assertionStyle: 'never' }],
       '@typescript-eslint/consistent-type-imports': 'error',
       '@typescript-eslint/explicit-function-return-type': 'error',
+      '@typescript-eslint/member-ordering': 'error',
     },
   },
 

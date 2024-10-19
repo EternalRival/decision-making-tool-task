@@ -13,6 +13,41 @@ export default class WheelCanvasService {
     return this._ctx;
   }
 
+  public init({ canvas }: { canvas: HTMLCanvasElement }): this {
+    this._ctx = canvas.getContext('2d');
+
+    return this;
+  }
+
+  public draw({
+    size,
+    rotation: baseRotation,
+    sliceList,
+    centerCircleColor = '#008c8c',
+    cursorColor = '#008c8c',
+  }: {
+    size: number;
+    rotation: number;
+    sliceList: readonly WheelSlice[];
+    centerCircleColor?: string;
+    cursorColor?: string;
+  }): void {
+    const { ctx } = this;
+    const center = size / 2;
+    const padding = size / 32;
+    const fontSize = size / 32;
+    const wheelRadius = center - padding;
+    const centerCircleRadius = wheelRadius / 8;
+    const rotation = (baseRotation + CIRCLE * 0.75) % CIRCLE;
+
+    ctx.clearRect(0, 0, size, size);
+
+    this.drawShadow({ ctx, center, wheelRadius, padding })
+      .drawSliceList({ ctx, center, wheelRadius, centerCircleRadius, rotation, fontSize, sliceList })
+      .drawCenterCircle({ ctx, center, centerCircleRadius, color: centerCircleColor })
+      .drawCursor({ ctx, center, padding, color: cursorColor });
+  }
+
   private drawShadow({
     ctx,
     center,
@@ -197,40 +232,5 @@ export default class WheelCanvasService {
     ctx.restore();
 
     return this;
-  }
-
-  public init({ canvas }: { canvas: HTMLCanvasElement }): this {
-    this._ctx = canvas.getContext('2d');
-
-    return this;
-  }
-
-  public draw({
-    size,
-    rotation: baseRotation,
-    sliceList,
-    centerCircleColor = '#008c8c',
-    cursorColor = '#008c8c',
-  }: {
-    size: number;
-    rotation: number;
-    sliceList: readonly WheelSlice[];
-    centerCircleColor?: string;
-    cursorColor?: string;
-  }): void {
-    const { ctx } = this;
-    const center = size / 2;
-    const padding = size / 32;
-    const fontSize = size / 32;
-    const wheelRadius = center - padding;
-    const centerCircleRadius = wheelRadius / 8;
-    const rotation = (baseRotation + CIRCLE * 0.75) % CIRCLE;
-
-    ctx.clearRect(0, 0, size, size);
-
-    this.drawShadow({ ctx, center, wheelRadius, padding })
-      .drawSliceList({ ctx, center, wheelRadius, centerCircleRadius, rotation, fontSize, sliceList })
-      .drawCenterCircle({ ctx, center, centerCircleRadius, color: centerCircleColor })
-      .drawCursor({ ctx, center, padding, color: cursorColor });
   }
 }

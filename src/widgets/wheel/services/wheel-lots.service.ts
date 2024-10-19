@@ -14,23 +14,6 @@ export default class WheelLotsService {
     this.wheelSliceList = this.convertTableRowListToWheelSliceList(table);
   }
 
-  private getLotRadians(lotWeight: number): number {
-    return (lotWeight / this.total) * CIRCLE;
-  }
-
-  private convertTableRowListToWheelSliceList(table: TableRow[]): WheelSlice[] {
-    let offset = 0;
-
-    return table.reduce<WheelSlice[]>((acc, { title, weight }) => {
-      const color = getRandomColor();
-      const [startAngle, endAngle] = [offset, offset + this.getLotRadians(weight)];
-
-      offset = endAngle;
-
-      return [...acc, { title, color, startAngle, endAngle }];
-    }, []);
-  }
-
   public getSliceList(): readonly WheelSlice[] {
     return this.wheelSliceList;
   }
@@ -46,5 +29,22 @@ export default class WheelLotsService {
     }
 
     return slice.title;
+  }
+
+  private getLotRadians(lotWeight: number): number {
+    return (lotWeight / this.total) * CIRCLE;
+  }
+
+  private convertTableRowListToWheelSliceList(table: TableRow[]): WheelSlice[] {
+    let offset = 0;
+
+    return table.reduce<WheelSlice[]>((acc, { title, weight }) => {
+      const color = getRandomColor();
+      const [startAngle, endAngle] = [offset, offset + this.getLotRadians(weight)];
+
+      offset = endAngle;
+
+      return [...acc, { title, color, startAngle, endAngle }];
+    }, []);
   }
 }

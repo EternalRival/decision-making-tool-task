@@ -28,17 +28,11 @@ export default class LotViewListService {
     return this._lotsContainer;
   }
 
-  private readonly saveLotsToLS = (): void => {
-    const serializedLots = Array.from(this.lots.entries(), ([id, lot]) => {
-      const { title, weight } = lot.getValues();
-      return [id, { title, weight: weight.toString() }];
-    });
+  private static readonly parseValidLotValues = (lot: Lot): { title: string; weight: number } | null => {
+    const { title, weight: weightString } = lot.getValues();
+    const weight = Number(weightString);
 
-    LSService.set('lots', serializedLots);
-  };
-
-  private readonly saveCurrentLastIdToLS = (): void => {
-    this.idService.saveCurrentLastIdToLS();
+    return title && weight > 0 ? { title, weight } : null;
   };
 
   public init({ lotsContainer }: { lotsContainer: Component<'div'> }): this {
@@ -121,10 +115,17 @@ export default class LotViewListService {
     return validLotsData;
   }
 
-  private static readonly parseValidLotValues = (lot: Lot): { title: string; weight: number } | null => {
-    const { title, weight: weightString } = lot.getValues();
-    const weight = Number(weightString);
+  private readonly saveLotsToLS = (): void => {
+    const serializedLots = Array.from(this.lots.entries(), ([id, lot]) => {
+      const { title, weight } = lot.getValues();
 
-    return title && weight > 0 ? { title, weight } : null;
+      return [id, { title, weight: weight.toString() }];
+    });
+
+    LSService.set('lots', serializedLots);
+  };
+
+  private readonly saveCurrentLastIdToLS = (): void => {
+    this.idService.saveCurrentLastIdToLS();
   };
 }

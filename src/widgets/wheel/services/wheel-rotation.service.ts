@@ -21,9 +21,15 @@ export default class WheelRotationService {
     this.pubSub.emit();
   }
 
-  public off = this.pubSub.off;
+  public off(...args: Parameters<typeof this.pubSub.off>): void {
+    this.pubSub.off(...args);
+  }
 
-  public on = this.pubSub.on;
+  public on(...args: Parameters<typeof this.pubSub.on>): void {
+    this.pubSub.on(...args);
+  }
 
-  public destroy = this.pubSub.destroy;
+  public destroy(): void {
+    this.pubSub.destroy();
+  }
 }
