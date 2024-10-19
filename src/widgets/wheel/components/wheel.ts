@@ -47,7 +47,7 @@ export default class Wheel extends UiDialog {
   }
 
   private renderUI(): void {
-    const getSoundButtonIcon = (): string => getSoundIcon({ name: this.muteStateService.get() ? 'on' : 'off' });
+    const getSoundButtonIcon = (): string => getSoundIcon({ name: this.muteStateService.get() ? 'off' : 'on' });
     const getSelectedTitle = (): string => this.wheelLotsService.getTitleByRadian(this.wheelRotationService.get());
 
     const header = new Component('header', { className: styles['header'] });
