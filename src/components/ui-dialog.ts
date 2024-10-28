@@ -12,12 +12,9 @@ export default class UiDialog extends Component<'dialog'> {
           this.remove();
         }
       },
-      onkeydown: (e) => {
-        if (e.key === 'Escape') {
-          e.preventDefault();
-        }
-      },
     });
+
+    document.addEventListener('keydown', this.handleKeydown);
   }
 
   public override remove(): void {
@@ -27,6 +24,7 @@ export default class UiDialog extends Component<'dialog'> {
 
     this.getNode().close();
     super.remove();
+    document.removeEventListener('keydown', this.handleKeydown);
   }
 
   public render(root: HTMLElement): this {
@@ -43,4 +41,10 @@ export default class UiDialog extends Component<'dialog'> {
       this.toggleClass(styles['darkened'], value);
     }
   }
+
+  private readonly handleKeydown = (e: KeyboardEvent): void => {
+    if (e.key === 'Escape' && this.isModalLocked) {
+      e.preventDefault();
+    }
+  };
 }
