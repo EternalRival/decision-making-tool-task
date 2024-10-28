@@ -41,9 +41,12 @@ export default class Wheel extends UiDialog {
   }
 
   public override remove(): void {
-    super.remove();
-    this.muteStateService.destroy();
-    this.wheelRotationService.destroy();
+    super.remove({
+      onRemove: (): void => {
+        this.muteStateService.destroy();
+        this.wheelRotationService.destroy();
+      },
+    });
   }
 
   private renderUI(): void {

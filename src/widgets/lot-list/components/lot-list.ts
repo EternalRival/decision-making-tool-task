@@ -21,9 +21,11 @@ export default class LotList extends Component {
   }
 
   public override remove(): void {
-    super.remove();
-
-    this.lotViewListService.destroy();
+    super.remove({
+      onRemove: () => {
+        this.lotViewListService.destroy();
+      },
+    });
   }
 
   private renderUI({ onStartClick }: { onStartClick: OnStartClick }): void {

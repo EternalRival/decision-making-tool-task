@@ -17,13 +17,13 @@ export default class UiDialog extends Component<'dialog'> {
     document.addEventListener('keydown', this.handleKeydown);
   }
 
-  public override remove(): void {
+  public override remove(...args: Parameters<Component['remove']>): void {
     if (this.isModalLocked) {
       return;
     }
 
     this.getNode().close();
-    super.remove();
+    super.remove(...args);
     document.removeEventListener('keydown', this.handleKeydown);
   }
 

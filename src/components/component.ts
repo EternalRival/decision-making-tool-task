@@ -12,7 +12,8 @@ export default class Component<T extends TagName = 'div'> {
     return this.node;
   }
 
-  public remove(): void {
+  public remove({ onRemove }: { onRemove?: () => void } = {}): void {
+    onRemove?.();
     this.getNode().remove();
   }
 
