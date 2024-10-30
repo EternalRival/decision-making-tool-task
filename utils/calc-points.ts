@@ -1,6 +1,7 @@
 import { readFileSync } from 'node:fs';
-import { EOL } from 'node:os';
 import { resolve } from 'node:path';
+
+const EOL = '\n';
 
 const xCheckHeading = '## Functional Requirements';
 const torFileName = 'README.md';
@@ -27,14 +28,14 @@ function getSectionContent({
   let startIndex = content.indexOf(`${EOL}${sectionName}`);
 
   if (startIndex < 0) {
-    throw new Error('Section not found');
+    throw new Error(`Section \`${sectionName}\` not found`);
   }
 
   startIndex += 1;
 
-  const startIndexWithOffset = content.indexOf('\n', startIndex) + 1;
+  const startIndexWithOffset = content.indexOf(EOL, startIndex) + 1;
 
-  let endIndex;
+  let endIndex: number;
 
   do {
     endIndex = content.indexOf(`${EOL}${headingChars} `, startIndexWithOffset);
@@ -58,7 +59,7 @@ function getSectionPoints({
 
 const sectionChar = '#';
 const pointsPattern = /^\d+\. \(\+(\d+)\) /gm;
-const fileContent = getFileContent(torFileName);
+const fileContent = getFileContent(torFileName).replace(/\r\n/g, '\n');
 
 const functionalPoints = getSectionPoints({
   sectionContent: getSectionContent({
@@ -116,7 +117,6 @@ console.table({
   'Functional Requirements': functionalPoints,
   '  List of lots': listOfLotsPoints,
   '  WoF Modal': wofModalPoints,
-  'List of lots + WoF Modal': listOfLotsPoints + wofModalPoints,
 
   'Technical Requirements': technicalPoints,
   '  Code Formatting and Linting': configsPoints,

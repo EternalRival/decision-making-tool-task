@@ -12,6 +12,9 @@ export default class UiDialog extends Component<'dialog'> {
           this.remove();
         }
       },
+      oncancel: () => {
+        this.remove();
+      },
     });
 
     document.addEventListener('keydown', this.handleKeydown);
