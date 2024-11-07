@@ -1,26 +1,23 @@
 .uiDialog {
-  position: relative;
-
   padding: 0;
 
   color: inherit;
 
-  background-color: #008c8ccc;
-  border: none;
+  background-color: var(--color-teal-cc);
+  border: unset;
   border-radius: 0.5rem;
-  outline: none;
-  box-shadow: 0 0 0.25rem 0.1rem #ffffff80;
+  box-shadow: 0 0 0.25rem 0.1rem var(--color-white-80);
 
   &::-webkit-scrollbar {
     display: none;
   }
 
   &::backdrop {
-    backdrop-filter: blur(3px);
-    transition-duration: 0.2s;
+    backdrop-filter: blur(0.1875rem);
+    transition-duration: var(--transition-duration);
   }
 
   &.darkened::backdrop {
-    backdrop-filter: blur(3px) brightness(0.75);
+    backdrop-filter: blur(0.1875rem) brightness(0.75);
   }
 }

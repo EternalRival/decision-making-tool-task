@@ -9,9 +9,9 @@
 
   padding: 0.5rem;
 
-  backdrop-filter: brightness(0.9) blur(3px);
+  backdrop-filter: brightness(0.9) blur(0.1875rem);
 
-  transition-duration: 0.2s;
+  transition-duration: var(--transition-duration);
 
   &.hidden {
     pointer-events: none;
@@ -32,17 +32,17 @@
     border: none;
     border-radius: 0.5rem;
 
-    transition-duration: 0.2s;
+    transition-duration: var(--transition-duration);
 
     &:focus-visible {
       outline: none;
-      box-shadow: 0 0 0.25rem 0.1rem #fff;
+      box-shadow: 0 0 0.25rem 0.1rem var(--color-white);
     }
 
     @media (hover: hover) and (pointer: fine) {
       &:hover {
-        background-color: #007c7c;
-        box-shadow: 0 0 0.25rem 0.1rem #fffa;
+        background-color: var(--color-teal-darker);
+        box-shadow: 0 0 0.25rem 0.1rem var(--color-white-aa);
       }
     }
   }
@@ -69,15 +69,15 @@
 
     .spinButton {
       padding: 0.5rem 1rem;
-      background-color: #007c7c;
+      background-color: var(--color-teal-darker);
 
       &:active {
-        background-color: #007c7c;
+        background-color: var(--color-teal-darker);
       }
 
       @media (hover: hover) and (pointer: fine) {
         &:hover:not(:active) {
-          background-color: #008c8c;
+          background-color: var(--color-teal);
         }
       }
     }
@@ -94,12 +94,12 @@
         line-height: normal;
         color: inherit;
 
-        background-color: #00000060;
+        background-color: var(--color-black-60);
         border: none;
         outline: none;
-        box-shadow: 0 0 0.25rem 0.1rem #ffffff80;
+        box-shadow: 0 0 0.25rem 0.1rem var(--color-white-80);
 
-        transition-duration: 0.2s;
+        transition-duration: var(--transition-duration);
 
         &::-webkit-outer-spin-button,
         &::-webkit-inner-spin-button {
@@ -119,18 +119,18 @@
         &:disabled {
           pointer-events: none;
           opacity: 0.7;
-          background-color: #808080;
+          background-color: var(--color-gray);
         }
 
         &:focus-visible {
           box-shadow:
-            0 0 0.25rem 0.1rem #fff,
-            inset 0 0 0.1rem 0.05rem #fff;
+            0 0 0.25rem 0.1rem var(--color-white),
+            inset 0 0 0.1rem 0.05rem var(--color-white);
         }
 
         @media (hover: hover) and (pointer: fine) {
           &:hover:not(&:focus-visible, &:disabled) {
-            box-shadow: 0 0 0.25rem 0.1rem #fff;
+            box-shadow: 0 0 0.25rem 0.1rem var(--color-white);
           }
         }
       }
@@ -148,12 +148,12 @@
     font-weight: 500;
     text-align: center;
     text-overflow: ellipsis;
-    text-shadow: 0 0 0.15rem #fff;
+    text-shadow: 0 0 0.15rem var(--color-white);
 
-    box-shadow: 0 0 0.25rem 0.1rem #ffffff80;
+    box-shadow: 0 0 0.25rem 0.1rem var(--color-white-80);
 
     &.winner {
-      box-shadow: 0 0 0.25rem 0.1rem #0f0;
+      box-shadow: 0 0 0.25rem 0.1rem var(--color-lime);
     }
   }
 

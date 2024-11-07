@@ -18,17 +18,17 @@
   border: none;
   border-radius: 0.5rem;
 
-  transition-duration: 0.2s;
+  transition-duration: var(--transition-duration);
 
   &:focus-visible {
     outline: none;
-    box-shadow: 0 0 0.25rem 0.1rem #fff;
+    box-shadow: 0 0 0.25rem 0.1rem var(--color-white);
   }
 
   @media (hover: hover) and (pointer: fine) {
     &:hover {
-      background-color: #007c7c;
-      box-shadow: 0 0 0.25rem 0.1rem #fffa;
+      background-color: var(--color-teal-darker);
+      box-shadow: 0 0 0.25rem 0.1rem var(--color-white-aa);
     }
   }
 }

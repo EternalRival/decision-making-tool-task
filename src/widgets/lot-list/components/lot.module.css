@@ -5,7 +5,7 @@
 
   padding: 0.6rem 0.8rem;
 
-  background-color: lightseagreen;
+  background-color: var(--color-sea-green-light);
   border-radius: 0.5rem;
 
   .id {
@@ -18,9 +18,9 @@
 
     text-align: center;
 
-    background-color: #00000030;
+    background-color: var(--color-black-30);
     border-radius: 0.2rem;
-    box-shadow: 0 0 0.25rem 0.1rem #ffffff80;
+    box-shadow: 0 0 0.25rem 0.1rem var(--color-white-80);
   }
 
   .title {
@@ -50,12 +50,12 @@
     line-height: normal;
     color: inherit;
 
-    background-color: #00000060;
+    background-color: var(--color-black-60);
     border: none;
     outline: none;
-    box-shadow: 0 0 0.25rem 0.1rem #ffffff80;
+    box-shadow: 0 0 0.25rem 0.1rem var(--color-white-80);
 
-    transition-duration: 0.2s;
+    transition-duration: var(--transition-duration);
 
     &::placeholder {
       color: inherit;
@@ -64,27 +64,27 @@
 
     &:focus-visible {
       box-shadow:
-        0 0 0.25rem 0.1rem #fff,
-        inset 0 0 0.1rem 0.05rem #fff;
+        0 0 0.25rem 0.1rem var(--color-white),
+        inset 0 0 0.1rem 0.05rem var(--color-white);
     }
 
     @media (hover: hover) and (pointer: fine) {
       &:hover:not(&:focus-visible) {
-        box-shadow: 0 0 0.25rem 0.1rem #fff;
+        box-shadow: 0 0 0.25rem 0.1rem var(--color-white);
       }
     }
   }
 
   .deleteButton {
-    background-color: #00000030;
+    background-color: var(--color-black-30);
 
     &:active {
-      background-color: #00000030;
+      background-color: var(--color-black-30);
     }
 
     @media (hover: hover) and (pointer: fine) {
       &:hover:not(:active) {
-        background-color: #00000040;
+        background-color: var(--color-black-40);
       }
     }
   }

@@ -5,31 +5,31 @@
 
   color: inherit;
 
-  background-color: #ffffff40;
+  background-color: var(--color-white-40);
   border: none;
   border-radius: 0.25rem;
-  box-shadow: 0 0 0.25rem 0.1rem #fffa;
+  box-shadow: 0 0 0.25rem 0.1rem var(--color-white-aa);
 
-  transition-duration: 0.2s;
+  transition-duration: var(--transition-duration);
 
   &:focus-visible {
     outline: none;
-    box-shadow: 0 0 0.25rem 0.1rem #fff;
+    box-shadow: 0 0 0.25rem 0.1rem var(--color-white);
   }
 
   &:active {
-    background-color: #ffffff40;
+    background-color: var(--color-white-40);
   }
 
   &:disabled {
     pointer-events: none;
     opacity: 0.7;
-    background-color: #808080;
+    background-color: var(--color-gray);
   }
 
   @media (hover: hover) and (pointer: fine) {
     &:hover:not(:active) {
-      background-color: #ffffff60;
+      background-color: var(--color-white-60);
     }
   }
 }

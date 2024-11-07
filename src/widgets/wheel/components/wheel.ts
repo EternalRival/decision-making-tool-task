@@ -103,9 +103,11 @@ export default class Wheel extends UiDialog {
       spinButton.toggleDisabled(true);
       durationInput.setDisabled(true);
       this.setModalLock(true);
+
       if (styles['hidden']) {
         header.addClass(styles['hidden']);
       }
+
       if (styles['winner']) {
         selected.removeClass(styles['winner']);
       }
@@ -117,9 +119,11 @@ export default class Wheel extends UiDialog {
           spinButton.toggleDisabled(false);
           durationInput.setDisabled(false);
           this.setModalLock(false);
+
           if (styles['hidden']) {
             header.removeClass(styles['hidden']);
           }
+
           if (styles['winner']) {
             selected.addClass(styles['winner']);
           }

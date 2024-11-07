@@ -1,4 +1,5 @@
 type TagName = keyof HTMLElementTagNameMap;
+
 type Props<T extends TagName> = Partial<HTMLElementTagNameMap[T]> | undefined;
 
 export default class Component<T extends TagName = 'div'> {

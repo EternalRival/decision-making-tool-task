@@ -14,6 +14,7 @@ export default function loadJsonFromFile(): Promise<unknown> {
           });
       }
     };
+
     file.click();
   });
 }

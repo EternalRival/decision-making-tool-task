@@ -2,9 +2,10 @@
 
 import { FlatCompat } from '@eslint/eslintrc';
 import eslint from '@eslint/js';
+import stylistic from '@stylistic/eslint-plugin';
+import eslintConfigPrettier from 'eslint-config-prettier';
 import globals from 'globals';
 import tsEslint from 'typescript-eslint';
-import eslintConfigPrettier from 'eslint-config-prettier';
 
 const compat = new FlatCompat({ baseDirectory: import.meta.dirname });
 
@@ -42,6 +43,9 @@ export default tsEslint.config(
 
   {
     name: 'customize some rules',
+    plugins: {
+      '@stylistic': stylistic,
+    },
     rules: {
       'no-console': ['error', { allow: ['debug', 'warn', 'error'] }],
       'no-underscore-dangle': 'off',
@@ -51,6 +55,25 @@ export default tsEslint.config(
       '@typescript-eslint/consistent-type-imports': 'error',
       '@typescript-eslint/explicit-function-return-type': 'error',
       '@typescript-eslint/member-ordering': 'error',
+      '@stylistic/lines-between-class-members': ['error', 'always'],
+      '@stylistic/padding-line-between-statements': [
+        'error',
+        {
+          blankLine: 'always',
+          prev: ['case', 'default', 'block', 'block-like', 'multiline-block-like', 'interface', 'type'],
+          next: '*',
+        },
+        {
+          blankLine: 'any',
+          prev: ['const', 'let'],
+          next: ['const', 'let'],
+        },
+        {
+          blankLine: 'always',
+          prev: '*',
+          next: ['switch', 'while', 'try', 'return', 'if', 'interface', 'type', 'function', 'export'],
+        },
+      ],
     },
   },
 

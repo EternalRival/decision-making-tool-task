@@ -10,6 +10,7 @@ declare module 'markdown-styles' {
     output: string;
     layout: string;
   };
+
   type MarkdownStyles = {
     resolveArgs(options: ResolveArgsOptions): ResolveArgsOptions;
     render(options: RenderOptions, callback: () => void): void;
