@@ -1,11 +1,12 @@
 .uiDialog {
   padding: 0;
 
-  color: inherit;
+  color: var(--color-white);
 
   background-color: var(--color-teal-cc);
   border: unset;
   border-radius: 0.5rem;
+  outline: unset;
   box-shadow: 0 0 0.25rem 0.1rem var(--color-white-80);
 
   &::-webkit-scrollbar {
@@ -15,6 +16,7 @@
   &::backdrop {
     backdrop-filter: blur(0.1875rem);
     transition-duration: var(--transition-duration);
+    transition-property: backdrop-filter;
   }
 
   &.darkened::backdrop {

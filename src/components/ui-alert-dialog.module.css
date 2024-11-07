@@ -12,13 +12,14 @@
   width: 1.5rem;
   height: 1.5rem;
 
-  color: inherit;
+  color: var(--color-white);
 
   background-color: transparent;
   border: none;
   border-radius: 0.5rem;
 
   transition-duration: var(--transition-duration);
+  transition-property: background-color, box-shadow;
 
   &:focus-visible {
     outline: none;

@@ -3,7 +3,7 @@
 
   padding: 0.5rem;
 
-  color: inherit;
+  color: var(--color-white);
 
   background-color: var(--color-white-40);
   border: none;
@@ -11,6 +11,7 @@
   box-shadow: 0 0 0.25rem 0.1rem var(--color-white-aa);
 
   transition-duration: var(--transition-duration);
+  transition-property: background-color, box-shadow, opacity;
 
   &:focus-visible {
     outline: none;

@@ -7,7 +7,7 @@ import Wheel from '~/widgets/wheel/components/wheel';
 export default class App {
   private currentPageComponent?: Component;
 
-  render(root: HTMLElement): void {
+  public render(root: HTMLElement): void {
     const lotListPage = new LotList({
       onStartClick: (list): void => {
         if (list.length < 2) {

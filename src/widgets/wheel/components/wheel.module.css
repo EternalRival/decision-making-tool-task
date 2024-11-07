@@ -12,9 +12,9 @@
   backdrop-filter: brightness(0.9) blur(0.1875rem);
 
   transition-duration: var(--transition-duration);
+  transition-property: opacity;
 
-  &.hidden {
-    pointer-events: none;
+  &[inert] {
     opacity: 0;
   }
 
@@ -26,13 +26,14 @@
     height: 1.5rem;
     padding: 0;
 
-    color: inherit;
+    color: var(--color-white);
 
     background-color: transparent;
     border: none;
     border-radius: 0.5rem;
 
     transition-duration: var(--transition-duration);
+    transition-property: background-color, box-shadow;
 
     &:focus-visible {
       outline: none;
@@ -55,7 +56,6 @@
   gap: 1rem;
   align-items: center;
 
-  max-height: calc(100dvh - 2rem);
   padding: 1rem;
 
   &::-webkit-scrollbar {
@@ -92,7 +92,7 @@
         padding: 0.5rem;
 
         line-height: normal;
-        color: inherit;
+        color: var(--color-white);
 
         background-color: var(--color-black-60);
         border: none;
@@ -100,6 +100,7 @@
         box-shadow: 0 0 0.25rem 0.1rem var(--color-white-80);
 
         transition-duration: var(--transition-duration);
+        transition-property: background-color, box-shadow, opacity;
 
         &::-webkit-outer-spin-button,
         &::-webkit-inner-spin-button {
@@ -108,7 +109,7 @@
         }
 
         &::placeholder {
-          color: inherit;
+          color: var(--color-white);
           opacity: 0.5;
         }
 

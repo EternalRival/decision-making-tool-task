@@ -19,8 +19,9 @@ export default class Component<T extends TagName = 'div'> {
   }
 
   public append(...children: { getNode: () => HTMLElementTagNameMap[TagName] }[]): void {
+    const node = this.getNode();
     children.forEach((child) => {
-      this.node.append(child.getNode());
+      node.append(child.getNode());
     });
   }
 
@@ -42,5 +43,10 @@ export default class Component<T extends TagName = 'div'> {
 
   public toggleClass(className: string, force?: boolean): void {
     this.getNode().classList.toggle(className, force);
+  }
+
+  public toggleInert(force?: boolean): void {
+    const node = this.getNode();
+    node.inert = force ?? !node.inert;
   }
 }

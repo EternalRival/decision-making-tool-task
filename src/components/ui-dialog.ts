@@ -7,32 +7,26 @@ export default class UiDialog extends Component<'dialog'> {
   constructor() {
     super('dialog', {
       className: styles['uiDialog'],
-      onclick: (e) => {
-        if (e.target === e.currentTarget) {
-          this.remove();
-        }
-      },
-      oncancel: () => {
-        this.remove();
-      },
+      onclick: (event) => this.handleDialogClick(event),
+      oncancel: () => this.handleDialogCancel(),
     });
 
     document.addEventListener('keydown', this.handleKeydown);
   }
 
-  public override remove(...args: Parameters<Component['remove']>): void {
+  public override async remove(...args: Parameters<Component['remove']>): Promise<void> {
     if (this.isModalLocked) {
       return;
     }
 
-    this.getNode().close();
+    await this.closeDialog('cancel').catch(console.error);
     super.remove(...args);
     document.removeEventListener('keydown', this.handleKeydown);
   }
 
   public render(root: HTMLElement): this {
     root.append(this.getNode());
-    this.getNode().showModal();
+    this.openDialog().catch(console.error);
 
     return this;
   }
@@ -42,6 +36,24 @@ export default class UiDialog extends Component<'dialog'> {
 
     if (styles['darkened']) {
       this.toggleClass(styles['darkened'], value);
+    }
+  }
+
+  private async openDialog(): Promise<void> {
+    this.getNode().showModal();
+  }
+
+  private async closeDialog(returnValue?: string): Promise<void> {
+    this.getNode().close(returnValue);
+  }
+
+  private handleDialogCancel(): void {
+    this.remove().catch(console.error);
+  }
+
+  private handleDialogClick(event: Event): void {
+    if (event.target === event.currentTarget) {
+      this.remove().catch(console.error);
     }
   }
 

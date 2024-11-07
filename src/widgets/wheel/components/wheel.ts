@@ -40,8 +40,8 @@ export default class Wheel extends UiDialog {
     this.muteStateService.init();
   }
 
-  public override remove(): void {
-    super.remove({
+  public override async remove(): Promise<void> {
+    await super.remove({
       onRemove: (): void => {
         this.muteStateService.destroy();
         this.wheelRotationService.destroy();
@@ -90,7 +90,7 @@ export default class Wheel extends UiDialog {
     });
 
     closeButton.getNode().addEventListener('click', () => {
-      this.remove();
+      this.remove().catch(console.error);
     });
     soundButton.getNode().addEventListener('click', () => {
       this.muteStateService.toggle();
@@ -103,10 +103,7 @@ export default class Wheel extends UiDialog {
       spinButton.toggleDisabled(true);
       durationInput.setDisabled(true);
       this.setModalLock(true);
-
-      if (styles['hidden']) {
-        header.addClass(styles['hidden']);
-      }
+      header.toggleInert(true);
 
       if (styles['winner']) {
         selected.removeClass(styles['winner']);
@@ -119,10 +116,7 @@ export default class Wheel extends UiDialog {
           spinButton.toggleDisabled(false);
           durationInput.setDisabled(false);
           this.setModalLock(false);
-
-          if (styles['hidden']) {
-            header.removeClass(styles['hidden']);
-          }
+          header.toggleInert(false);
 
           if (styles['winner']) {
             selected.addClass(styles['winner']);

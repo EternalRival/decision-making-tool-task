@@ -48,7 +48,7 @@
     padding: 0.5rem;
 
     line-height: normal;
-    color: inherit;
+    color: var(--color-white);
 
     background-color: var(--color-black-60);
     border: none;
@@ -56,9 +56,10 @@
     box-shadow: 0 0 0.25rem 0.1rem var(--color-white-80);
 
     transition-duration: var(--transition-duration);
+    transition-property: box-shadow;
 
     &::placeholder {
-      color: inherit;
+      color: var(--color-white);
       opacity: 0.5;
     }
 

@@ -16,12 +16,9 @@
 
   .heading {
     grid-area: heading;
-
     margin: 0;
-
-    color: inherit;
     text-align: center;
-    text-shadow: 0 0 0.25rem inherit;
+    text-shadow: 0 0 0.25rem var(--color-white);
   }
 
   .lots {

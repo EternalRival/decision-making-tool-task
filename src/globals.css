@@ -1,7 +1,7 @@
 @import url('modern-normalize/modern-normalize.css');
 
 :root {
-  --transition-duration: var(--transition-duration);
+  --transition-duration: 250ms;
   --color-white: #fff;
   --color-white-40: #ffffff40;
   --color-white-60: #ffffff60;
