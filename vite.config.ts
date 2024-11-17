@@ -8,4 +8,7 @@ export default defineConfig({
   server: {
     host: true,
   },
+  build: {
+    assetsInlineLimit: (filePath) => !/sprite\.svg$/i.test(filePath),
+  },
 });
