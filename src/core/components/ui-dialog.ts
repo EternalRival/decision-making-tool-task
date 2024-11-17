@@ -6,7 +6,7 @@ export default class UiDialog extends Component<'dialog'> {
 
   constructor() {
     super('dialog', {
-      className: styles['uiDialog'],
+      className: styles.uiDialog,
       onclick: (event) => this.handleDialogClick(event),
       oncancel: () => this.handleDialogCancel(),
     });
@@ -34,8 +34,8 @@ export default class UiDialog extends Component<'dialog'> {
   protected setModalLock(value: boolean): void {
     this.isModalLocked = value;
 
-    if (styles['darkened']) {
-      this.toggleClass(styles['darkened'], value);
+    if ('darkened' in styles) {
+      this.toggleClass(styles.darkened, value);
     }
   }
 

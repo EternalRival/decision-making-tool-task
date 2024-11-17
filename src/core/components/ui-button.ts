@@ -8,6 +8,6 @@ export default class UiButton extends Button {
   constructor(...buttonParameters: ButtonParameters) {
     const [props, ...parameters] = buttonParameters;
 
-    super({ ...props, className: clsx(styles['uiButton'], props?.className) }, ...parameters);
+    super({ ...props, className: clsx(styles.uiButton, props?.className) }, ...parameters);
   }
 }

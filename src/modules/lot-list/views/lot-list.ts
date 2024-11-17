@@ -13,7 +13,7 @@ export default class LotList extends Component {
   private readonly lotViewListService: LotViewListService;
 
   constructor({ onStartClick }: { onStartClick: OnStartClick }) {
-    super('div', { className: styles['lotList'] });
+    super('div', { className: styles.lotList });
 
     this.lotViewListService = new LotViewListService({ createLotComponent: (lotData): Lot => new Lot(lotData) });
 
@@ -30,33 +30,33 @@ export default class LotList extends Component {
 
   private renderUI({ onStartClick }: { onStartClick: OnStartClick }): void {
     const heading = new Component('h1', {
-      className: styles['heading'],
+      className: styles.heading,
       textContent: 'Wheel of Fortune',
       title: 'Wheel of Torture',
     });
-    const lotsContainer = new Component('div', { className: styles['lots'] });
+    const lotsContainer = new Component('div', { className: styles.lots });
 
-    const addLotButton = new UiButton({ className: styles['addLotButton'], type: 'button', textContent: 'Add Lot' });
+    const addLotButton = new UiButton({ className: styles.addLotButton, type: 'button', textContent: 'Add Lot' });
 
     const clearListButton = new UiButton({
-      className: styles['clearListButton'],
+      className: styles.clearListButton,
       type: 'button',
       textContent: 'Clear list',
     });
 
     const saveToFileButton = new UiButton({
-      className: styles['saveToFileButton'],
+      className: styles.saveToFileButton,
       type: 'button',
       textContent: 'Save list to file',
     });
 
     const loadFromFileButton = new UiButton({
-      className: styles['loadFromFileButton'],
+      className: styles.loadFromFileButton,
       type: 'button',
       textContent: 'Load list from file',
     });
 
-    const startButton = new UiButton({ className: styles['startButton'], type: 'button', textContent: 'Start' });
+    const startButton = new UiButton({ className: styles.startButton, type: 'button', textContent: 'Start' });
 
     addLotButton.getNode().addEventListener('click', () => this.lotViewListService.add());
 

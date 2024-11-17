@@ -53,35 +53,35 @@ export default class Wheel extends UiDialog {
     const getSoundButtonIcon = (): SVGSVGElement => getSoundIcon({ name: this.muteStateService.get() ? 'off' : 'on' });
     const getSelectedTitle = (): string => this.wheelLotsService.getTitleByRadian(this.wheelRotationService.get());
 
-    const header = new Component('header', { className: styles['header'] });
-    const container = new Component('div', { className: styles['container'] });
+    const header = new Component('header', { className: styles.header });
+    const container = new Component('div', { className: styles.container });
 
-    const closeButton = new Button({ className: styles['closeButton'], textContent: '⨉' });
-    const soundButton = new Button({ className: styles['soundButton'] });
+    const closeButton = new Button({ className: styles.closeButton, textContent: '⨉' });
+    const soundButton = new Button({ className: styles.soundButton });
     soundButton.setSVGIcon(getSoundButtonIcon());
 
-    const spinForm = new Component('form', { className: styles['spinForm'] });
+    const spinForm = new Component('form', { className: styles.spinForm });
     const selected = new Component('p', {
-      className: styles['selected'],
+      className: styles.selected,
       textContent: getSelectedTitle(),
     });
 
     const canvas = new Component('canvas', {
-      className: styles['canvas'],
+      className: styles.canvas,
       width: this.size,
       height: this.size,
       textContent: 'Wheel of Fortune',
     });
 
     const spinButton = new UiButton({
-      className: styles['spinButton'],
+      className: styles.spinButton,
       type: 'submit',
       textContent: 'Spin',
       autofocus: true,
     });
-    const durationLabel = new Component('label', { className: styles['durationLabel'], textContent: 'Duration:' });
+    const durationLabel = new Component('label', { className: styles.durationLabel, textContent: 'Duration:' });
     const durationInput = new Input({
-      className: styles['durationInput'],
+      className: styles.durationInput,
       type: 'number',
       min: '5',
       value: '20',
@@ -105,8 +105,8 @@ export default class Wheel extends UiDialog {
       this.setModalLock(true);
       header.toggleInert(true);
 
-      if (styles['winner']) {
-        selected.removeClass(styles['winner']);
+      if ('winner' in styles) {
+        selected.removeClass(styles.winner);
       }
 
       this.spin({
@@ -118,8 +118,8 @@ export default class Wheel extends UiDialog {
           this.setModalLock(false);
           header.toggleInert(false);
 
-          if (styles['winner']) {
-            selected.addClass(styles['winner']);
+          if ('winner' in styles) {
+            selected.addClass(styles.winner);
           }
 
           if (!this.muteStateService.get()) {

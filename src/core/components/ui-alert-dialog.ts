@@ -8,12 +8,12 @@ export default class UiAlertDialog extends UiDialog {
     super();
 
     const errorMessage = new Component('p', {
-      className: styles['errorMessage'],
+      className: styles.errorMessage,
       textContent: alertText,
     });
 
     const closeButton = new Button({
-      className: styles['closeButton'],
+      className: styles.closeButton,
       textContent: '⨉',
       onclick: (): void => {
         this.remove().catch(console.error);

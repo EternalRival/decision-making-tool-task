@@ -20,17 +20,17 @@ export default class Lot extends Component {
     weight: string;
     onDeleteClick: () => void;
   }) {
-    super('div', { className: styles['lot'] });
+    super('div', { className: styles.lot });
 
     this.title = title;
     this.weight = weight;
 
     const inputId = `lot-${id}`;
 
-    const lotId = new Component('label', { className: styles['id'], textContent: id, htmlFor: inputId });
+    const lotId = new Component('label', { className: styles.id, textContent: id, htmlFor: inputId });
 
     const titleInput = new Input({
-      className: styles['title'],
+      className: styles.title,
       id: inputId,
       value: title,
       placeholder: 'Title',
@@ -43,7 +43,7 @@ export default class Lot extends Component {
     });
 
     const weightInput = new Input({
-      className: styles['weight'],
+      className: styles.weight,
       type: 'number',
       value: weight,
       placeholder: 'Weight',
@@ -56,7 +56,7 @@ export default class Lot extends Component {
     });
 
     const deleteButton = new UiButton({
-      className: styles['deleteButton'],
+      className: styles.deleteButton,
       type: 'button',
       textContent: 'Delete',
       onclick: onDeleteClick,
