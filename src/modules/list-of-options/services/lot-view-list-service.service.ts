@@ -1,16 +1,16 @@
 import type Component from '~/core/components/component';
 import { LSService } from '~/core/utils/local-storage-service';
-import type Lot from '../components/lot';
+import type Option from '../components/option';
 import type { LotData } from '../models/lot-data.type';
 import isLotDataEntriesList from '../utils/is-lot-data-entries-list';
 import LotIdService from './lot-id.service';
 
-type CreateLotComponent = (lotData: ConstructorParameters<typeof Lot>[0]) => Lot;
+type CreateLotComponent = (lotData: ConstructorParameters<typeof Option>[0]) => Option;
 
 export default class LotViewListService {
   private readonly idService = new LotIdService();
 
-  private readonly lots = new Map<string, Lot>();
+  private readonly lots = new Map<string, Option>();
 
   private _lotsContainer: Component<'div'> | null = null;
 
@@ -28,7 +28,7 @@ export default class LotViewListService {
     return this._lotsContainer;
   }
 
-  private static readonly parseValidLotValues = (lot: Lot): { title: string; weight: number } | null => {
+  private static readonly parseValidLotValues = (lot: Option): { title: string; weight: number } | null => {
     const { title, weight: weightString } = lot.getValues();
     const weight = Number(weightString);
 

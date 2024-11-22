@@ -1,8 +1,8 @@
-import ICON_URL from '~/assets/icons/sound-icon.sprite.svg';
+import ICON_URL from '~/assets/icons/icons.sprite.svg';
 
 const NS = 'http://www.w3.org/2000/svg';
 
-export default function getSoundIcon({ name }: { name: 'on' | 'off' }): SVGSVGElement {
+export default function SpriteIcon({ name }: { name: 'on' | 'off' | 'x' }): SVGSVGElement {
   const svg = document.createElementNS(NS, 'svg');
   const use = document.createElementNS(NS, 'use');
 

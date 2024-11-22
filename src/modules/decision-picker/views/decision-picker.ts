@@ -11,11 +11,17 @@ import WheelLotsService from '../services/wheel-lots.service';
 import WheelRotationService from '../services/wheel-rotation.service';
 import animate from '../utils/animate';
 import easeInOut from '../utils/ease-in-out';
-import getSoundIcon from '../utils/get-sound-icon';
+import SpriteIcon from '../../../core/components/sprite-icon';
 import playWinningSound from '../utils/play-winning-sound';
-import styles from './wheel.module.css';
+import styles from './decision-picker.module.css';
 
-export default class Wheel extends UiDialog {
+const CANVAS_TEXT = 'Decision Picker Wheel';
+const PICK_BUTTON_TEXT = 'Pick';
+const DURATION_MIN_VALUE = '5';
+const DURATION_INITIAL_VALUE = '16';
+const DURATION_PLACEHOLDER_TEXT = 'sec';
+
+export default class DecisionPicker extends UiDialog {
   private readonly size: number;
 
   private readonly muteStateService: MuteStateService;
@@ -50,19 +56,20 @@ export default class Wheel extends UiDialog {
   }
 
   private renderUI(): void {
-    const getSoundButtonIcon = (): SVGSVGElement => getSoundIcon({ name: this.muteStateService.get() ? 'off' : 'on' });
+    const getSoundButtonIcon = (): SVGSVGElement => SpriteIcon({ name: this.muteStateService.get() ? 'off' : 'on' });
     const getSelectedTitle = (): string => this.wheelLotsService.getTitleByRadian(this.wheelRotationService.get());
 
     const header = new Component('header', { className: styles.header });
     const container = new Component('div', { className: styles.container });
 
-    const closeButton = new Button({ className: styles.closeButton, textContent: '⨉' });
+    const closeButton = new Button({ className: styles.closeButton });
+    closeButton.setSVGIcon(SpriteIcon({ name: 'x' }));
     const soundButton = new Button({ className: styles.soundButton });
     soundButton.setSVGIcon(getSoundButtonIcon());
 
-    const spinForm = new Component('form', { className: styles.spinForm });
-    const selected = new Component('p', {
-      className: styles.selected,
+    const pickForm = new Component('form', { className: styles.pickForm });
+    const pickedOption = new Component('p', {
+      className: styles.pickedOption,
       textContent: getSelectedTitle(),
     });
 
@@ -70,22 +77,22 @@ export default class Wheel extends UiDialog {
       className: styles.canvas,
       width: this.size,
       height: this.size,
-      textContent: 'Wheel of Fortune',
+      textContent: CANVAS_TEXT,
     });
 
-    const spinButton = new UiButton({
-      className: styles.spinButton,
+    const pickButton = new UiButton({
+      className: styles.pickButton,
       type: 'submit',
-      textContent: 'Spin',
+      textContent: PICK_BUTTON_TEXT,
       autofocus: true,
     });
     const durationLabel = new Component('label', { className: styles.durationLabel, textContent: 'Duration:' });
     const durationInput = new Input({
       className: styles.durationInput,
       type: 'number',
-      min: '5',
-      value: '20',
-      placeholder: 'sec',
+      min: DURATION_MIN_VALUE,
+      value: DURATION_INITIAL_VALUE,
+      placeholder: DURATION_PLACEHOLDER_TEXT,
       required: true,
     });
 
@@ -97,29 +104,29 @@ export default class Wheel extends UiDialog {
       soundButton.setSVGIcon(getSoundButtonIcon());
     });
 
-    spinForm.getNode().addEventListener('submit', (event) => {
+    pickForm.getNode().addEventListener('submit', (event) => {
       event.preventDefault();
 
-      spinButton.toggleDisabled(true);
+      pickButton.toggleDisabled(true);
       durationInput.setDisabled(true);
       this.setModalLock(true);
       header.toggleInert(true);
 
-      if ('winner' in styles) {
-        selected.removeClass(styles.winner);
+      if ('picked' in styles) {
+        pickedOption.removeClass(styles.picked);
       }
 
-      this.spin({
+      this.startPicking({
         duration: Number(durationInput.getValue()),
         targetRotationOffset: CIRCLE * Math.random(),
         onFinish: () => {
-          spinButton.toggleDisabled(false);
+          pickButton.toggleDisabled(false);
           durationInput.setDisabled(false);
           this.setModalLock(false);
           header.toggleInert(false);
 
-          if ('winner' in styles) {
-            selected.addClass(styles.winner);
+          if ('picked' in styles) {
+            pickedOption.addClass(styles.picked);
           }
 
           if (!this.muteStateService.get()) {
@@ -131,7 +138,7 @@ export default class Wheel extends UiDialog {
       });
     });
 
-    this.wheelRotationService.on(() => selected.setTextContent(getSelectedTitle()));
+    this.wheelRotationService.on(() => pickedOption.setTextContent(getSelectedTitle()));
     this.wheelCanvasService.init({ canvas: canvas.getNode() }).draw({
       rotation: this.wheelRotationService.get(),
       size: this.size,
@@ -140,12 +147,12 @@ export default class Wheel extends UiDialog {
 
     this.append(header, container);
     header.append(closeButton, soundButton);
-    container.append(spinForm, selected, canvas);
-    spinForm.append(spinButton, durationLabel);
+    container.append(pickForm, pickedOption, canvas);
+    pickForm.append(pickButton, durationLabel);
     durationLabel.append(durationInput);
   }
 
-  private spin({
+  private startPicking({
     duration,
     targetRotationOffset,
     onFinish,
@@ -154,8 +161,8 @@ export default class Wheel extends UiDialog {
     targetRotationOffset: number;
     onFinish: () => void;
   }): void {
-    const fullSpinsRotation = duration * CIRCLE;
-    const targetRotation = fullSpinsRotation + targetRotationOffset;
+    const fullTurnsRotation = duration * CIRCLE;
+    const targetRotation = fullTurnsRotation + targetRotationOffset;
 
     const drawFn = (progress: number): void => {
       this.wheelRotationService.set(progress * targetRotation);
@@ -166,7 +173,7 @@ export default class Wheel extends UiDialog {
       });
     };
 
-    const onSpinFinish = (): void => {
+    const onPicked = (): void => {
       this.wheelRotationService.set(targetRotationOffset);
       this.wheelCanvasService.draw({
         rotation: this.wheelRotationService.get(),
@@ -177,6 +184,6 @@ export default class Wheel extends UiDialog {
       onFinish();
     };
 
-    animate({ duration, drawFn, easingFn: easeInOut, onFinish: onSpinFinish });
+    animate({ duration, drawFn, easingFn: easeInOut, onFinish: onPicked });
   }
 }

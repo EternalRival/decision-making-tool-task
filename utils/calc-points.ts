@@ -74,7 +74,7 @@ const listOfLotsPoints = getSectionPoints({
   sectionContent: getSectionContent({
     content: fileContent,
     sectionChar,
-    sectionName: '### List of lots',
+    sectionName: '### List of Options',
   }),
   pointsPattern,
 });
@@ -83,7 +83,7 @@ const wofModalPoints = getSectionPoints({
   sectionContent: getSectionContent({
     content: fileContent,
     sectionChar,
-    sectionName: '### WoF Modal',
+    sectionName: '### Decision Picker',
   }),
   pointsPattern,
 });
@@ -115,8 +115,8 @@ const codeQualityPoints = getSectionPoints({
 
 console.table({
   'Functional Requirements': functionalPoints,
-  '  List of lots': listOfLotsPoints,
-  '  WoF Modal': wofModalPoints,
+  '  List of Options': listOfLotsPoints,
+  '  Decision Picker': wofModalPoints,
 
   'Technical Requirements': technicalPoints,
   '  Code Formatting and Linting': configsPoints,

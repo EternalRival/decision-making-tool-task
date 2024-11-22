@@ -2,9 +2,13 @@ import Component from '~/core/components/component';
 import Input from '~/core/components/input';
 import UiButton from '~/core/components/ui-button';
 import type { LotData } from '../models/lot-data.type';
-import styles from './lot.module.css';
+import styles from './option.module.css';
 
-export default class Lot extends Component {
+const TITLE_INPUT_PLACEHOLDER_TEXT = 'Title';
+const WEIGHT_INPUT_PLACEHOLDER_TEXT = 'Weight';
+const DELETE_OPTION_BUTTON_TEXT = 'Delete';
+
+export default class Option extends Component {
   private title: string;
 
   private weight: string;
@@ -20,7 +24,7 @@ export default class Lot extends Component {
     weight: string;
     onDeleteClick: () => void;
   }) {
-    super('div', { className: styles.lot });
+    super('div', { className: styles.option });
 
     this.title = title;
     this.weight = weight;
@@ -33,7 +37,7 @@ export default class Lot extends Component {
       className: styles.title,
       id: inputId,
       value: title,
-      placeholder: 'Title',
+      placeholder: TITLE_INPUT_PLACEHOLDER_TEXT,
       name: 'title',
       oninput: (e): void => {
         if (e.target instanceof HTMLInputElement) {
@@ -46,7 +50,7 @@ export default class Lot extends Component {
       className: styles.weight,
       type: 'number',
       value: weight,
-      placeholder: 'Weight',
+      placeholder: WEIGHT_INPUT_PLACEHOLDER_TEXT,
       name: 'weight',
       oninput: (e): void => {
         if (e.target instanceof HTMLInputElement) {
@@ -58,7 +62,7 @@ export default class Lot extends Component {
     const deleteButton = new UiButton({
       className: styles.deleteButton,
       type: 'button',
-      textContent: 'Delete',
+      textContent: DELETE_OPTION_BUTTON_TEXT,
       onclick: onDeleteClick,
     });
 

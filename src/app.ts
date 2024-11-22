@@ -1,17 +1,19 @@
 import type Component from '~/core/components/component';
 import UiAlertDialog from '~/core/components/ui-alert-dialog';
 import getRandomNumber from '~/core/utils/get-random-number';
-import LotList from '~/modules/lot-list/views/lot-list';
-import Wheel from '~/modules/wheel/views/wheel';
+import ListOfOptions from '~/modules/list-of-options/views/list-of-options';
+import DecisionPicker from '~/modules/decision-picker/views/decision-picker';
+
+const UI_ALERT_DIALOG_TEXT = 'Please add at least 2 valid options.';
 
 export default class App {
   private currentPageComponent?: Component;
 
   public render(root: HTMLElement): void {
-    const lotListPage = new LotList({
+    const lotListPage = new ListOfOptions({
       onStartClick: (list): void => {
         if (list.length < 2) {
-          const errorModal = new UiAlertDialog({ alertText: 'Please add at least 2 valid lots.' });
+          const errorModal = new UiAlertDialog({ alertText: UI_ALERT_DIALOG_TEXT });
 
           errorModal.render(root);
 
@@ -20,7 +22,7 @@ export default class App {
 
         const table = list.toSorted(() => getRandomNumber(-1, 1));
 
-        const modal = new Wheel({ size: 512, table });
+        const modal = new DecisionPicker({ size: 512, table });
 
         modal.render(root);
       },
