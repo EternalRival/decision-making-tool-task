@@ -11,4 +11,9 @@ export default defineConfig({
   build: {
     assetsInlineLimit: (filePath) => !/sprite\.svg$/i.test(filePath),
   },
+  css: {
+    modules: {
+      localsConvention: 'camelCaseOnly',
+    },
+  },
 });
