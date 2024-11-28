@@ -1,4 +1,4 @@
-import getRandomColor from '~/core/utils/get-random-color';
+import getRandomColor from '~/modules/list-of-options/utils/get-random-color';
 import { CIRCLE } from '../models/constants';
 import type { TableRow } from '../models/table-row.type';
 import type { WheelSlice } from '../models/wheel-slice.type';

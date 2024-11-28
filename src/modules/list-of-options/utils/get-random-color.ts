@@ -1,4 +1,4 @@
-import getRandomNumber from '~/core/utils/get-random-number';
+import getRandomNumber from '~/modules/list-of-options/utils/get-random-number';
 
 const [min, max] = [0, 0xffffff];
 
