@@ -63,9 +63,9 @@ export default class DecisionPicker extends UiDialog {
     const container = new Component('div', { className: styles.container });
 
     const closeButton = new Button({ className: styles.closeButton });
-    closeButton.setSVGIcon(SpriteIcon({ name: 'x' }));
+    closeButton.replaceChildren(SpriteIcon({ name: 'x' }));
     const soundButton = new Button({ className: styles.soundButton });
-    soundButton.setSVGIcon(getSoundButtonIcon());
+    soundButton.replaceChildren(getSoundButtonIcon());
 
     const pickForm = new Component('form', { className: styles.pickForm });
     const pickedOption = new Component('p', {
@@ -97,11 +97,11 @@ export default class DecisionPicker extends UiDialog {
     });
 
     closeButton.getNode().addEventListener('click', () => {
-      this.remove().catch(console.error);
+      void this.remove();
     });
     soundButton.getNode().addEventListener('click', () => {
       this.muteStateService.toggle();
-      soundButton.setSVGIcon(getSoundButtonIcon());
+      soundButton.replaceChildren(getSoundButtonIcon());
     });
 
     pickForm.getNode().addEventListener('submit', (event) => {
@@ -130,9 +130,7 @@ export default class DecisionPicker extends UiDialog {
           }
 
           if (!this.muteStateService.get()) {
-            playWinningSound().catch((error: unknown) => {
-              console.error(error);
-            });
+            void playWinningSound();
           }
         },
       });

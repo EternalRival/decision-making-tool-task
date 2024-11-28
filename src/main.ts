@@ -1,6 +1,6 @@
 import App from './app';
-import './globals.css';
+import '~/assets/styles/globals.css';
 
-const app = new App();
+const app = new App({ root: document.body });
 
-app.render(document.body);
+app.render();

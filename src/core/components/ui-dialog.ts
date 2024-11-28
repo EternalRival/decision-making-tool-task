@@ -19,14 +19,14 @@ export default class UiDialog extends Component<'dialog'> {
       return;
     }
 
-    await this.closeDialog('cancel').catch(console.error);
+    await this.closeDialog('cancel');
     super.remove(...args);
     document.removeEventListener('keydown', this.handleKeydown);
   }
 
   public render(root: HTMLElement): this {
     root.append(this.getNode());
-    this.openDialog().catch(console.error);
+    void this.openDialog();
 
     return this;
   }
@@ -48,12 +48,12 @@ export default class UiDialog extends Component<'dialog'> {
   }
 
   private handleDialogCancel(): void {
-    this.remove().catch(console.error);
+    void this.remove();
   }
 
   private handleDialogClick(event: Event): void {
     if (event.target === event.currentTarget) {
-      this.remove().catch(console.error);
+      void this.remove();
     }
   }
 

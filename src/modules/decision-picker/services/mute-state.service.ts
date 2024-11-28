@@ -1,4 +1,4 @@
-import { LSService } from '~/core/utils/local-storage-service';
+import { LSService } from '~/core/services/local-storage.service';
 
 export default class MuteStateService {
   private muteState = LSService.get('mute-state') === true;

@@ -1,8 +1,8 @@
-.errorMessage {
+.error-message {
   padding: 3rem;
 }
 
-.closeButton {
+.close-button {
   cursor: pointer;
 
   position: absolute;

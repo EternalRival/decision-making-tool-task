@@ -1,5 +1,5 @@
 import type Component from '~/core/components/component';
-import { LSService } from '~/core/utils/local-storage-service';
+import { LSService } from '~/core/services/local-storage.service';
 import type Option from '../components/option';
 import type { LotData } from '../models/lot-data.type';
 import isLotDataEntriesList from '../utils/is-lot-data-entries-list';

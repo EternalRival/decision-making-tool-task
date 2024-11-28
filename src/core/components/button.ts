@@ -12,10 +12,4 @@ export default class Button extends Component<'button'> {
 
     node.disabled = typeof value === 'boolean' ? value : !node.disabled;
   }
-
-  public setSVGIcon(svgString: SVGSVGElement): void {
-    const node = this.getNode();
-
-    node.replaceChildren(svgString);
-  }
 }

@@ -76,7 +76,7 @@
     }
   }
 
-  .deleteButton {
+  .delete-button {
     background-color: var(--color-black-30);
 
     &:active {
