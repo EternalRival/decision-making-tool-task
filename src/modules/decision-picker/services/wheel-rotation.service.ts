@@ -1,4 +1,4 @@
-import PubSub from '~/core/utils/pubsub';
+import PubSub from '~/modules/list-of-options/utils/pubsub';
 
 export default class WheelRotationService {
   private rotation = 0;

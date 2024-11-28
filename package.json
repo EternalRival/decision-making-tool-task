@@ -12,6 +12,7 @@
     "ci:format": "prettier -cu",
     "format": "prettier -luw src",
     "ci:stylelint": "stylelint --mw 0 --fix",
+    "fix": "npm run format && npm run lint && npm run stylelint",
     "stylelint": "stylelint --mw 0 --fix src/**/*.css",
     "build:tor": "tsx utils/build-tor-page.ts",
     "calc": "tsx utils/calc-points.ts",

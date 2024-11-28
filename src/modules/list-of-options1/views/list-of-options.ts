@@ -9,6 +9,9 @@ import OptionMapService from '../service/option-map.service';
 import OptionStorageService from '../service/option-storage.service';
 import styles from './list-of-options.module.css';
 
+const JSON_FILE_NAME = 'option-list.json';
+const STORAGE_KEY = 'option-list';
+
 const ADD_BUTTON_TEXT = 'Add Option';
 const PASTE_MODE_BUTTON_TEXT = 'Paste list';
 const CLEAR_LIST_BUTTON_TEXT = 'Clear list';
@@ -29,8 +32,8 @@ export default class ListOfOptions extends Component {
   });
 
   private readonly optionStorageService = new OptionStorageService({
-    jsonFileName: 'option-list.json',
-    storageKey: 'option-list',
+    jsonFileName: JSON_FILE_NAME,
+    storageKey: STORAGE_KEY,
     isOptionDTOLike: OptionDTO.isOptionDTOLike,
     createOptionDTO: OptionDTO.create,
     getDataToSave: (): { lastId: number; list: OptionDTO[] } => ({
