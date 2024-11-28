@@ -204,11 +204,8 @@ The second part of the application (`Decision Picker`) allows you to visualize t
 
 1. (+1) Displays a `add option button` next to the list of options for creating a "new option". The appearance of this button should clearly indicate its purpose *(contain appropriate text and/or icon. e.g., "add option", "new option", "+", etc.)*.
 2. (+4) The `add option button` click must create a "new option".
-3. (+2) "New option" must have a unique `id`.
-4. (+2) "New option" must have an empty `title`.
-5. (+2) "New option" must have an empty `weight`.
-6. (+2) "New option" must have a `delete button`.
-7. (+2) "New option" must meet the [#Option](#option-2892) requirements *([`id`](#id), [`title`](#title), [`weight`](#weight), [`delete button`](#delete-button) and [Option columns](#option-columns) requirements)*.
+3. (+2) "New option" must have an empty `title` and an empty `weight`.
+4. (+2) "New option" must meet the [#Option](#option-2892) requirements *([`id`](#id), [`title`](#title), [`weight`](#weight), [`delete button`](#delete-button) and [Option columns](#option-columns) requirements)*.
 
 ##### Clear list
 
@@ -216,17 +213,17 @@ The second part of the application (`Decision Picker`) allows you to visualize t
 2. (+4) The `clear list button` click must remove all current options from the list.
 3. (+2) In addition to clearing the list, an empty "new option" with `id` `#1` should be added to the list *(as at `initial state`)*.
 
-##### Save list to file
+##### Save list to json
 
 1. (+1) Displays a `save list button` next to the list of options for saving all current options to the `.json` file. The appearance of this button should clearly indicate its purpose *(contain appropriate text and/or icon. e.g., "save list to file", "save list as json", etc.)*.
 2. (+4) The `save list button` click must collect the current options data, convert it to a json object and save it to a `.json` file.
 3. (+2) The `title` and `weight` values of options must be saved.
 4. (+2) The order of options in the file must match the order of options in the app.
 
-##### Load list from file
+##### Load list from json
 
 1. (+1) Displays a `load list button` next to the list of options for loading options from the `.json` file. The appearance of this button should clearly indicate its purpose *(contain appropriate text and/or icon. e.g., "load list from file", "load list from json", etc.)*.
-2. (+2) The `save list button` click must open the interface to select the file.
+2. (+2) The `load list button` click must open the interface to select the file.
 3. (+2) The type of files to be selected must be limited to a single file of type `.json`.
 4. (+2) The current list of options must be completely replaced by the list from the `.json` file you uploaded *(your app must be able to read and correctly parse the file created by your `save list button` click)*.
 5. (+2) The order of options in the app must match the order of options in the file. The `id` of options must be newly generated.

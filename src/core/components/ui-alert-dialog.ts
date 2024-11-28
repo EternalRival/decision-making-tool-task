@@ -15,9 +15,7 @@ export default class UiAlertDialog extends UiDialog {
     const closeButton = new Button({
       className: styles.closeButton,
       textContent: '⨉',
-      onclick: (): void => {
-        this.remove().catch(console.error);
-      },
+      onclick: (): void => void this.remove(),
     });
 
     this.append(closeButton, errorMessage);

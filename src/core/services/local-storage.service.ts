@@ -1,4 +1,4 @@
-const prefix = '[er-wheel-of-fortune] ';
+const prefix = '[er-decision-making-tool] ';
 
 const withPrefix = (key: string): string => `${prefix}${key}`;
 

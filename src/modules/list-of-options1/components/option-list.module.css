@@ -1,0 +1,8 @@
+.list {
+  display: flex;
+  grid-area: option-list;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  padding-left: 0;
+}

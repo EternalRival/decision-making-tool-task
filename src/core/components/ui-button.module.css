@@ -1,17 +1,17 @@
-.uiButton {
+.ui-button {
   cursor: pointer;
 
   padding: 0.5rem;
 
   color: var(--color-white);
 
-  background-color: var(--color-white-40);
+  background-image: linear-gradient(var(--color-primary-300), var(--color-primary-700));
   border: none;
   border-radius: 0.25rem;
-  box-shadow: 0 0 0.25rem 0.1rem var(--color-white-aa);
+  box-shadow: 0 0 0.25rem 0.1rem var(--color-primary-200);
 
   transition-duration: var(--transition-duration);
-  transition-property: background-color, box-shadow, opacity;
+  transition-property: filter, box-shadow, opacity;
 
   &:focus-visible {
     outline: none;
@@ -19,18 +19,18 @@
   }
 
   &:active {
-    background-color: var(--color-white-40);
+    filter: brightness(1.05);
   }
 
   &:disabled {
     pointer-events: none;
-    opacity: 0.7;
-    background-color: var(--color-gray);
+    opacity: 0.8;
+    filter: grayscale(1);
   }
 
   @media (hover: hover) and (pointer: fine) {
     &:hover:not(:active) {
-      background-color: var(--color-white-60);
+      filter: brightness(1.1);
     }
   }
 }

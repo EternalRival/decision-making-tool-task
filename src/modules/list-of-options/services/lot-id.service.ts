@@ -1,4 +1,4 @@
-import { LSService } from '~/core/utils/local-storage-service';
+import { LSService } from '~/core/services/local-storage.service';
 
 export default class LotIdService {
   private lastId: number;

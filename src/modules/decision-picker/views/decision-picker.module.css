@@ -18,8 +18,8 @@
     opacity: 0;
   }
 
-  .closeButton,
-  .soundButton {
+  .close-button,
+  .sound-button {
     cursor: pointer;
 
     width: 1.5rem;
@@ -62,12 +62,12 @@
     display: none;
   }
 
-  .pickForm {
+  .pick-form {
     display: flex;
     flex-direction: column;
     gap: 1rem;
 
-    .pickButton {
+    .pick-button {
       padding: 0.5rem 1rem;
       background-color: var(--color-teal-darker);
 
@@ -82,12 +82,12 @@
       }
     }
 
-    .durationLabel {
+    .duration-label {
       display: flex;
       gap: 0.5rem;
       align-items: center;
 
-      .durationInput {
+      .duration-input {
         max-width: 3.5rem;
         padding: 0.5rem;
 
@@ -138,7 +138,7 @@
     }
   }
 
-  .pickedOption {
+  .picked-option {
     overflow-x: hidden;
     flex-shrink: 0;
 
