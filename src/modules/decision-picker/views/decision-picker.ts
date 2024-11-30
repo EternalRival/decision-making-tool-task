@@ -1,5 +1,5 @@
-import Component from '~/core/components/component';
 import UiButton from '~/core/components/ui-button';
+import AbstractComponent from '~/core/models/abstract-component';
 import Route from '~/core/models/route.enum';
 import HashRouter from '~/core/router/hash-router';
 import styles from './decision-picker.module.css';
@@ -14,23 +14,25 @@ import styles from './decision-picker.module.css';
 // const LOAD_LIST_FROM_FILE_BUTTON_TEXT = 'Load list from file';
 // const START_BUTTON_TEXT = 'Start';
 
-export default class ListOfOptions extends Component {
+export default class DecisionPicker extends AbstractComponent {
   constructor() {
     super('div', { className: styles.container });
 
     this.mount();
   }
 
-  private readonly handleBeforeUnmount = (): void => {
-    // this.optionStorageService.saveToLS();
+  public override remove(): void {
+    this.handleBeforeUnmount();
+    super.remove();
+  }
+
+  private handleBeforeMount(): void {
     void this;
-  };
+  }
 
-  private readonly handleBeforeMount = (): void => {
-    // this.optionStorageService.loadFromLS();
-
-    window.addEventListener('beforeunload', this.handleBeforeUnmount);
-  };
+  private handleBeforeUnmount(): void {
+    void this;
+  }
 
   private mount(): void {
     this.handleBeforeMount();

@@ -1,13 +1,14 @@
 import Component from '~/core/components/component';
 import UiButton from '~/core/components/ui-button';
-import styles from './decision-picker.module.css';
+import AbstractComponent from '~/core/models/abstract-component';
 import Route from '../core/models/route.enum';
 import HashRouter from '../core/router/hash-router';
+import styles from './decision-picker.module.css';
 
 const HEADING_TEXT = 'Something went wrong';
 const BACK_BUTTON_TEXT = 'Back to main';
 
-export default class ErrorPage extends Component<'main'> {
+export default class ErrorPage extends AbstractComponent<'main'> {
   constructor() {
     super('main', { className: styles.main });
 

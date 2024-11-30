@@ -1,11 +1,11 @@
 import Component from '~/core/components/component';
-import type AbstractComponent from '~/core/models/abstract-component';
+import AbstractComponent from '~/core/models/abstract-component';
 import ListOfOptions from '~/modules/list-of-options/views/list-of-options';
 import styles from './home.module.css';
 
 const HEADING_TEXT = 'Decision Making Tool';
 
-export default class HomePage extends Component<'main'> {
+export default class HomePage extends AbstractComponent<'main'> {
   private listOfOptions: AbstractComponent | null = null;
 
   constructor() {

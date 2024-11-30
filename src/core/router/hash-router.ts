@@ -18,6 +18,7 @@ export default class HashRouter {
 
   public initRouter(): void {
     window.addEventListener('hashchange', this.handleHashChange);
+    window.addEventListener('beforeunload', () => this.currentPage?.remove());
     this.handleHashChange();
   }
 
