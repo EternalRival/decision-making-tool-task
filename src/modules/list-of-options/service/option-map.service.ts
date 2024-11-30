@@ -1,12 +1,12 @@
-import type Option from '../components/option';
+import type AbstractOption from '../models/abstract-option';
 import type OptionDTO from '../models/option.dto';
 
 export default class OptionMapService {
-  private readonly optionMap = new Map<string, Option>();
+  private readonly optionMap = new Map<string, AbstractOption>();
 
   constructor(
     private readonly props: {
-      createOption: (optionDto?: OptionDTO) => Option;
+      createOption: (optionDto?: OptionDTO) => AbstractOption;
       onReset: () => void;
     }
   ) {}
@@ -35,11 +35,11 @@ export default class OptionMapService {
   };
 
   public removeOptions = (): void => {
-    this.optionMap.forEach((option) => option.remove());
+    this.optionMap.forEach((option) => option.node.remove());
     this.optionMap.clear();
 
     this.props.onReset();
   };
 
-  public getOptions = (): Option[] => Array.from(this.optionMap.values());
+  public getOptions = (): AbstractOption[] => Array.from(this.optionMap.values());
 }

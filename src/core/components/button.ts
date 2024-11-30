@@ -1,15 +1,12 @@
-import Component from '~/core/components/component';
+import AbstractComponent from '~/core/models/abstract-component';
+import type ComponentProps from '~/core/models/component-props.type';
 
-type Props = ConstructorParameters<typeof Component<'button'>>[1];
-
-export default class Button extends Component<'button'> {
-  constructor(props?: Props) {
+export default class Button extends AbstractComponent<'button'> {
+  constructor(props?: ComponentProps<'button'>) {
     super('button', props);
   }
 
   public toggleDisabled(value?: boolean): void {
-    const node = this.getNode();
-
-    node.disabled = typeof value === 'boolean' ? value : !node.disabled;
+    this.node.disabled = typeof value === 'boolean' ? value : !this.node.disabled;
   }
 }

@@ -3,4 +3,4 @@ import '~/assets/styles/globals.css';
 
 const app = new App({ root: document.body });
 
-app.render();
+app.initRouter();

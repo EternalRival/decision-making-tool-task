@@ -1,60 +1,83 @@
 import Component from '~/core/components/component';
-import Input from '~/core/components/input';
 import UiButton from '~/core/components/ui-button';
-import type { LotData } from '../models/lot-data.type';
+import AbstractOption from '../models/abstract-option';
+import type OptionDTO from '../models/option.dto';
 import styles from './option.module.css';
 
 const TITLE_INPUT_PLACEHOLDER_TEXT = 'Title';
 const WEIGHT_INPUT_PLACEHOLDER_TEXT = 'Weight';
-const DELETE_OPTION_BUTTON_TEXT = 'Delete';
+const DELETE_BUTTON_TEXT = 'Delete';
 
-export default class Option extends Component {
-  private title: string;
+type State = {
+  title: string;
+  weight: string;
+};
 
-  private weight: string;
+type Props = {
+  optionDto: OptionDTO;
+  onDeleteButtonClick: (optionId: string) => void;
+};
 
-  constructor({
-    id,
-    title,
-    weight,
-    onDeleteClick,
-  }: {
-    id: string;
-    title: string;
-    weight: string;
-    onDeleteClick: () => void;
-  }) {
-    super('div', { className: styles.option });
+export default class Option extends AbstractOption<'li'> {
+  private readonly state: State;
 
-    this.title = title;
-    this.weight = weight;
+  constructor(private readonly props: Props) {
+    super('li', { className: styles.option });
 
-    const inputId = `lot-${id}`;
+    const { title, weight } = this.props.optionDto;
 
-    const lotId = new Component('label', { className: styles.id, textContent: id, htmlFor: inputId });
+    this.state = { title, weight };
 
-    const titleInput = new Input({
+    this.mount();
+  }
+
+  public get id(): string {
+    return this.props.optionDto.id;
+  }
+
+  public get title(): string {
+    return this.state.title;
+  }
+
+  public get weight(): string {
+    return this.state.weight;
+  }
+
+  public toJSON(): OptionDTO {
+    return { id: this.id, title: this.title, weight: this.weight };
+  }
+
+  private mount(): void {
+    const inputId = `option-${this.id}`;
+
+    const id = new Component('label', {
+      className: styles.id,
+      textContent: this.id,
+      htmlFor: inputId,
+    });
+
+    const titleInput = new Component('input', {
       className: styles.title,
       id: inputId,
-      value: title,
+      defaultValue: this.title,
       placeholder: TITLE_INPUT_PLACEHOLDER_TEXT,
       name: 'title',
-      oninput: (e): void => {
-        if (e.target instanceof HTMLInputElement) {
-          this.title = e.target.value;
+      oninput: (event): void => {
+        if (event.target instanceof HTMLInputElement) {
+          this.state.title = event.target.value;
         }
       },
     });
 
-    const weightInput = new Input({
+    const weightInput = new Component('input', {
       className: styles.weight,
       type: 'number',
-      value: weight,
+      defaultValue: this.weight,
       placeholder: WEIGHT_INPUT_PLACEHOLDER_TEXT,
       name: 'weight',
-      oninput: (e): void => {
-        if (e.target instanceof HTMLInputElement) {
-          this.weight = e.target.value;
+      oninput: (event): void => {
+        if (event.target instanceof HTMLInputElement) {
+          this.state.weight = event.target.value;
         }
       },
     });
@@ -62,14 +85,10 @@ export default class Option extends Component {
     const deleteButton = new UiButton({
       className: styles.deleteButton,
       type: 'button',
-      textContent: DELETE_OPTION_BUTTON_TEXT,
-      onclick: onDeleteClick,
+      textContent: DELETE_BUTTON_TEXT,
+      onclick: (): void => this.props.onDeleteButtonClick(this.id),
     });
 
-    this.append(lotId, titleInput, weightInput, deleteButton);
-  }
-
-  public getValues(): LotData {
-    return { title: this.title, weight: this.weight };
+    this.replaceChildren(id, titleInput, weightInput, deleteButton);
   }
 }

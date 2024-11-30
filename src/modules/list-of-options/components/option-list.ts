@@ -1,12 +1,11 @@
-import Component from '~/core/components/component';
-import type Option from './option';
+import AbstractComponent from '~/core/models/abstract-component';
 import style from './option-list.module.css';
 
 type Props = {
-  optionList: Option[];
+  optionList: AbstractComponent[];
 };
 
-export default class OptionList extends Component<'ul'> {
+export default class OptionList extends AbstractComponent<'ul'> {
   constructor(private readonly props: Props) {
     super('ul', { className: style.list });
 

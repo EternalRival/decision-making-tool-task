@@ -1,14 +1,22 @@
 import Component from '~/core/components/component';
-import ListOfOptions from '~/modules/list-of-options1/views/list-of-options';
+import type AbstractComponent from '~/core/models/abstract-component';
+import ListOfOptions from '~/modules/list-of-options/views/list-of-options';
 import styles from './home.module.css';
 
 const HEADING_TEXT = 'Decision Making Tool';
 
 export default class HomePage extends Component<'main'> {
+  private listOfOptions: AbstractComponent | null = null;
+
   constructor() {
     super('main', { className: styles.main });
 
     this.mount();
+  }
+
+  public override remove(): void {
+    this.listOfOptions?.remove();
+    super.remove();
   }
 
   private mount(): void {
@@ -16,5 +24,7 @@ export default class HomePage extends Component<'main'> {
     const listOfOptions = new ListOfOptions();
 
     this.replaceChildren(heading, listOfOptions);
+
+    this.listOfOptions = listOfOptions;
   }
 }
