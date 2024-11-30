@@ -1,187 +1,46 @@
-import Button from '~/core/components/button';
 import Component from '~/core/components/component';
-import Input from '~/core/components/input';
 import UiButton from '~/core/components/ui-button';
-import UiDialog from '~/core/components/ui-dialog';
-import { CIRCLE } from '../models/constants';
-import type { TableRow } from '../models/table-row.type';
-import MuteStateService from '../services/mute-state.service';
-import WheelCanvasService from '../services/wheel-canvas.service';
-import WheelLotsService from '../services/wheel-lots.service';
-import WheelRotationService from '../services/wheel-rotation.service';
-import animate from '../utils/animate';
-import easeInOut from '../utils/ease-in-out';
-import SpriteIcon from '../../../core/components/sprite-icon';
-import playWinningSound from '../utils/play-winning-sound';
+import Route from '~/core/models/route.enum';
+import HashRouter from '~/core/router/hash-router';
 import styles from './decision-picker.module.css';
 
-const CANVAS_TEXT = 'Decision Picker Wheel';
-const PICK_BUTTON_TEXT = 'Pick';
-const DURATION_MIN_VALUE = '5';
-const DURATION_INITIAL_VALUE = '16';
-const DURATION_PLACEHOLDER_TEXT = 'sec';
+// const JSON_FILE_NAME = 'option-list.json';
+// const STORAGE_KEY = 'option-list';
 
-export default class DecisionPicker extends UiDialog {
-  private readonly size: number;
+// const ADD_BUTTON_TEXT = 'Add Option';
+// const PASTE_MODE_BUTTON_TEXT = 'Paste list';
+// const CLEAR_LIST_BUTTON_TEXT = 'Clear list';
+// const SAVE_LIST_TO_FILE_BUTTON_TEXT = 'Save list to file';
+// const LOAD_LIST_FROM_FILE_BUTTON_TEXT = 'Load list from file';
+// const START_BUTTON_TEXT = 'Start';
 
-  private readonly muteStateService: MuteStateService;
+export default class ListOfOptions extends Component {
+  constructor() {
+    super('div', { className: styles.container });
 
-  private readonly wheelRotationService: WheelRotationService;
-
-  private readonly wheelLotsService: WheelLotsService;
-
-  private readonly wheelCanvasService: WheelCanvasService;
-
-  constructor({ size = 512, table }: { size?: number; table: TableRow[] }) {
-    super();
-
-    this.size = size;
-    this.muteStateService = new MuteStateService();
-    this.wheelCanvasService = new WheelCanvasService();
-    this.wheelLotsService = new WheelLotsService({ table });
-    this.wheelRotationService = new WheelRotationService();
-
-    this.renderUI();
-
-    this.muteStateService.init();
+    this.mount();
   }
 
-  public override async remove(): Promise<void> {
-    await super.remove({
-      onRemove: (): void => {
-        this.muteStateService.destroy();
-        this.wheelRotationService.destroy();
-      },
-    });
-  }
+  private readonly handleBeforeUnmount = (): void => {
+    // this.optionStorageService.saveToLS();
+    void this;
+  };
 
-  private renderUI(): void {
-    const getSoundButtonIcon = (): SVGSVGElement => SpriteIcon({ name: this.muteStateService.get() ? 'off' : 'on' });
-    const getSelectedTitle = (): string => this.wheelLotsService.getTitleByRadian(this.wheelRotationService.get());
+  private readonly handleBeforeMount = (): void => {
+    // this.optionStorageService.loadFromLS();
 
-    const header = new Component('header', { className: styles.header });
-    const container = new Component('div', { className: styles.container });
+    window.addEventListener('beforeunload', this.handleBeforeUnmount);
+  };
 
-    const closeButton = new Button({ className: styles.closeButton });
-    closeButton.replaceChildren(SpriteIcon({ name: 'x' }));
-    const soundButton = new Button({ className: styles.soundButton });
-    soundButton.replaceChildren(getSoundButtonIcon());
+  private mount(): void {
+    this.handleBeforeMount();
 
-    const pickForm = new Component('form', { className: styles.pickForm });
-    const pickedOption = new Component('p', {
-      className: styles.pickedOption,
-      textContent: getSelectedTitle(),
+    const someButton = new UiButton({
+      className: styles.someButton,
+      textContent: 'Some Button',
+      onclick: (): void => HashRouter.navigate(Route.HOME),
     });
 
-    const canvas = new Component('canvas', {
-      className: styles.canvas,
-      width: this.size,
-      height: this.size,
-      textContent: CANVAS_TEXT,
-    });
-
-    const pickButton = new UiButton({
-      className: styles.pickButton,
-      type: 'submit',
-      textContent: PICK_BUTTON_TEXT,
-      autofocus: true,
-    });
-    const durationLabel = new Component('label', { className: styles.durationLabel, textContent: 'Duration:' });
-    const durationInput = new Input({
-      className: styles.durationInput,
-      type: 'number',
-      min: DURATION_MIN_VALUE,
-      value: DURATION_INITIAL_VALUE,
-      placeholder: DURATION_PLACEHOLDER_TEXT,
-      required: true,
-    });
-
-    closeButton.getNode().addEventListener('click', () => {
-      void this.remove();
-    });
-    soundButton.getNode().addEventListener('click', () => {
-      this.muteStateService.toggle();
-      soundButton.replaceChildren(getSoundButtonIcon());
-    });
-
-    pickForm.getNode().addEventListener('submit', (event) => {
-      event.preventDefault();
-
-      pickButton.toggleDisabled(true);
-      durationInput.setDisabled(true);
-      this.setModalLock(true);
-      header.toggleInert(true);
-
-      if ('picked' in styles) {
-        pickedOption.removeClass(styles.picked);
-      }
-
-      this.startPicking({
-        duration: Number(durationInput.getValue()),
-        targetRotationOffset: CIRCLE * Math.random(),
-        onFinish: () => {
-          pickButton.toggleDisabled(false);
-          durationInput.setDisabled(false);
-          this.setModalLock(false);
-          header.toggleInert(false);
-
-          if ('picked' in styles) {
-            pickedOption.addClass(styles.picked);
-          }
-
-          if (!this.muteStateService.get()) {
-            void playWinningSound();
-          }
-        },
-      });
-    });
-
-    this.wheelRotationService.on(() => pickedOption.setTextContent(getSelectedTitle()));
-    this.wheelCanvasService.init({ canvas: canvas.getNode() }).draw({
-      rotation: this.wheelRotationService.get(),
-      size: this.size,
-      sliceList: this.wheelLotsService.getSliceList(),
-    });
-
-    this.append(header, container);
-    header.append(closeButton, soundButton);
-    container.append(pickForm, pickedOption, canvas);
-    pickForm.append(pickButton, durationLabel);
-    durationLabel.append(durationInput);
-  }
-
-  private startPicking({
-    duration,
-    targetRotationOffset,
-    onFinish,
-  }: {
-    duration: number;
-    targetRotationOffset: number;
-    onFinish: () => void;
-  }): void {
-    const fullTurnsRotation = duration * CIRCLE;
-    const targetRotation = fullTurnsRotation + targetRotationOffset;
-
-    const drawFn = (progress: number): void => {
-      this.wheelRotationService.set(progress * targetRotation);
-      this.wheelCanvasService.draw({
-        rotation: this.wheelRotationService.get(),
-        size: this.size,
-        sliceList: this.wheelLotsService.getSliceList(),
-      });
-    };
-
-    const onPicked = (): void => {
-      this.wheelRotationService.set(targetRotationOffset);
-      this.wheelCanvasService.draw({
-        rotation: this.wheelRotationService.get(),
-        size: this.size,
-        sliceList: this.wheelLotsService.getSliceList(),
-      });
-
-      onFinish();
-    };
-
-    animate({ duration, drawFn, easingFn: easeInOut, onFinish: onPicked });
+    this.replaceChildren(someButton);
   }
 }

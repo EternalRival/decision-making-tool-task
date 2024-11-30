@@ -1,6 +1,6 @@
 import Component from '~/core/components/component';
-import UiDialog from '~/core/components/ui-dialog1';
 import UiButton from '~/core/components/ui-button';
+import UiDialog from '~/core/components/ui-dialog';
 import styles from './option-list-paste-modal.module.css';
 
 const TEXTAREA_EXAMPLE_VALUE = `
@@ -45,7 +45,7 @@ export default class OptionListPasteModal extends UiDialog {
       onsubmit: (event): void => {
         event.preventDefault();
 
-        const formData = new FormData(form.getNode());
+        const formData = new FormData(form.node);
 
         this.props.onConfirm(OptionListPasteModal.parseFromCSV(formData.get('table')?.toString()));
 

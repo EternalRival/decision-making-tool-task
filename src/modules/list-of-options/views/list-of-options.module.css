@@ -1,50 +1,40 @@
-.list-of-options {
+.container {
   display: grid;
   grid-template:
-    'heading heading' min-content
-    'lots lots' min-content
-    'addLotButton addLotButton' min-content
-    'clearListButton clearListButton' min-content
-    'saveToFileButton loadFromFileButton' min-content
-    'startButton startButton' min-content
+    'option-list option-list' min-content
+    'add-option-button add-option-button' min-content
+    'paste-list-button paste-list-button' min-content
+    'clear-list-button clear-list-button' min-content
+    'save-list-button load-list-button' min-content
+    'start-button start-button' min-content
     / 1fr 1fr;
   gap: 1rem;
+}
 
-  width: 100%;
-  max-width: 48rem;
-  padding: 1rem;
+.heading {
+  grid-area: heading;
+}
 
-  .heading {
-    grid-area: heading;
-    margin: 0;
-    text-align: center;
-    text-shadow: 0 0 0.25rem var(--color-white);
-  }
+.add-option-button {
+  grid-area: add-option-button;
+}
 
-  .option-list {
-    display: flex;
-    grid-area: lots;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
+.paste-list-button {
+  grid-area: paste-list-button;
+}
 
-  .add-option-button {
-    grid-area: addLotButton;
-  }
+.clear-list-button {
+  grid-area: clear-list-button;
+}
 
-  .start-button {
-    grid-area: startButton;
-  }
+.save-list-button {
+  grid-area: save-list-button;
+}
 
-  .save-to-file-button {
-    grid-area: saveToFileButton;
-  }
+.load-list-button {
+  grid-area: load-list-button;
+}
 
-  .load-from-file-button {
-    grid-area: loadFromFileButton;
-  }
-
-  .clear-list-button {
-    grid-area: clearListButton;
-  }
+.start-button {
+  grid-area: start-button;
 }

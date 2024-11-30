@@ -1,105 +1,150 @@
-import Component from '~/core/components/component';
 import UiButton from '~/core/components/ui-button';
-import loadJsonFromFile from '~/modules/list-of-options/utils/load-json-from-file';
-import saveAsJsonToFile from '~/modules/list-of-options/utils/save-as-json-to-file';
+import AbstractComponent from '~/core/models/abstract-component';
+import Route from '~/core/models/route.enum';
+import HashRouter from '~/core/router/hash-router';
 import Option from '../components/option';
-import LotViewListService from '../services/lot-view-list-service.service';
-import parseLotListJson from '../utils/parse-lot-list-json';
+import OptionList from '../components/option-list';
+import OptionListPasteModal from '../components/option-list-paste-modal';
+import type AbstractOption from '../models/abstract-option';
+import OptionDTO from '../models/option.dto';
+import OptionIdService from '../service/option-id.service';
+import OptionMapService from '../service/option-map.service';
+import OptionStorageService from '../service/option-storage.service';
 import styles from './list-of-options.module.css';
 
-const HEADING_TEXT = 'Decision Making Tool';
-const ADD_OPTION_BUTTON_TEXT = 'Add Option';
+const JSON_FILE_NAME = 'option-list.json';
+const STORAGE_KEY = 'option-list';
+
+const ADD_BUTTON_TEXT = 'Add Option';
+const PASTE_MODE_BUTTON_TEXT = 'Paste list';
 const CLEAR_LIST_BUTTON_TEXT = 'Clear list';
 const SAVE_LIST_TO_FILE_BUTTON_TEXT = 'Save list to file';
 const LOAD_LIST_FROM_FILE_BUTTON_TEXT = 'Load list from file';
 const START_BUTTON_TEXT = 'Start';
-const OPTIONS_FILE_NAME = 'wheel-of-fortune-lots';
 
-type OnStartClick = (list: { title: string; weight: number }[]) => void;
+export default class ListOfOptions extends AbstractComponent {
+  private readonly optionIdService = new OptionIdService();
 
-export default class ListOfOptions extends Component {
-  private readonly optionViewListService: LotViewListService;
+  private readonly optionMapService = new OptionMapService({
+    createOption: (optionDto): AbstractOption =>
+      new Option({
+        optionDto: optionDto ?? new OptionDTO({ id: `#${this.optionIdService.getNextId()}` }),
+        onDeleteButtonClick: this.optionMapService.removeOption,
+      }),
+    onReset: this.optionIdService.resetId,
+  });
 
-  constructor({ onStartClick }: { onStartClick: OnStartClick }) {
-    super('div', { className: styles.listOfOptions });
+  private readonly optionStorageService = new OptionStorageService({
+    jsonFileName: JSON_FILE_NAME,
+    storageKey: STORAGE_KEY,
+    isOptionDTOLike: OptionDTO.isOptionDTOLike,
+    createOptionDTO: OptionDTO.create,
+    getDataToSave: (): { lastId: number; list: OptionDTO[] } => ({
+      lastId: this.optionIdService.getId(),
+      list: this.optionMapService.getOptions(),
+    }),
+    onDataLoaded: (storedData: { lastId: number; list: OptionDTO[] } | null): void => {
+      this.optionMapService.removeOptions();
 
-    this.optionViewListService = new LotViewListService({
-      createLotComponent: (lotData): Option => new Option(lotData),
-    });
+      if (storedData) {
+        this.optionIdService.setId(storedData.lastId);
+        this.optionMapService.addOptions(storedData.list);
+      }
+    },
+  });
 
-    this.renderUI({ onStartClick });
+  constructor() {
+    super('div', { className: styles.container });
+
+    this.mount();
   }
 
   public override remove(): void {
-    super.remove({
-      onRemove: () => {
-        this.optionViewListService.destroy();
-      },
-    });
+    this.handleBeforeUnmount();
+    super.remove();
   }
 
-  private renderUI({ onStartClick }: { onStartClick: OnStartClick }): void {
-    const heading = new Component('h1', { className: styles.heading, textContent: HEADING_TEXT, title: HEADING_TEXT });
-    const lotsContainer = new Component('div', { className: styles.optionList });
+  private handleBeforeMount(): void {
+    this.optionStorageService.loadFromLS();
+  }
 
-    const addLotButton = new UiButton({
+  private handleBeforeUnmount(): void {
+    this.optionStorageService.saveToLS();
+  }
+
+  private mount(): void {
+    this.handleBeforeMount();
+
+    const optionList = new OptionList({ optionList: this.optionMapService.getOptions() });
+
+    const addButton = new UiButton({
       className: styles.addOptionButton,
-      type: 'button',
-      textContent: ADD_OPTION_BUTTON_TEXT,
+      textContent: ADD_BUTTON_TEXT,
+      onclick: (): void => {
+        this.optionMapService.addOption();
+        optionList.update({ optionList: this.optionMapService.getOptions() });
+      },
+    });
+
+    const pasteListButton = new UiButton({
+      className: styles.pasteListButton,
+      textContent: PASTE_MODE_BUTTON_TEXT,
+      onclick: (): void => {
+        const optionListPasteModal = new OptionListPasteModal({
+          onConfirm: (pasteData): void => {
+            pasteData.forEach(([title, weight]) => {
+              const id = `#${this.optionIdService.getNextId()}`;
+
+              this.optionMapService.addOption(new OptionDTO({ id, title, weight }));
+            });
+
+            optionList.update({ optionList: this.optionMapService.getOptions() });
+          },
+        });
+
+        void optionListPasteModal.openDialog();
+      },
     });
 
     const clearListButton = new UiButton({
       className: styles.clearListButton,
-      type: 'button',
       textContent: CLEAR_LIST_BUTTON_TEXT,
+      onclick: (): void => {
+        this.optionMapService.removeOptions();
+        optionList.update({ optionList: this.optionMapService.getOptions() });
+      },
     });
 
-    const saveToFileButton = new UiButton({
-      className: styles.saveToFileButton,
-      type: 'button',
+    const saveListButton = new UiButton({
+      className: styles.saveListButton,
       textContent: SAVE_LIST_TO_FILE_BUTTON_TEXT,
+      onclick: (): void => this.optionStorageService.saveToJsonFile(),
     });
 
-    const loadFromFileButton = new UiButton({
-      className: styles.loadFromFileButton,
-      type: 'button',
+    const loadListButton = new UiButton({
+      className: styles.loadListButton,
       textContent: LOAD_LIST_FROM_FILE_BUTTON_TEXT,
+      onclick: async (): Promise<void> => {
+        await this.optionStorageService.loadFromJsonFile();
+        optionList.update({ optionList: this.optionMapService.getOptions() });
+      },
     });
 
-    const startButton = new UiButton({ className: styles.startButton, type: 'button', textContent: START_BUTTON_TEXT });
-
-    addLotButton.getNode().addEventListener('click', () => this.optionViewListService.add());
-
-    saveToFileButton
-      .getNode()
-      .addEventListener('click', () =>
-        saveAsJsonToFile({ fileName: OPTIONS_FILE_NAME, data: { list: this.optionViewListService.getValues() } })
-      );
-
-    loadFromFileButton.getNode().addEventListener('click', () => {
-      void (async (): Promise<void> => {
-        const rawJsonString = await loadJsonFromFile();
-        const { list } = parseLotListJson(rawJsonString);
-
-        this.optionViewListService.loadList(list);
-      })();
+    const startButton = new UiButton({
+      className: styles.startButton,
+      textContent: START_BUTTON_TEXT,
+      onclick: (): void => {
+        HashRouter.navigate(Route.DECISION_PICKER);
+      },
     });
 
-    clearListButton.getNode().addEventListener('click', () => {
-      this.optionViewListService.clear();
-    });
-
-    startButton.getNode().addEventListener('click', () => onStartClick(this.optionViewListService.getValidValues()));
-
-    this.optionViewListService.init({ lotsContainer });
-
-    this.append(
-      heading,
-      lotsContainer,
-      addLotButton,
+    this.replaceChildren(
+      optionList,
+      addButton,
+      pasteListButton,
       clearListButton,
-      saveToFileButton,
-      loadFromFileButton,
+      saveListButton,
+      loadListButton,
       startButton
     );
   }
