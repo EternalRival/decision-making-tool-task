@@ -1,6 +1,10 @@
 .ui-button {
   cursor: pointer;
 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   padding: 0.5rem;
 
   color: var(--color-white);

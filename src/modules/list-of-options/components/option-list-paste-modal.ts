@@ -29,7 +29,7 @@ export default class OptionListPasteModal extends UiDialog {
     }
 
     return csv.split(/\n/).reduce<[string, string][]>((acc, line) => {
-      const fields = /^(.*),\s*(\d*)\s*$/.exec(line);
+      const fields = /^(.*)[\t,]\s*(\d*)\s*$/.exec(line);
 
       if (fields && typeof fields[1] === 'string' && typeof fields[2] === 'string') {
         acc.push([fields[1].trim(), fields[2].trim()]);

@@ -1,6 +1,6 @@
+import Component from '~/core/components/component';
 import type OptionDTO from '~/core/models/option.dto';
 import { LSService } from '~/core/services/local-storage.service';
-import Component from '../components/component';
 
 type Props = {
   jsonFileName: string;

@@ -1,22 +1,29 @@
-import UiButton from '~/core/components/ui-button';
+import Component from '~/core/components/component';
 import AbstractComponent from '~/core/models/abstract-component';
-import Route from '~/core/models/route.enum';
-import HashRouter from '~/core/router/hash-router';
+import { APP_NAME, OPTIONS_STORAGE_KEY } from '~/core/models/constants';
+import OptionDTO from '~/core/models/option.dto';
+import ControlPanelForm from '../components/control-panel-form';
+import OptionStorageService from '../service/option-storage.service';
 import styles from './decision-picker.module.css';
 
-// const JSON_FILE_NAME = 'option-list.json';
-// const STORAGE_KEY = 'option-list';
-
-// const ADD_BUTTON_TEXT = 'Add Option';
-// const PASTE_MODE_BUTTON_TEXT = 'Paste list';
-// const CLEAR_LIST_BUTTON_TEXT = 'Clear list';
-// const SAVE_LIST_TO_FILE_BUTTON_TEXT = 'Save list to file';
-// const LOAD_LIST_FROM_FILE_BUTTON_TEXT = 'Load list from file';
-// const START_BUTTON_TEXT = 'Start';
-
 export default class DecisionPicker extends AbstractComponent {
+  private storageService = new OptionStorageService({
+    storageKey: OPTIONS_STORAGE_KEY,
+    isOptionDTOLike: OptionDTO.isOptionDTOLike,
+    createOptionDTO: OptionDTO.create,
+    onDataLoaded: (storedData: { list: OptionDTO[] } | null): void => {
+      console.debug({ list: storedData?.list });
+      /*  this.optionMapService.removeOptions();
+
+      if (storedData) {
+        this.optionIdService.setId(storedData.lastId);
+        this.optionMapService.addOptions(storedData.list);
+      } */
+    },
+  });
+
   constructor() {
-    super('div', { className: styles.container });
+    super('main', { className: styles.main });
 
     this.mount();
   }
@@ -27,7 +34,7 @@ export default class DecisionPicker extends AbstractComponent {
   }
 
   private handleBeforeMount(): void {
-    void this;
+    this.storageService.loadFromLS();
   }
 
   private handleBeforeUnmount(): void {
@@ -37,12 +44,14 @@ export default class DecisionPicker extends AbstractComponent {
   private mount(): void {
     this.handleBeforeMount();
 
-    const someButton = new UiButton({
-      className: styles.someButton,
-      textContent: 'Some Button',
-      onclick: (): void => HashRouter.navigate(Route.HOME),
-    });
+    const heading = new Component('h1', { className: styles.heading, textContent: APP_NAME, title: APP_NAME });
 
-    this.replaceChildren(someButton);
+    const form = new ControlPanelForm();
+
+    const pickedOption = new Component('p', { className: styles.pickedOption, textContent: 'pickedOption' });
+
+    const wheel = new Component('canvas', { className: styles.wheel, textContent: 'wheel' });
+
+    this.replaceChildren(heading, form, pickedOption, wheel);
   }
 }
