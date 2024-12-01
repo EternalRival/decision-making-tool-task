@@ -1,5 +1,6 @@
+import type OptionDTO from '~/core/models/option.dto';
 import { LSService } from '~/core/services/local-storage.service';
-import type OptionDTO from '../models/option.dto';
+import Component from '../components/component';
 
 type Props = {
   jsonFileName: string;
@@ -27,10 +28,10 @@ export default class OptionStorageService {
   };
 
   public saveToJsonFile = (): void => {
-    const a = document.createElement('a');
-    a.download = this.props.jsonFileName;
-    a.href = URL.createObjectURL(new Blob([JSON.stringify(this.props.getDataToSave())], { type: 'application/json' }));
-    a.click();
+    new Component('a', {
+      download: this.props.jsonFileName,
+      href: URL.createObjectURL(new Blob([JSON.stringify(this.props.getDataToSave())], { type: 'application/json' })),
+    }).node.click();
   };
 
   public loadFromJsonFile = async (): Promise<void> => {
@@ -38,16 +39,15 @@ export default class OptionStorageService {
       this.parseStoredData(
         JSON.parse(
           await new Promise((res) => {
-            const file = document.createElement('input');
-            file.type = 'file';
-            file.accept = '.json';
-            file.onchange = (event): void => {
-              if (event.target instanceof HTMLInputElement) {
-                void event.target.files?.item(0)?.text().then(res);
-              }
-            };
-
-            file.click();
+            new Component('input', {
+              type: 'file',
+              accept: '.json',
+              onchange: (event): void => {
+                if (event.target instanceof HTMLInputElement) {
+                  void event.target.files?.item(0)?.text().then(res);
+                }
+              },
+            }).node.click();
           })
         )
       )

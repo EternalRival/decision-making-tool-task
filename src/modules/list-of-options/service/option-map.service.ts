@@ -1,5 +1,5 @@
+import type OptionDTO from '~/core/models/option.dto';
 import type AbstractOption from '../models/abstract-option';
-import type OptionDTO from '../models/option.dto';
 
 export default class OptionMapService {
   private readonly optionMap = new Map<string, AbstractOption>();

@@ -1,15 +1,15 @@
 import UiButton from '~/core/components/ui-button';
 import AbstractComponent from '~/core/models/abstract-component';
+import OptionDTO from '~/core/models/option.dto';
 import Route from '~/core/models/route.enum';
 import HashRouter from '~/core/router/hash-router';
+import OptionStorageService from '~/core/services/option-storage.service';
 import Option from '../components/option';
 import OptionList from '../components/option-list';
 import OptionListPasteModal from '../components/option-list-paste-modal';
 import type AbstractOption from '../models/abstract-option';
-import OptionDTO from '../models/option.dto';
 import OptionIdService from '../service/option-id.service';
 import OptionMapService from '../service/option-map.service';
-import OptionStorageService from '../service/option-storage.service';
 import styles from './list-of-options.module.css';
 
 const JSON_FILE_NAME = 'option-list.json';

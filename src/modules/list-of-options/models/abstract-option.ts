@@ -1,6 +1,6 @@
 import AbstractComponent from '~/core/models/abstract-component';
 import type TagName from '~/core/models/tag-name.type';
-import type OptionDTO from './option.dto';
+import type OptionDTO from '~/core/models/option.dto';
 
 export default abstract class AbstractOption<T extends TagName = TagName>
   extends AbstractComponent<T>
