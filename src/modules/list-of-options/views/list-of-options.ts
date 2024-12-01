@@ -1,19 +1,18 @@
+import Component from '~/core/components/component';
 import UiButton from '~/core/components/ui-button';
 import AbstractComponent from '~/core/models/abstract-component';
+import { APP_NAME, OPTIONS_JSON_FILE_NAME, OPTIONS_STORAGE_KEY } from '~/core/models/constants';
 import OptionDTO from '~/core/models/option.dto';
 import Route from '~/core/models/route.enum';
 import HashRouter from '~/core/router/hash-router';
-import OptionStorageService from '~/core/services/option-storage.service';
 import Option from '../components/option';
 import OptionList from '../components/option-list';
 import OptionListPasteModal from '../components/option-list-paste-modal';
 import type AbstractOption from '../models/abstract-option';
 import OptionIdService from '../service/option-id.service';
 import OptionMapService from '../service/option-map.service';
+import OptionStorageService from '../service/option-storage.service';
 import styles from './list-of-options.module.css';
-
-const JSON_FILE_NAME = 'option-list.json';
-const STORAGE_KEY = 'option-list';
 
 const ADD_BUTTON_TEXT = 'Add Option';
 const PASTE_MODE_BUTTON_TEXT = 'Paste list';
@@ -35,8 +34,8 @@ export default class ListOfOptions extends AbstractComponent {
   });
 
   private readonly optionStorageService = new OptionStorageService({
-    jsonFileName: JSON_FILE_NAME,
-    storageKey: STORAGE_KEY,
+    jsonFileName: OPTIONS_JSON_FILE_NAME,
+    storageKey: OPTIONS_STORAGE_KEY,
     isOptionDTOLike: OptionDTO.isOptionDTOLike,
     createOptionDTO: OptionDTO.create,
     getDataToSave: (): { lastId: number; list: OptionDTO[] } => ({
@@ -54,7 +53,7 @@ export default class ListOfOptions extends AbstractComponent {
   });
 
   constructor() {
-    super('div', { className: styles.container });
+    super('main', { className: styles.main });
 
     this.mount();
   }
@@ -74,6 +73,8 @@ export default class ListOfOptions extends AbstractComponent {
 
   private mount(): void {
     this.handleBeforeMount();
+
+    const heading = new Component('h1', { className: styles.heading, textContent: APP_NAME, title: APP_NAME });
 
     const optionList = new OptionList({ optionList: this.optionMapService.getOptions() });
 
@@ -139,6 +140,7 @@ export default class ListOfOptions extends AbstractComponent {
     });
 
     this.replaceChildren(
+      heading,
       optionList,
       addButton,
       pasteListButton,

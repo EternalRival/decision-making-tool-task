@@ -1,0 +1,23 @@
+.form {
+  display: grid;
+  grid-template:
+    'back-button sound-label duration-label' 1fr
+    'pick-button pick-button pick-button' 1fr
+    / 1fr 1fr;
+  gap: 0.5rem;
+
+  margin-inline: auto;
+
+  transition-duration: var(--transition-duration);
+
+  &:has(:disabled) {
+    pointer-events: none;
+    opacity: 0.8;
+    filter: grayscale(1);
+
+    :is(label, input, button) {
+      opacity: unset;
+      filter: unset;
+    }
+  }
+}

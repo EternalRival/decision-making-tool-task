@@ -1,0 +1,24 @@
+import SpriteIcon from '~/core/components/sprite-icon';
+import UiButton from '~/core/components/ui-button';
+import styles from './back-button.module.css';
+
+const BACK_BUTTON_TEXT = 'Back';
+
+export default class BackButton extends UiButton {
+  constructor() {
+    super({
+      type: 'button',
+      className: styles.backButton,
+      title: BACK_BUTTON_TEXT,
+      ariaLabel: BACK_BUTTON_TEXT,
+    });
+
+    this.mount();
+  }
+
+  private mount(): void {
+    const icon = SpriteIcon({ name: 'square-arrow-out-up-left' });
+
+    this.replaceChildren(icon);
+  }
+}

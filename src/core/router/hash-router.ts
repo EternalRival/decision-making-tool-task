@@ -8,7 +8,7 @@ type Props = {
 };
 
 export default class HashRouter {
-  private currentPage: AbstractComponent | null = null;
+  private currentPage?: AbstractComponent;
 
   constructor(private readonly props: Props) {}
 
