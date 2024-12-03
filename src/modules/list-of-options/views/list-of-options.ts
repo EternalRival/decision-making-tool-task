@@ -1,17 +1,18 @@
 import Component from '~/core/components/component';
 import UiButton from '~/core/components/ui-button';
 import AbstractComponent from '~/core/models/abstract-component';
-import { APP_NAME, OPTIONS_JSON_FILE_NAME, OPTIONS_STORAGE_KEY } from '~/core/models/constants';
+import { APP_NAME } from '~/core/models/constants';
 import OptionDTO from '~/core/models/option.dto';
 import Route from '~/core/models/route.enum';
+import StoredOptionsDTO from '~/core/models/stored-options.dto';
 import HashRouter from '~/core/router/hash-router';
+import OptionStorageService from '~/core/services/option-storage.service';
 import Option from '../components/option';
 import OptionList from '../components/option-list';
 import OptionListPasteModal from '../components/option-list-paste-modal';
-import type AbstractOption from '../models/abstract-option';
+import type AbstractOptionComponent from '../models/abstract-option-component';
 import OptionIdService from '../service/option-id.service';
 import OptionMapService from '../service/option-map.service';
-import OptionStorageService from '../service/option-storage.service';
 import styles from './list-of-options.module.css';
 
 const ADD_BUTTON_TEXT = 'Add Option';
@@ -25,7 +26,7 @@ export default class ListOfOptions extends AbstractComponent {
   private readonly optionIdService = new OptionIdService();
 
   private readonly optionMapService = new OptionMapService({
-    createOption: (optionDto): AbstractOption =>
+    createOption: (optionDto): AbstractOptionComponent =>
       new Option({
         optionDto: optionDto ?? new OptionDTO({ id: `#${this.optionIdService.getNextId()}` }),
         onDeleteButtonClick: this.optionMapService.removeOption,
@@ -34,20 +35,17 @@ export default class ListOfOptions extends AbstractComponent {
   });
 
   private readonly optionStorageService = new OptionStorageService({
-    jsonFileName: OPTIONS_JSON_FILE_NAME,
-    storageKey: OPTIONS_STORAGE_KEY,
-    isOptionDTOLike: OptionDTO.isOptionDTOLike,
-    createOptionDTO: OptionDTO.create,
-    getDataToSave: (): { lastId: number; list: OptionDTO[] } => ({
-      lastId: this.optionIdService.getId(),
-      list: this.optionMapService.getOptions(),
-    }),
-    onDataLoaded: (storedData: { lastId: number; list: OptionDTO[] } | null): void => {
+    getDataToSave: (): StoredOptionsDTO =>
+      new StoredOptionsDTO({
+        lastId: this.optionIdService.getId(),
+        list: this.optionMapService.getOptions(),
+      }),
+    onDataLoaded: (storedOptionsDto: StoredOptionsDTO | null): void => {
       this.optionMapService.removeOptions();
 
-      if (storedData) {
-        this.optionIdService.setId(storedData.lastId);
-        this.optionMapService.addOptions(storedData.list);
+      if (storedOptionsDto) {
+        this.optionIdService.setId(storedOptionsDto.lastId);
+        this.optionMapService.addOptions(storedOptionsDto.list);
       }
     },
   });

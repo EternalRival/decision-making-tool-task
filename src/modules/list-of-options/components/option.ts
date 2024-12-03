@@ -1,7 +1,7 @@
 import Component from '~/core/components/component';
 import UiButton from '~/core/components/ui-button';
 import type OptionDTO from '~/core/models/option.dto';
-import AbstractOption from '../models/abstract-option';
+import AbstractOptionComponent from '../models/abstract-option-component';
 import styles from './option.module.css';
 
 const TITLE_INPUT_PLACEHOLDER_TEXT = 'Title';
@@ -18,7 +18,7 @@ type Props = {
   onDeleteButtonClick: (optionId: string) => void;
 };
 
-export default class Option extends AbstractOption<'li'> {
+export default class Option extends AbstractOptionComponent<'li'> {
   private readonly state: State;
 
   constructor(private readonly props: Props) {

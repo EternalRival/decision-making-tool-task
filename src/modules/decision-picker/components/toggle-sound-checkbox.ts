@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import Component from '~/core/components/component';
 import SpriteIcon from '~/core/components/sprite-icon';
 import AbstractComponent from '~/core/models/abstract-component';
@@ -39,11 +40,12 @@ export default class ToggleSoundCheckbox extends AbstractComponent<'label'> {
 
   private mount(): void {
     const soundCheckbox = new Component('input', {
-      className: styles.soundInput,
+      ...this.props,
+      className: clsx(styles.soundInput, this.props?.className),
       type: 'checkbox',
-      name: this.props?.name,
-      defaultChecked: this.props?.defaultChecked,
       onchange: (event): void => {
+        this.props?.onchange?.call(this.node, event);
+
         if (event.target instanceof HTMLInputElement) {
           this.setSoundIcon(event.target.checked ? 'volume-2' : 'volume-off');
         }

@@ -19,7 +19,7 @@ export default class OptionDTO implements Required<Props> {
     this.weight = weight;
   }
 
-  public static readonly isOptionDTOLike = (value: unknown): value is OptionDTO =>
+  public static readonly isOptionDTOLike = (value: unknown): value is OptionDTOLike =>
     typeof value === 'object' &&
     value !== null &&
     'id' in value &&
