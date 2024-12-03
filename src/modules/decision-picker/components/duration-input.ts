@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import Component from '~/core/components/component';
 import SpriteIcon from '~/core/components/sprite-icon';
 import AbstractComponent from '~/core/models/abstract-component';
@@ -34,14 +35,16 @@ export default class DurationInput extends AbstractComponent<'label'> {
 
   private mount(): void {
     const durationInput = new Component('input', {
-      className: styles.durationInput,
+      ...this.props,
+      className: clsx(styles.durationInput, this.props?.className),
       type: 'number',
-      name: this.props?.name,
       min: DURATION_MIN_VALUE,
       defaultValue: DURATION_INITIAL_VALUE,
       required: true,
       placeholder: DURATION_INPUT_PLACEHOLDER_TEXT,
       onkeydown: (event): void => {
+        this.props?.onkeydown?.call(this.node, event);
+
         if (event.key === 'Enter') {
           event.preventDefault();
         }
