@@ -83,7 +83,6 @@ export default class Option extends AbstractOptionComponent<'li'> {
     });
 
     const deleteButton = new UiButton({
-      className: styles.deleteButton,
       type: 'button',
       textContent: DELETE_BUTTON_TEXT,
       onclick: (): void => this.props.onDeleteButtonClick(this.id),

@@ -23,10 +23,10 @@ export default class OptionDTO implements Required<Props> {
     typeof value === 'object' &&
     value !== null &&
     'id' in value &&
-    typeof value.id === 'string' &&
     'title' in value &&
-    typeof value.title === 'string' &&
     'weight' in value &&
+    typeof value.id === 'string' &&
+    typeof value.title === 'string' &&
     typeof value.weight === 'string';
 
   public static readonly create = (props: Props): OptionDTO => new OptionDTO(props);
