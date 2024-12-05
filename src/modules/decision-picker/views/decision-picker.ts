@@ -3,24 +3,30 @@ import AbstractComponent from '~/core/models/abstract-component';
 import { APP_NAME } from '~/core/models/constants';
 import type StoredOptionsDTO from '~/core/models/stored-options.dto';
 import OptionStorageService from '~/core/services/option-storage.service';
+import animate from '~/core/utils/animate';
+import easeInOut from '~/core/utils/ease-in-out';
 import ControlPanelForm from '../components/control-panel-form';
-import styles from './decision-picker.module.css';
+import PickedOption from '../components/picked-option';
+import WheelCanvas from '../components/wheel-canvas';
+import OptionSliceListService from '../service/option-slice-list.service';
 import SoundStorageService from '../service/sound-storage.service';
+import playTaDaSound from '../utils/play-ta-da-sound';
+import styles from './decision-picker.module.css';
 
 export default class DecisionPicker extends AbstractComponent {
   private readonly state = {
     soundEnabled: true,
   };
 
+  private readonly optionSliceListService = new OptionSliceListService();
+
   private readonly optionStorageService = new OptionStorageService({
     onDataLoaded: (storedData: StoredOptionsDTO | null): void => {
       console.debug(storedData);
-      /*  this.optionMapService.removeOptions();
 
       if (storedData) {
-        this.optionIdService.setId(storedData.lastId);
-        this.optionMapService.addOptions(storedData.list);
-      } */
+        this.optionSliceListService.setOptionSliceList(storedData.list);
+      }
     },
   });
 
@@ -58,9 +64,43 @@ export default class DecisionPicker extends AbstractComponent {
 
     const heading = new Component('h1', { className: styles.heading, textContent: APP_NAME, title: APP_NAME });
 
-    const form = new ControlPanelForm({
-      onSubmit: ({ duration, sound }): void => {
-        console.debug({ duration, sound });
+    const pickedOption = new PickedOption();
+
+    const wheel = new WheelCanvas({ optionSliceList: this.optionSliceListService.getOptionSlices() });
+
+    const controlPanelForm = new ControlPanelForm({
+      onSubmit: ({ duration: durationString, sound }): void => {
+        console.debug('SUBMITTED', { durationString, sound });
+
+        const duration = Number(durationString);
+
+        controlPanelForm.toggleDisabledFormElements(true);
+        pickedOption.togglePickedState(false);
+
+        const targetRotationOffset = 2 * Math.PI * Math.random();
+
+        const fullTurnsRotation = duration * 2 * Math.PI;
+        const targetRotation = fullTurnsRotation + targetRotationOffset;
+
+        animate({
+          duration,
+          easingFn: easeInOut,
+          onFrameChange: (progress) => {
+            const rotation = progress * targetRotation;
+            wheel.draw({ rotation });
+            pickedOption.setTextContent(this.optionSliceListService.getTitleByRadian(rotation));
+          },
+          onFinish: () => {
+            wheel.draw({ rotation: targetRotation });
+
+            controlPanelForm.toggleDisabledFormElements(false);
+            pickedOption.togglePickedState(true);
+
+            if (sound) {
+              void playTaDaSound();
+            }
+          },
+        });
       },
       onSoundEnabledChange: (soundEnabled: boolean): void => {
         this.state.soundEnabled = soundEnabled;
@@ -68,10 +108,8 @@ export default class DecisionPicker extends AbstractComponent {
       soundDefaultChecked: this.state.soundEnabled,
     });
 
-    const pickedOption = new Component('p', { className: styles.pickedOption, textContent: 'pickedOption' });
+    wheel.draw({ rotation: 0 });
 
-    const wheel = new Component('canvas', { className: styles.wheel, textContent: 'wheel' });
-
-    this.replaceChildren(heading, form, pickedOption, wheel);
+    this.replaceChildren(heading, controlPanelForm, pickedOption, wheel);
   }
 }

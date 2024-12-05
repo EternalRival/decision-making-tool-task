@@ -74,17 +74,3 @@
     }
   }
 }
-
-.delete-button {
-  /*   background-color: var(--color-black-30);
-
-  &:active {
-    background-color: var(--color-black-30);
-  }
-
-  @media (hover: hover) and (pointer: fine) {
-    &:hover:not(:active) {
-      background-color: var(--color-black-40);
-    }
-  } */
-}

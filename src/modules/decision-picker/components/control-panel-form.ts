@@ -13,7 +13,7 @@ export default class ControlPanelForm extends AbstractComponent<'form'> {
 
   constructor(
     private readonly props: {
-      onSubmit: (props: { duration: string; sound: string }) => void;
+      onSubmit: (props: { duration: number; sound: boolean }) => void;
       onSoundEnabledChange: (soundEnabled: boolean) => void;
       soundDefaultChecked: boolean;
     }
@@ -45,12 +45,8 @@ export default class ControlPanelForm extends AbstractComponent<'form'> {
       event.preventDefault();
 
       const formData = new FormData(this.node);
-      const duration = formData.get(DURATION_FIELD_NAME)?.toString();
-      const sound = formData.get(SOUND_FIELD_NAME)?.toString();
-
-      if (!duration || !sound) {
-        throw new Error('duration or sound is not defined');
-      }
+      const duration = Number(formData.get(DURATION_FIELD_NAME));
+      const sound = Boolean(formData.get(SOUND_FIELD_NAME));
 
       this.props.onSubmit({ duration, sound });
     });
