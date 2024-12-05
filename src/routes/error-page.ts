@@ -3,7 +3,7 @@ import UiButton from '~/core/components/ui-button';
 import AbstractComponent from '~/core/models/abstract-component';
 import Route from '../core/models/route.enum';
 import HashRouter from '../core/router/hash-router';
-import styles from './decision-picker.module.css';
+import styles from './error-page.module.css';
 
 const HEADING_TEXT = 'Something went wrong';
 const BACK_BUTTON_TEXT = 'Back to main';

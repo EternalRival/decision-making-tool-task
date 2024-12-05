@@ -29,5 +29,8 @@ export default class OptionDTO implements Required<Props> {
     typeof value.title === 'string' &&
     typeof value.weight === 'string';
 
+  public static readonly isOptionDTOValid = ({ title, weight }: OptionDTO): boolean =>
+    Boolean(title) && Number(weight) > 0;
+
   public static readonly create = (props: Props): OptionDTO => new OptionDTO(props);
 }

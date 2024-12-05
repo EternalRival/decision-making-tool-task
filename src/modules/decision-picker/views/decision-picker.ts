@@ -1,7 +1,10 @@
 import Component from '~/core/components/component';
 import AbstractComponent from '~/core/models/abstract-component';
-import { APP_NAME } from '~/core/models/constants';
+import { APP_NAME, SLICE_LIST_MIN_LENGTH } from '~/core/models/constants';
+import OptionDTO from '~/core/models/option.dto';
+import Route from '~/core/models/route.enum';
 import type StoredOptionsDTO from '~/core/models/stored-options.dto';
+import HashRouter from '~/core/router/hash-router';
 import OptionStorageService from '~/core/services/option-storage.service';
 import animate from '~/core/utils/animate';
 import easeInOut from '~/core/utils/ease-in-out';
@@ -22,11 +25,15 @@ export default class DecisionPicker extends AbstractComponent {
 
   private readonly optionStorageService = new OptionStorageService({
     onDataLoaded: (storedData: StoredOptionsDTO | null): void => {
-      console.debug(storedData);
+      const filteredStoredData = storedData?.list.filter(OptionDTO.isOptionDTOValid);
 
-      if (storedData) {
-        this.optionSliceListService.setOptionSliceList(storedData.list);
+      if (filteredStoredData && filteredStoredData?.length >= SLICE_LIST_MIN_LENGTH) {
+        this.optionSliceListService.setOptionSliceList(filteredStoredData);
+
+        return;
       }
+
+      HashRouter.navigate(Route.HOME);
     },
   });
 
