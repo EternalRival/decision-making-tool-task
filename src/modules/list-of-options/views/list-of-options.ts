@@ -10,6 +10,7 @@ import OptionStorageService from '~/core/services/option-storage.service';
 import Option from '../components/option';
 import OptionList from '../components/option-list';
 import OptionListPasteModal from '../components/option-list-paste-modal';
+import WarningModal from '../components/warning-modal';
 import type AbstractOptionComponent from '../models/abstract-option-component';
 import OptionIdService from '../service/option-id.service';
 import OptionMapService from '../service/option-map.service';
@@ -89,7 +90,7 @@ export default class ListOfOptions extends AbstractComponent {
       className: styles.pasteListButton,
       textContent: PASTE_MODE_BUTTON_TEXT,
       onclick: (): void => {
-        const optionListPasteModal = new OptionListPasteModal({
+        void new OptionListPasteModal({
           onConfirm: (pasteData): void => {
             pasteData.forEach(([title, weight]) => {
               const id = `#${this.optionIdService.getNextId()}`;
@@ -99,9 +100,7 @@ export default class ListOfOptions extends AbstractComponent {
 
             optionList.update({ optionList: this.optionMapService.getOptions() });
           },
-        });
-
-        void optionListPasteModal.openDialog();
+        }).openDialog();
       },
     });
 
@@ -133,7 +132,11 @@ export default class ListOfOptions extends AbstractComponent {
       className: styles.startButton,
       textContent: START_BUTTON_TEXT,
       onclick: (): void => {
-        HashRouter.navigate(Route.DECISION_PICKER);
+        if (this.optionMapService.isPlayable) {
+          HashRouter.navigate(Route.DECISION_PICKER);
+        } else {
+          void new WarningModal().openDialog();
+        }
       },
     });
 
@@ -142,6 +145,7 @@ export default class ListOfOptions extends AbstractComponent {
       optionList,
       addButton,
       pasteListButton,
+
       clearListButton,
       saveListButton,
       loadListButton,

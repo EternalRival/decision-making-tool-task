@@ -16,6 +16,9 @@ type Props = {
   onConfirm: (pasteData: [string, string][]) => void;
 };
 
+const CONFIRM_BUTTON_TEXT = 'Confirm';
+const CANCEL_BUTTON_TEXT = 'Cancel';
+
 export default class OptionListPasteModal extends UiDialog {
   constructor(private readonly props: Props) {
     super();
@@ -63,13 +66,13 @@ export default class OptionListPasteModal extends UiDialog {
 
     const cancelButton = new UiButton({
       className: styles.cancel,
-      textContent: 'Cancel',
+      textContent: CANCEL_BUTTON_TEXT,
       onclick: (): void => void this.closeDialog('Cancel'),
     });
 
     const confirmButton = new UiButton({
       className: styles.confirm,
-      textContent: 'Confirm',
+      textContent: CONFIRM_BUTTON_TEXT,
     });
 
     form.append(textArea, cancelButton, confirmButton);

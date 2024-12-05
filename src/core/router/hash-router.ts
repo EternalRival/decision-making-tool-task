@@ -22,8 +22,9 @@ export default class HashRouter {
     this.handleHashChange();
   }
 
-  private readonly changePage = (page: AbstractComponent): void => {
+  private readonly changePage = (getNewPage: () => AbstractComponent): void => {
     this.currentPage?.remove();
+    const page = getNewPage();
     this.props.root.replaceChildren(page.node);
     this.currentPage = page;
   };
@@ -37,8 +38,6 @@ export default class HashRouter {
       return;
     }
 
-    const page = (this.props.routes[hash] ?? this.props.errorPage)();
-
-    this.changePage(page);
+    this.changePage(this.props.routes[hash] ?? this.props.errorPage);
   };
 }

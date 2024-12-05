@@ -7,6 +7,7 @@ export default defineConfig({
   plugins: [tsconfigPaths(), obfuscatorPlugin()],
   server: {
     host: true,
+    hmr: false,
   },
   build: {
     assetsInlineLimit: (filePath) => !/sprite\.svg$/i.test(filePath),

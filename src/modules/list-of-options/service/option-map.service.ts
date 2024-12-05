@@ -1,4 +1,5 @@
-import type OptionDTO from '~/core/models/option.dto';
+import OptionDTO from '~/core/models/option.dto';
+import { SLICE_LIST_MIN_LENGTH } from '~/core/models/constants';
 import type AbstractOptionComponent from '../models/abstract-option-component';
 
 export default class OptionMapService {
@@ -11,8 +12,8 @@ export default class OptionMapService {
     }
   ) {}
 
-  private get isEmpty(): boolean {
-    return this.optionMap.size < 1;
+  public get isPlayable(): boolean {
+    return this.getOptions().filter(OptionDTO.isOptionDTOValid).length >= SLICE_LIST_MIN_LENGTH;
   }
 
   public addOption = (optionDto?: OptionDTO): void => {
@@ -29,7 +30,7 @@ export default class OptionMapService {
     this.optionMap.get(optionId)?.remove();
     this.optionMap.delete(optionId);
 
-    if (this.isEmpty) {
+    if (this.optionMap.size < 1) {
       this.props.onReset();
     }
   };
