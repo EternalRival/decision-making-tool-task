@@ -1,9 +1,14 @@
+import { SLICE_LIST_MIN_LENGTH } from '~/core/models/constants';
 import type OptionDTO from '~/core/models/option.dto';
 import getRandomColor from '~/core/utils/get-random-color';
 import OptionSliceDTO from '../models/option-slice.dto';
 
 export default class OptionSliceListService {
   private optionSliceList?: OptionSliceDTO[];
+
+  public get isEmpty(): boolean {
+    return !(Array.isArray(this.optionSliceList) && this.optionSliceList.length >= SLICE_LIST_MIN_LENGTH);
+  }
 
   private static getOptionRadians(total: number, weight: number): number {
     return (weight / total) * 2 * Math.PI;

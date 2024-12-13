@@ -27,7 +27,7 @@ export default class DecisionPicker extends AbstractComponent {
     onDataLoaded: (storedData: StoredOptionsDTO | null): void => {
       const filteredStoredData = storedData?.list.filter(OptionDTO.isOptionDTOValid);
 
-      if (filteredStoredData && filteredStoredData?.length >= SLICE_LIST_MIN_LENGTH) {
+      if (filteredStoredData && filteredStoredData.length >= SLICE_LIST_MIN_LENGTH) {
         this.optionSliceListService.setOptionSliceList(filteredStoredData);
 
         return;
@@ -69,11 +69,15 @@ export default class DecisionPicker extends AbstractComponent {
   private mount(): void {
     this.handleBeforeMount();
 
+    if (this.optionSliceListService.isEmpty) {
+      return;
+    }
+
     const heading = new Component('h1', { className: styles.heading, textContent: APP_NAME, title: APP_NAME });
 
     const pickedOption = new PickedOption();
 
-    const wheel = new WheelCanvas({ optionSliceList: this.optionSliceListService.getOptionSlices() });
+    const wheel = new WheelCanvas({ optionSliceList: this.optionSliceListService.getOptionSlices() }); // todo fix
 
     const controlPanelForm = new ControlPanelForm({
       onSubmit: ({ duration: durationString, sound }): void => {
