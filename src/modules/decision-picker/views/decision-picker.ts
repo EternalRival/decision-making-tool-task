@@ -81,8 +81,6 @@ export default class DecisionPicker extends AbstractComponent {
 
     const controlPanelForm = new ControlPanelForm({
       onSubmit: ({ duration: durationString, sound }): void => {
-        console.debug('SUBMITTED', { durationString, sound });
-
         const duration = Number(durationString);
 
         controlPanelForm.toggleDisabledFormElements(true);
