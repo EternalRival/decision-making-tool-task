@@ -22,7 +22,7 @@ export default class StoredOptionsDTO implements Required<Props> {
     value !== null &&
     'lastId' in value &&
     typeof value.lastId === 'number' &&
-    value.lastId > 0 &&
+    value.lastId >= 0 &&
     'list' in value &&
     Array.isArray(value.list) &&
     value.list.every(OptionDTO.isOptionDTOLike);
