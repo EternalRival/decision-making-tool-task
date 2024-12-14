@@ -42,8 +42,6 @@ export default class ListOfOptions extends AbstractComponent {
         list: this.optionMapService.getOptions(),
       }),
     onDataLoaded: (storedOptionsDto: StoredOptionsDTO | null): void => {
-      console.debug(storedOptionsDto);
-
       if (storedOptionsDto) {
         this.optionMapService.removeOptions();
         this.optionIdService.setId(storedOptionsDto.lastId);
