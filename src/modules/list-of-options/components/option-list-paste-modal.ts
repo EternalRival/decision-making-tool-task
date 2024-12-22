@@ -4,10 +4,10 @@ import UiDialog from '~/core/components/ui-dialog';
 import styles from './option-list-paste-modal.module.css';
 
 const TEXTAREA_EXAMPLE_VALUE = `
-title,1
-title with whitespace,2
-title , with , commas,3
-title with "quotes",4
+title,1                 -> | title                 | 1 |
+title with whitespace,2 -> | title with whitespace | 2 |
+title , with , commas,3 -> | title , with , commas | 3 |
+title with "quotes",4   -> | title with "quotes"   | 4 |
 `.trim();
 
 const TEXT_AREA_PLACEHOLDER_TEXT = `Paste a list of new options in a CSV-like format:\n\n${TEXTAREA_EXAMPLE_VALUE}`;
