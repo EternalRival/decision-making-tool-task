@@ -8,6 +8,7 @@ import HashRouter from '~/core/router/hash-router';
 import OptionStorageService from '~/core/services/option-storage.service';
 import animate from '~/core/utils/animate';
 import easeInOut from '~/core/utils/ease-in-out';
+import getRandomNumber from '~/core/utils/get-random-number';
 import ControlPanelForm from '../components/control-panel-form';
 import PickedOption from '../components/picked-option';
 import WheelCanvas from '../components/wheel-canvas';
@@ -28,7 +29,7 @@ export default class DecisionPicker extends AbstractComponent {
       const filteredStoredData = storedData?.list.filter(OptionDTO.isOptionDTOValid);
 
       if (filteredStoredData && filteredStoredData.length >= SLICE_LIST_MIN_LENGTH) {
-        this.optionSliceListService.setOptionSliceList(filteredStoredData);
+        this.optionSliceListService.setOptionSliceList(filteredStoredData.toSorted(() => getRandomNumber(-1, 1)));
 
         return;
       }
@@ -77,7 +78,7 @@ export default class DecisionPicker extends AbstractComponent {
 
     const pickedOption = new PickedOption();
 
-    const wheel = new WheelCanvas({ optionSliceList: this.optionSliceListService.getOptionSlices() }); // todo fix
+    const wheel = new WheelCanvas({ optionSliceList: this.optionSliceListService.getOptionSlices() });
 
     const controlPanelForm = new ControlPanelForm({
       onSubmit: ({ duration: durationString, sound }): void => {
