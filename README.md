@@ -42,24 +42,23 @@ The second part of the application (`Decision Picker`) allows you to visualize t
 
 ## General Requirements
 
-- `<body>` in the `index.html` must be empty (only `<script>` tag is allowed). *(You can check this with the `View page source` option in the context menu in google chrome.)*
+- `<body>` in the `index.html` must be empty (only `<script>` tag is allowed). *(You can check this with the `View page source` option in the context menu in Google Chrome.)*
 - App must be supported at `640px <= width <= 1280px` at least *(DOM elements should not go out of bounds of parent elements, overlap, etc.)*.
 - The use of `alert`, `prompt`, `confirm` is prohibited.
 - App must not have unexpected errors in the console.
-- The app must be supported by at least the latest version of the “google chrome” browser.
+- The app must be supported by at least the latest version of the Google Chrome browser.
 
 ## Technical Requirements (160 points total)
 
 ### General
 
 - Language: Application written in TypeScript.
-- Required: Prettier, ESLint, StyleLint and libraries for them.
+- Required: Prettier, ESLint, StyleLint. *(It is allowed to use configs and plugins for this tools.)*
 - Required: Husky, lint-staged, commitlint.
 - Required: Bundlers (webpack, vite). *(It is allowed to use bundler's plugins.)*
 - Allowed: CSS modules, CSS Preprocessors (`Sass`, `Less`, `Stylus`, `PostCSS`), CSS in JS libraries (`tailwindcss`, `styled components`), `clsx`/`classnames` package.
 - Prohibited: Frameworks like Angular, React, Vue, etc.
 - Prohibited: jQuery.
-- Prohibited: eslint-plugin-prettier.
 - Prohibited: Third-party libraries not listed in the allowed libraries.
 
 ### Code Formatting and Linting (80 points)
@@ -70,7 +69,7 @@ The second part of the application (`Decision Picker`) allows you to visualize t
 
 1. (+2) [TypeScript](https://www.typescriptlang.org/) must be installed to developer dependencies.
 2. (+2) TypeScript configuration file is added to the project and used.
-3. (+8) TypeScript configuration file must include the `strict` options enabled.
+3. (+8) TypeScript configuration file must have all of the [strict mode family options](https://www.typescriptlang.org/tsconfig/#strict) enabled.
 
 #### Prettier (8/80)
 
@@ -78,7 +77,7 @@ The second part of the application (`Decision Picker`) allows you to visualize t
 
 1. (+2) [Prettier](https://prettier.io/) must be installed to developer dependencies.
 2. (+2) Prettier configuration file is added to the project and used.
-3. (+4) `package.json` must contain 2 scripts: `ci:format` for checking issues with CI and `format` for manually formatting project files. *The `prettier` command has many useful options, such as `--list-different` and `--ignore-unknown`.*
+3. (+4) `package.json` must contain `format` script for formatting project files. *The `prettier` command has many useful options, such as `--list-different` and `--ignore-unknown`.*
 
 #### ESLint (40/80)
 
@@ -86,23 +85,43 @@ The second part of the application (`Decision Picker`) allows you to visualize t
 
 1. (+2) [ESLint](https://eslint.org/) must be installed to developer dependencies.
 2. (+2) ESLint configuration file is added to the project and used. *(both [`flat`](https://eslint.org/docs/latest/use/configure/configuration-files) and [`legacy`](https://eslint.org/docs/latest/use/configure/configuration-files-deprecated) config formats are allowed.)*
-3. (+8) ESLint configuration file must include the `noInlineConfig` and `reportUnusedDisableDirectives` options enabled.
-4. (+8) ESLint configuration file must include all of the following rules included:
+3. (+8) ESLint configuration file must have the `noInlineConfig` and `reportUnusedDisableDirectives` options enabled.
+4. (+8) ESLint configuration file must contain all of the following rules:
 
    ```json
    {
-     "@typescript-eslint/consistent-type-imports": "error",
-     "@typescript-eslint/explicit-function-return-type": "error",
-     "@typescript-eslint/consistent-type-assertions": ["error", { "assertionStyle": "never" }],
-     "@typescript-eslint/explicit-member-accessibility": ["error", { "accessibility": "explicit", "overrides": { "constructors": "off" } }],
-     "@typescript-eslint/member-ordering": "error",
+    "@typescript-eslint/consistent-type-imports": "error",
+    "@typescript-eslint/explicit-function-return-type": "error",
+    "@typescript-eslint/consistent-type-assertions": ["error", { "assertionStyle": "never" }],
+    "@typescript-eslint/explicit-member-accessibility": [
+      "error", 
+      { "accessibility": "explicit", "overrides": { "constructors": "off" } }
+    ],
+    "@typescript-eslint/member-ordering": "error"
    }
    ```
 
-5. (+16) ESLint configuration file must be configured with [`typescript-eslint`](https://typescript-eslint.io/) (with enabled [type checking rules](https://typescript-eslint.io/getting-started/typed-linting/)), [`eslint-config-airbnb-typescript`](https://www.npmjs.com/package/eslint-config-airbnb-typescript), [`eslint-config-prettier`](https://github.com/prettier/eslint-config-prettier) (do not confuse it with `eslint-plugin-prettier`. it is [not recommended](https://prettier.io/docs/en/integrating-with-linters.html#:~:text=generally%20not%20recommended) by the prettier documentation.) and the necessary dependencies for them to work.
-   - *With the mentor's permission, it is acceptable to disable or tweak some rules (e.g. `import/prefer-default-export`, `no-underscore-dangle`, etc.) as long as it does not conflict with penalties.*
+5. (+16) ESLint configuration file must be configured with [`typescript-eslint`](https://typescript-eslint.io/) (with enabled [type checking rules](https://typescript-eslint.io/getting-started/typed-linting/)), [`eslint-plugin-unicorn`](https://github.com/sindresorhus/eslint-plugin-unicorn#readme) (with enabled [recommended preset config](https://github.com/sindresorhus/eslint-plugin-unicorn?tab=readme-ov-file#preset-configs)) and the necessary dependencies for them to work.
+   - *With the mentor's permission, it is acceptable to disable or tweak some rules as long as it does not conflict with penalties. e.g.:*
+
+     ```json
+     {
+       "@typescript-eslint/consistent-type-definitions": ["error", "type"],
+       "unicorn/no-array-callback-reference": "off",
+       "unicorn/no-array-for-each": "off",
+       "unicorn/no-array-reduce": "off",
+       "unicorn/no-null": "off",
+       "unicorn/number-literal-case": "off",
+       "unicorn/numeric-separators-style": "off",
+       "unicorn/prevent-abbreviations": [
+         "error",
+         { "allowList": { "acc": true, "env": true, "i": true, "j": true, "props": true, "Props": true } }
+       ]
+     }
+     ```
+
    - *It is allowed to tweak the config to be stricter to make your code even cleaner (according to your or your mentor's preference).*
-6. (+4) `package.json` must contain 2 scripts: `ci:lint` for checking issues with CI and `lint` for manually checking project files.
+6. (+4) `package.json` must contain `lint` script for checking project files.
 
 #### StyleLint (10/80)
 
@@ -111,7 +130,7 @@ The second part of the application (`Decision Picker`) allows you to visualize t
 1. (+2) [StyleLint](https://stylelint.io/) must be installed to developer dependencies.
 2. (+2) StyleLint configuration file is added to the project and used.
 3. (+2) StyleLint configuration file must be configured with [`stylelint-config-standard`](https://github.com/stylelint/stylelint-config-standard) and [`stylelint-config-clean-order`](https://github.com/kutsan/stylelint-config-clean-order). *It is acceptable to disable or tweak some rules for better DX.*
-4. (+4) `package.json` must contain 2 scripts: `ci:stylelint` for checking issues with CI and `stylelint` for manually checking project files.
+4. (+4) `package.json` must contain `stylelint` script for checking project files.
 
 #### Husky (10/80)
 
@@ -122,7 +141,7 @@ The second part of the application (`Decision Picker`) allows you to visualize t
 1. (+2) [`husky`](https://typicode.github.io/husky/), [`lint-staged`](https://github.com/lint-staged/lint-staged) and [`commitlint`](https://commitlint.js.org/) must be installed to developer dependencies.
 2. (+2) `husky` must be configured to run `lint-staged` on the `pre-commit` hook.
 3. (+2) `husky` must be configured to run `commitlint` on the `commit-msg` hook.
-4. (+2) `lint-staged` must be configured to run `ci:` scripts at least for javascript/typescript and css/scss/etc. files.
+4. (+2) `lint-staged` must be configured to run `eslint`, `stylelint` and `prettier` at least for javascript/typescript and css/scss/etc. files.
 5. (+2) `commitlint` must be configured with [`@commitlint/config-conventional`](https://www.npmjs.com/package/@commitlint/config-conventional).
 
 ### Code Quality (80 points)
@@ -131,22 +150,22 @@ The second part of the application (`Decision Picker`) allows you to visualize t
 >
 > For creating elements that will need to be accessed by code, a great solution is to use `createElement` and variables. For clearing/replacing element content, `replaceChildren` may be useful. To add elements that will not need to be accessed by code, it is acceptable to use `insertAdjacentHTML`.
 >
-> This won't cause any pain if you at least just write a reusable function that takes in the necessary element settings (`tagName`, `className`, `textContent`, etc.) and returns a ready-to-use element.
+> This won't cause any pain if you at least just write a reusable function (or class) that takes in the necessary element settings (`tagName`, `className`, `textContent`, etc.) and returns a ready-to-use element (or component).
 
 #### Code Smells (4/80)
 
-1. (+2) The code does not contain magic values.
+1. (+2) The code does not contain magic (hardcoded) values. *([magic numbers](https://refactoring.guru/replace-magic-number-with-symbolic-constant), [magic strings](https://dev.to/josuews303/dont-use-magic-strings-2aol), etc.)*
 2. (+2) Code contains minimal or no code duplication at all.
 
 #### Bundling and Modularity (12/80)
 
 1. (+4) HTML elements are generated using a utility function or class.
-2. (+4) The code is logically divided into modules/layers. *(you can consult your mentor about architecture.)*.
-3. (+4) The application is built by a bundler.
+2. (+4) The code is logically divided into modules/layers. *(you can consult your mentor about architecture.)*
+3. (+4) The application is built with a bundler.
 
 #### Clear and Reusable Functions (16/80)
 
-1. (+8) The code is divided into small functions (≤ 40 lines each) with clear names and purposes. The same applies to classes and their methods. *(ESLint rule `max-lines-per-function` may be useful for this.)*
+1. (+8) The code is divided into small functions (≤ 40 lines each or according to the mentor's preference) with clear names and purposes. The same applies to methods of classes. *(ESLint rule `max-lines-per-function` may be useful for this.)*
 2. (+8) Arguments and return values of functions and methods are explicitly typed.
 
 #### Care About Types (48/80)
@@ -157,7 +176,7 @@ The second part of the application (`Decision Picker`) allows you to visualize t
 2. (+16) The code does not contain any explicit or implicit `any`.
 3. (+16) The code contains and uses [type guards](https://www.typescriptlang.org/docs/handbook/2/narrowing.html) *(e.g., type narrowing type predicates, assertion functions, etc.)*. *(small hint: functions to get data from a json file and/or localStorage are great places to apply type guards.)*
 
-## Functional Requirements (256 points total)
+## Functional Requirements (255 points total)
 
 ### List of Options (108 points)
 
@@ -282,9 +301,7 @@ The second part of the application (`Decision Picker`) allows you to visualize t
 > Briefly, the states mentioned below are:
 >
 > 1. `Decision Picker` opened - the decision picker is in the `initial state`.
->
 > 2. A successful start of picking process has been initiated - the decision picker is in the `picking state`.
->
 > 3. The picking process has finished and the picked option has been determined - the decision picker is in the `picked state`.
 >
 > After that `picking state` and `picked state` cyclically change each other according to points 2 and 3.
@@ -386,29 +403,29 @@ The second part of the application (`Decision Picker`) allows you to visualize t
 3. (+4) The rotation should have a non-linear velocity. Use a suitable easing *(e.g. `ease-in-out` or `ease-in-out-back` with a tiny magnitude)*.
 4. (+4) The wheel must perform several full turns (minimum 5) and stop at a randomly picked option.
 5. (+2) A `finish sound` must be played when `picking state` is changed to `picked state` if `mute state` is toggled `on`.
-6. (+2) A `finish sound` must not be played  if `mute state` is toggled `off`.
+6. (+2) A `finish sound` must not be played if `mute state` is toggled `off`.
 7. (+4) In the `picking state`, `option sections` must not change their order, shape, color. *It means that visually the `option sections` shall rotate as an indivisible whole wheel.*
 8. (+4) In the `picking state`, each `option section title` shall not change its location relative to the boundaries of its `option section`. *It means that visually `option section title` and `option section` should rotate as an indivisible element.*
 9. (+2) In the `picking state`, the `cursor` must stay in its place and not rotate.
 
-### Error page (5 points)
+### Error page (4 points)
 
-#### General (5/5)
+#### General (4/4)
 
-1. (+2) Implemented `Error page` display if the user is on an unknown route.
+1. (+1) Implemented `Error page` display if the user is on an unknown route.
 2. (+1) The `Error page` displays a `back button` for navigating to the [`List of Options` route](#list-of-options-108-points). The appearance of this button should clearly indicate its purpose *(contain appropriate text or icon. e.g., "Back", "Back to main page", "⬅", "↖" etc.)*.
 3. (+2) The `back button` click must navigate to the `List of Options` route.
 
 ## Crosscheck Evaluation
 
 - Submit app for crosscheck according to [Submission Requirements](#repository-and-submission-requirements).
-- Evaluation is based on [Functional Requirements](#functional-requirements-256-points-total).
-- Check on the latest version of the “google chrome” browser.
+- Evaluation is based on [Functional Requirements](#functional-requirements-255-points-total).
+- Check on the latest version of the Google Chrome browser.
 
 ## Crosscheck Penalties (Up to -100%)
 
 - (-100%) Non-empty `<body>` in the `index.html` (only `<script>` tag is allowed).
-- (-100% for [Wheel](#wheel-73143) section) [Wheel general requirement](#general-1) ```Displays the `wheel` element as a single `<canvas>` element.``` is not met.
+- (-100% for [Wheel](#wheel-73143) section) [Wheel general requirement](#general-1) ``Displays the `wheel` element as a single `<canvas>` element.`` is not met.
 - (-50) The app is not a SPA. *There are page reloads when navigating within the application.*
 - (-50) The app is not supported at `640px <= width <= 1280px` at least *(e.g., DOM elements go out of the bounds of parent elements, overlap, etc.)*.
 - (-100%) Using `alert`, `prompt`, `confirm`.

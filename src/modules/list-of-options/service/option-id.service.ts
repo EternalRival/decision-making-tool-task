@@ -9,7 +9,9 @@ export default class OptionIdService {
     this.currentId = newId;
   }
 
-  public resetId = (): void => this.setId(0);
+  public resetId = (): void => {
+    this.setId(0);
+  };
 
   public getNextId(): number {
     const newId = this.getId() + 1;

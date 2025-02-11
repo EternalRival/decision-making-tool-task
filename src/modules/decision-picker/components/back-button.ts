@@ -13,7 +13,9 @@ export default class BackButton extends UiButton {
       className: styles.backButton,
       title: BACK_BUTTON_TEXT,
       ariaLabel: BACK_BUTTON_TEXT,
-      onclick: () => HashRouter.navigate(Route.HOME),
+      onclick: () => {
+        HashRouter.navigate(Route.HOME);
+      },
     });
 
     this.mount();

@@ -50,13 +50,13 @@ export default class OptionStorageService {
     this.props.onDataLoaded(
       OptionStorageService.parseStoredData(
         JSON.parse(
-          await new Promise((res) => {
+          await new Promise((resolve) => {
             new Component('input', {
               type: 'file',
               accept: '.json',
               onchange: (event): void => {
                 if (event.target instanceof HTMLInputElement) {
-                  void event.target.files?.item(0)?.text().then(res);
+                  void event.target.files?.item(0)?.text().then(resolve);
                 }
               },
             }).node.click();

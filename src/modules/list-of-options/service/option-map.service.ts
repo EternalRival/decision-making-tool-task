@@ -30,17 +30,19 @@ export default class OptionMapService {
     this.optionMap.get(optionId)?.remove();
     this.optionMap.delete(optionId);
 
-    if (this.optionMap.size < 1) {
+    if (this.optionMap.size === 0) {
       this.props.onReset();
     }
   };
 
   public removeOptions = (): void => {
-    this.optionMap.forEach((option) => option.node.remove());
+    this.optionMap.forEach((option) => {
+      option.node.remove();
+    });
     this.optionMap.clear();
 
     this.props.onReset();
   };
 
-  public getOptions = (): AbstractOptionComponent[] => Array.from(this.optionMap.values());
+  public getOptions = (): AbstractOptionComponent[] => [...this.optionMap.values()];
 }

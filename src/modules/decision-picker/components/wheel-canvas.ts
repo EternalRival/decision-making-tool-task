@@ -40,13 +40,13 @@ export default class WheelCanvas extends AbstractComponent<'canvas'> {
       height: CANVAS_SIZE,
     });
 
-    const ctx = this.node.getContext('2d');
+    const context = this.node.getContext('2d');
 
-    if (!ctx) {
+    if (!context) {
       throw new Error('Canvas context is not initialized');
     }
 
-    this.ctx = ctx;
+    this.ctx = context;
   }
 
   public draw({ rotation: baseRotation }: { rotation: number }): void {

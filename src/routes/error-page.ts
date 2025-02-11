@@ -20,7 +20,9 @@ export default class ErrorPage extends AbstractComponent<'main'> {
     const backToMain = new UiButton({
       className: styles.backToMain,
       textContent: BACK_BUTTON_TEXT,
-      onclick: (): void => HashRouter.navigate(Route.HOME),
+      onclick: (): void => {
+        HashRouter.navigate(Route.HOME);
+      },
     });
 
     this.replaceChildren(heading, backToMain);

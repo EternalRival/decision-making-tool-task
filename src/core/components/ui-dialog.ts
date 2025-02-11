@@ -34,12 +34,12 @@ export default class UiDialog extends AbstractComponent<'dialog'> {
           await this.closeDialog();
         }
       },
-      oncancel: async (event) => {
-        // todo
-        void this;
+      // oncancel: async (event) => {
+      //   // todo
+      //   void this;
 
-        console.debug('cancel', event);
-      },
+      //   console.debug('cancel', event);
+      // },
       onclose: async (event) => {
         await props?.onclose?.call(this.node, event);
 

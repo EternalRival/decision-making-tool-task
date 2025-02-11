@@ -1,5 +1,5 @@
 export default function shuffle<T>(array: T[]): T[] {
-  const result = Array.from(array);
+  const result = [...array];
 
   for (let i = array.length - 1; i > 0; i -= 1) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -7,8 +7,8 @@ export default function shuffle<T>(array: T[]): T[] {
     const a = result[i];
     const b = result[j];
 
-    if (typeof a === 'undefined' || typeof b === 'undefined') {
-      throw new Error('a or b is undefined');
+    if (a === undefined || b === undefined) {
+      throw new TypeError('a or b is undefined');
     }
 
     [result[i], result[j]] = [b, a];

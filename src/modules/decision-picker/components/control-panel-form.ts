@@ -24,7 +24,9 @@ export default class ControlPanelForm extends AbstractComponent<'form'> {
   }
 
   public toggleDisabledFormElements(value?: boolean): void {
-    this.interactiveComponents.forEach((component) => component.toggleDisabled(value));
+    this.interactiveComponents.forEach((component) => {
+      component.toggleDisabled(value);
+    });
   }
 
   private mount(): void {

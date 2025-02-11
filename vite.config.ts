@@ -1,10 +1,10 @@
 import { defineConfig } from 'vite';
-import tsconfigPaths from 'vite-tsconfig-paths';
+import { resolve } from 'node:path';
 import obfuscatorPlugin from 'vite-plugin-javascript-obfuscator';
 
 export default defineConfig({
   base: './',
-  plugins: [tsconfigPaths(), obfuscatorPlugin()],
+  plugins: [obfuscatorPlugin()],
   server: {
     host: true,
     hmr: false,
@@ -15,6 +15,11 @@ export default defineConfig({
   css: {
     modules: {
       localsConvention: 'camelCaseOnly',
+    },
+  },
+  resolve: {
+    alias: {
+      '~': resolve(import.meta.dirname, 'src'),
     },
   },
 });

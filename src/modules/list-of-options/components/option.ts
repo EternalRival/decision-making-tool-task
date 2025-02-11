@@ -85,7 +85,9 @@ export default class Option extends AbstractOptionComponent<'li'> {
     const deleteButton = new UiButton({
       type: 'button',
       textContent: DELETE_BUTTON_TEXT,
-      onclick: (): void => this.props.onDeleteButtonClick(this.id),
+      onclick: (): void => {
+        this.props.onDeleteButtonClick(this.id);
+      },
     });
 
     this.replaceChildren(id, titleInput, weightInput, deleteButton);

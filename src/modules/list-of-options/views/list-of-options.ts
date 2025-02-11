@@ -29,7 +29,7 @@ export default class ListOfOptions extends AbstractComponent {
   private readonly optionMapService = new OptionMapService({
     createOption: (optionDto): AbstractOptionComponent =>
       new Option({
-        optionDto: optionDto ?? new OptionDTO({ id: `#${this.optionIdService.getNextId()}` }),
+        optionDto: optionDto ?? new OptionDTO({ id: `#${this.optionIdService.getNextId().toString()}` }),
         onDeleteButtonClick: this.optionMapService.removeOption,
       }),
     onReset: this.optionIdService.resetId,
@@ -94,7 +94,7 @@ export default class ListOfOptions extends AbstractComponent {
         void new OptionListPasteModal({
           onConfirm: (pasteData): void => {
             pasteData.forEach(([title, weight]) => {
-              const id = `#${this.optionIdService.getNextId()}`;
+              const id = `#${this.optionIdService.getNextId().toString()}`;
 
               this.optionMapService.addOption(new OptionDTO({ id, title, weight }));
             });
@@ -117,7 +117,9 @@ export default class ListOfOptions extends AbstractComponent {
     const saveListButton = new UiButton({
       className: styles.saveListButton,
       textContent: SAVE_LIST_TO_FILE_BUTTON_TEXT,
-      onclick: (): void => this.optionStorageService.saveToJsonFile(),
+      onclick: (): void => {
+        this.optionStorageService.saveToJsonFile();
+      },
     });
 
     const loadListButton = new UiButton({

@@ -13,11 +13,11 @@ export default class HashRouter {
   constructor(private readonly props: Props) {}
 
   public static readonly navigate = (route = Route.HOME): void => {
-    window.location.hash = route;
+    globalThis.location.hash = route;
   };
 
   public initRouter(): void {
-    window.addEventListener('hashchange', this.handleHashChange);
+    globalThis.addEventListener('hashchange', this.handleHashChange);
     window.addEventListener('beforeunload', () => this.currentPage?.remove());
     this.handleHashChange();
   }
@@ -30,7 +30,7 @@ export default class HashRouter {
   };
 
   private readonly handleHashChange = (): void => {
-    const hash = window.location.hash.replace(/#/, '');
+    const hash = globalThis.location.hash.replace(/#/, '');
 
     if (hash === '') {
       HashRouter.navigate();

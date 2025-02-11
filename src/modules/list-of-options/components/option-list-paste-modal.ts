@@ -50,7 +50,10 @@ export default class OptionListPasteModal extends UiDialog {
 
         const formData = new FormData(form.node);
 
-        this.props.onConfirm(OptionListPasteModal.parseFromCSV(formData.get('table')?.toString()));
+        const formDataTable = formData.get('table');
+        const rawCSV = typeof formDataTable === 'string' ? formDataTable : '';
+
+        this.props.onConfirm(OptionListPasteModal.parseFromCSV(rawCSV));
 
         void this.closeDialog();
       },

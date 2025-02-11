@@ -1,3 +1,1 @@
-import ListOfOptions from '~/modules/list-of-options/views/list-of-options';
-
-export default ListOfOptions;
+export { default } from '~/modules/list-of-options/views/list-of-options';
