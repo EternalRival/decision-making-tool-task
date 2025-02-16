@@ -1,0 +1,13 @@
+.sound-label {
+  composes: ui-button from '../../../core/components/ui-button.module.css';
+  grid-area: sound-label;
+
+  &:has(:focus-visible) {
+    outline: none;
+    box-shadow: 0 0 0.25rem 0.1rem var(--color-primary-50);
+  }
+}
+
+.sound-input {
+  composes: sr-only from global;
+}
