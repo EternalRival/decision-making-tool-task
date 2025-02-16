@@ -2,7 +2,7 @@ import ICON_URL from '~/assets/icons/icons.sprite.svg';
 
 const NS = 'http://www.w3.org/2000/svg';
 
-type IconName = 'play' | 'square-arrow-out-up-left' | 'timer' | 'volume-2' | 'volume-off' | 'x';
+type IconName = 'play' | 'undo-2' | 'timer' | 'volume-2' | 'volume-off' | 'x';
 
 export default function SpriteIcon({ name }: { name: IconName }): SVGSVGElement {
   const svg = document.createElementNS(NS, 'svg');

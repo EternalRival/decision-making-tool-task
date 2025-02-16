@@ -22,7 +22,7 @@ export default class BackButton extends UiButton {
   }
 
   private mount(): void {
-    const icon = SpriteIcon({ name: 'square-arrow-out-up-left' });
+    const icon = SpriteIcon({ name: 'undo-2' });
 
     this.replaceChildren(icon);
   }
