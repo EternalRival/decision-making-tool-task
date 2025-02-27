@@ -1,8 +1,8 @@
 .ui-dialog {
   overflow: unset;
   padding: 0;
-  background: unset;
   border: unset;
+  background: unset;
 
   &::-webkit-scrollbar {
     display: none;
