@@ -56,7 +56,7 @@ The second part of the application (`Decision Picker`) allows you to visualize t
 - Required: Prettier, ESLint, StyleLint. *(It is allowed to use configs and plugins for this tools.)*
 - Required: Husky, lint-staged, commitlint.
 - Required: Bundlers (webpack, vite). *(It is allowed to use bundler's plugins.)*
-- Allowed: CSS modules, CSS Preprocessors (`Sass`, `Less`, `Stylus`, `PostCSS`), CSS in JS libraries (`tailwindcss`, `styled components`), `clsx`/`classnames` package.
+- Allowed: CSS modules, CSS Preprocessors (`Sass`, `Less`, `Stylus`, `PostCSS`, etc.), CSS in JS libraries (`tailwindcss`, `jss`, `emotion/css`, etc.), `clsx`/`classnames` package.
 - Prohibited: Frameworks like Angular, React, Vue, etc.
 - Prohibited: jQuery.
 - Prohibited: Third-party libraries not listed in the allowed libraries.
@@ -90,18 +90,23 @@ The second part of the application (`Decision Picker`) allows you to visualize t
 
    ```json
    {
-    "@typescript-eslint/consistent-type-imports": "error",
-    "@typescript-eslint/explicit-function-return-type": "error",
-    "@typescript-eslint/consistent-type-assertions": ["error", { "assertionStyle": "never" }],
-    "@typescript-eslint/explicit-member-accessibility": [
-      "error", 
-      { "accessibility": "explicit", "overrides": { "constructors": "off" } }
-    ],
-    "@typescript-eslint/member-ordering": "error"
+     "@typescript-eslint/consistent-type-assertions": [
+       "error",
+       { "assertionStyle": "never" }
+     ],
+     "@typescript-eslint/consistent-type-imports": "error",
+     "@typescript-eslint/explicit-function-return-type": "error",
+     "@typescript-eslint/explicit-member-accessibility": [
+       "error",
+       { "accessibility": "explicit", "overrides": { "constructors": "off" } }
+     ],
+     "@typescript-eslint/member-ordering": "error",
+     "class-methods-use-this": "error"
    }
    ```
 
-5. (+16) ESLint configuration file must be configured with [`typescript-eslint`](https://typescript-eslint.io/) (with enabled [type checking rules](https://typescript-eslint.io/getting-started/typed-linting/)), [`eslint-plugin-unicorn`](https://github.com/sindresorhus/eslint-plugin-unicorn#readme) (with enabled [recommended preset config](https://github.com/sindresorhus/eslint-plugin-unicorn?tab=readme-ov-file#preset-configs)) and the necessary dependencies for them to work.
+5. (+16) ESLint configuration file must be configured with [`typescript-eslint`](https://typescript-eslint.io/) (with enabled [type checking rules](https://typescript-eslint.io/getting-started/typed-linting/)), [`eslint-plugin-unicorn`](https://www.npmjs.com/package/eslint-plugin-unicorn) (with enabled [recommended preset config](https://www.npmjs.com/package/eslint-plugin-unicorn#preset-configs-eslintconfigjs)) and the necessary dependencies for them to work.
+
    - *With the mentor's permission, it is acceptable to disable or tweak some rules as long as it does not conflict with penalties. e.g.:*
 
      ```json
@@ -115,12 +120,22 @@ The second part of the application (`Decision Picker`) allows you to visualize t
        "unicorn/numeric-separators-style": "off",
        "unicorn/prevent-abbreviations": [
          "error",
-         { "allowList": { "acc": true, "env": true, "i": true, "j": true, "props": true, "Props": true } }
+         {
+           "allowList": {
+             "acc": true,
+             "env": true,
+             "i": true,
+             "j": true,
+             "props": true,
+             "Props": true
+           }
+         }
        ]
      }
      ```
 
    - *It is allowed to tweak the config to be stricter to make your code even cleaner (according to your or your mentor's preference).*
+
 6. (+4) `package.json` must contain `lint` script for checking project files.
 
 #### StyleLint (10/80)
@@ -192,7 +207,7 @@ The second part of the application (`Decision Picker`) allows you to visualize t
 #### List (9/108)
 
 1. (+1) Displays the [`List`](#list-9108) with [`Options`](#option-22108).
-2. (+2) In the `initial state`, the list contains exactly 1 empty option *(`{"id": "#1", "title": "", "weight": ""}`)*. *The `initial state` here means the state of the application when the user first encounters it (this can be simulated by pre-closing all current incognito tabs, if any, and opening a new one.*
+2. (+2) In the `initial state`, the list contains exactly 1 empty option *(`{"uid": "#1", "title": "", "weight": ""}`)*. *The `initial state` here means the state of the application when the user first encounters it (this can be simulated by pre-closing all current incognito tabs, if any, and opening a new one.*
 3. (+2) Current options must be persisted *(not reset, not shuffled)* when the page is reloaded.
 4. (+2) Current options must be persisted *(not reset, not shuffled)* when the tab/window is closed and a new one is opened.
 5. (+2) Current options must be persisted *(not reset, not shuffled)* when the user is navigated to another route and then back again.
@@ -201,13 +216,16 @@ The second part of the application (`Decision Picker`) allows you to visualize t
 
 > Refers to any displayed options in the list, including all created and inserted options.
 
-##### `id`
+##### `uid`
 
-1. (+1) Each option's `id` must be displayed.
-2. (+2) Each option's `id` must be unique.
-3. (+2) Each option's `id` must be in `#n` format *(`#1`, `#2`, `#3`, and so on)*.
-4. (+2) Each option's `id` must be generated programmatically at creation *(user cannot change it directly in this element)*.
-5. (+2) When the list of options becomes completely empty, the `id` counter must be reset.
+> `uid` - is a constant [unique identifier](https://en.wikipedia.org/wiki/Unique_identifier) (not just a sequence number).
+
+1. (+1) Each option's `uid` must be displayed.
+2. (+2) Each option's `uid` must be unique.
+3. (+2) Each option's `uid` must be in `#n` format *(`#1`, `#2`, `#3`, and so on)*.
+4. (+2) Each option's `uid` must be generated programmatically at creation *(user cannot change it directly in this element)*.
+5. (+1) Each option's `uid` must be constant and not affected by deletion of any other option.
+6. (+1) When the list of options becomes completely empty, the `uid` counter must be reset.
 
 ##### `title`
 
@@ -227,7 +245,7 @@ The second part of the application (`Decision Picker`) allows you to visualize t
 
 ##### Option columns
 
-1. (+2) The width of the "columns" ([`id`](#id), [`title`](#title), [`weight`](#weight), [`delete button`](#delete-button)) should match in "rows" ([`option`](#option-22108)). *(`flex`/`grid`/`table` can be useful here. How you do it is up to you.)*
+1. (+2) The width of the "columns" ([`uid`](#uid), [`title`](#title), [`weight`](#weight), [`delete button`](#delete-button)) should match in "rows" ([`option`](#option-22108)). *(`flex`/`grid`/`table` can be useful here. How you do it is up to you.)*
 
 #### Buttons (34/108)
 
@@ -250,7 +268,7 @@ The second part of the application (`Decision Picker`) allows you to visualize t
 
 1. (+1) Displays a `save list button` for saving all current options to the `.json` file. The appearance of this button should clearly indicate its purpose *(contain appropriate text and/or icon. e.g., "save list to file", "save list as json", etc.)*.
 2. (+4) The `save list button` click must collect the all current options data, convert it to a json object and save it to a `.json` file.
-3. (+2) The `id`, `title` and `weight` values of options must be saved.
+3. (+2) The `uid`, `title` and `weight` values of options must be saved.
 4. (+2) The order of options in the file must match the order of options in the app.
 
 ##### Load list from json
@@ -401,7 +419,7 @@ The second part of the application (`Decision Picker`) allows you to visualize t
 1. (+2) When decision picking is initiated, the wheel must start rotating and stop after a short duration.
 2. (+4) The rotation duration must be specified by the `duration` element. That is, it should correspond to its value (in seconds) at the moment of rotation start. *Be loyal when crosschecking. A small inaccuracy is acceptable. There is no need to reduce points for a difference of a couple of seconds.*
 3. (+4) The rotation should have a non-linear velocity. Use a suitable easing *(e.g. `ease-in-out` or `ease-in-out-back` with a tiny magnitude)*.
-4. (+4) The wheel must perform several full turns (minimum 5) and stop at a randomly picked option.
+4. (+4) The wheel must perform several full turns (minimum 5) and stop at a random point on the circumference *(at a random position on the random option section)*.
 5. (+2) A `finish sound` must be played when `picking state` is changed to `picked state` if `mute state` is toggled `on`.
 6. (+2) A `finish sound` must not be played if `mute state` is toggled `off`.
 7. (+4) In the `picking state`, `option sections` must not change their order, shape, color. *It means that visually the `option sections` shall rotate as an indivisible whole wheel.*
@@ -464,4 +482,4 @@ The second part of the application (`Decision Picker`) allows you to visualize t
 
 ## Assignment Feedback
 
-[Feedback](https://forms.gle/LZ8jYqKueJpCrqSR7) | [Q&A (form)](https://forms.gle/GvhN7VPSCGPyb6ad8) | [Q&A (answers)](https://docs.google.com/spreadsheets/d/1MZMyL9h9zK6flH3QGuX_7FkrXnRkMOZtbQw5ITsBp-g/pubhtml?gid=1977116421&single=true)
+[Feedback](https://forms.gle/WrUrSZrHWGtunZKU6) | [Q&A (form)](https://forms.gle/nNFdLDG4qSbcKPVUA) | [Q&A (answers)](https://docs.google.com/spreadsheets/d/e/2PACX-1vQ2fPnnF5G2WjjatO0Kf_YqWexUhWhBxGIJv_92Wo2pau2tfyNxGmU4hP8EGzTYWw6MRUtqgHDZxVmd/pubhtml?gid=194706600&single=true)
