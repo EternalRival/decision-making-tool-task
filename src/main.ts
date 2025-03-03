@@ -4,3 +4,5 @@ import '~/assets/styles/globals.css';
 const app = new App({ root: document.body });
 
 app.initRouter();
+
+// asd123
